@@ -6,7 +6,7 @@ const Navbar = () => {
                 <a href="/" className="text-neutral-400 font-bold text-xl hover:text-white transition-colors">
                     SuperSomu
                 </a>
-                <button><img src="" alt="" /></button>
+                <button><img src={"/assets/menu.svg"} alt="toggle" className="w-6 h-6"/></button>
             </div>
         </div>
     </header>
