@@ -21,14 +21,15 @@ const Contact = () => {
         try {
             await emailjs.send(
                 'service_3wzb08p',
-                'template_qwzednb', {
-                from_name: form.name,
-                to_name: 'Somuna',
-                from_email: form.email,
-                to_email: 'somunanzenwa@gmail.com',
-                message: form.message,
+                'template_5zwtiy8', 
+                {
+                    from_name: form.name,
+                    to_name: 'Somuna',
+                    from_email: form.email,
+                    to_email: 'somunanzenwa@gmail.com',
+                    message: form.message,
                 },
-                'osP8XatmoXcTz_M8c'
+                'YnXxUAX9UmdXN5MoZ'
             )
 
             setLoading(false)
