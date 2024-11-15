@@ -100,7 +100,7 @@ export const navLinks = [
       desc: "An ASP.Net-based shopping platform with secure payment integrations and database management.",
       subdesc: "Built using ASP.Net, C#, and SQL Server with MVC pattern to ensure modularity. Integrated a secure payment gateway via Stripe, allowing transactions with cards, Revolut, and Klarna.",
       href: null,
-      repo: ,
+      repo: "https://github.com/somunaexe/Stripe-Web-App",
       texture: "/textures/project/shopping-store.mp4",
       logo: "/assets/project-logo-shopping-store.png",
       logoStyle: {
@@ -125,6 +125,7 @@ export const navLinks = [
       desc: "A web app for locating EV charging stations using geolocation and AJAX.",
       subdesc: "Developed with PHP and MySQL, featuring a map-based search and user authentication. Scaled to support 2000 users simultaneously.",
       href: null,
+      repo: "https://github.com/somunaexe/live-charger-website",
       texture: "/textures/project/charging-station.mp4",
       logo: "/assets/project-logo-charging-station.png",
       logoStyle: {
@@ -147,6 +148,7 @@ export const navLinks = [
       desc: "A cutting-edge VR game with immersive gameplay and advanced AI.",
       subdesc: "Implemented advanced AI for enemy behavior and intuitive HUD elements using Unity and Blender.",
       href: null,
+      repo: "https://github.com/somunaexe/VR-Zombie-First-Person-Shooter",
       texture: "/textures/project/vr-fps-game.mp4",
       logo: "/assets/project-logo-vr-fps.png",
       logoStyle: {
@@ -165,7 +167,8 @@ export const navLinks = [
       title: "Laptop Game: Endless Running 3D Game",
       desc: "A Unity-based endless runner game with combat and score systems.",
       subdesc: "Integrated coroutines for animations and player mechanics, with attack features and coin collection gameplay.",
-      href: null,
+      href: "https://somunaexe.itch.io/bullfighter-rush",
+      repo: "https://github.com/somunaexe/endless-running-game",
       texture: "/textures/project/endless-runner.mp4",
       logo: "/assets/project-logo-endless-runner.png",
       logoStyle: {
@@ -186,6 +189,7 @@ export const navLinks = [
       desc: "An educational mobile game for iOS and Android platforms.",
       subdesc: "Built with Kotlin and Swift to teach science in a fun and interactive way, featuring touch gestures and a reward system.",
       href: null,
+      repo: "https://github.com/somunaexe/educational-mobile-game",
       texture: "/textures/project/science-game.mp4",
       logo: "/assets/project-logo-science-game.png",
       logoStyle: {
@@ -204,6 +208,7 @@ export const navLinks = [
       desc: "A Flutter-based e-commerce app for buying and recycling clothing.",
       subdesc: "Implemented search algorithms, filter, and sort functionality. Integrated robust security and a reward system for discounts.",
       href: null,
+      repo: "https://github.com/somunaexe/Ethical-Clothing-Mobile-App",
       texture: "/textures/project/online-store.mp4",
       logo: "/assets/project-logo-clothing-store.png",
       logoStyle: {
@@ -223,6 +228,7 @@ export const navLinks = [
       desc: "A web app that helps users organize and manage notes with tagging and searching features.",
       subdesc: "Developed with React, TypeScript, and Bootstrap. Allows users to create, edit, search, and delete notes.",
       href: null,
+      repo: "https://github.com/somunaexe/Note-Website",
       texture: "/textures/project/note-organization.mp4",
       logo: "/assets/project-logo-note-organization.png",
       logoStyle: {
@@ -246,6 +252,7 @@ export const navLinks = [
       desc: "A JavaScript-based script for efficient text parsing using regular expressions.",
       subdesc: "Created a script that parses and manipulates complex text patterns across various web applications. Designed for scalability and accuracy.",
       href: null,
+      repo: "https://github.com/somunaexe/Regex-Script",
       texture: "/textures/project/regex-script.mp4",
       logo: "/assets/project-logo-regex-script.png",
       logoStyle: {
@@ -263,6 +270,7 @@ export const navLinks = [
       desc: "A Java-based 3D voxel game engine for rendering voxel environments.",
       subdesc: "Engineered a 3D voxel engine using LWJGL to render and interact with voxel-based environments.",
       href: null,
+      repo: "https://github.com/somunaexe/Voxel-Engine",
       texture: "/textures/project/voxel-game-engine.mp4",
       logo: "/assets/project-logo-voxel-game-engine.png",
       logoStyle: {
@@ -283,6 +291,7 @@ export const navLinks = [
       desc: "A Python bundle with various utilities like automation, binary search, and graph plotting.",
       subdesc: "Created a text automation script, a binary search algorithm, and a graph plotting tool using Matplotlib.",
       href: null,
+      repo: "https://github.com/somunaexe/Python-Projects",
       texture: "/textures/project/python-bundle.mp4",
       logo: "/assets/project-logo-python-bundle.png",
       logoStyle: {
@@ -303,6 +312,7 @@ export const navLinks = [
       desc: "A Python-based anomaly detection system to identify outliers in continuous data streams.",
       subdesc: "Developed a Z-score based anomaly detection system using Python's Numpy and Matplotlib for real-time analysis. Features real-time data simulation with seasonal patterns and injected noise for robust testing.",
       href: null,
+      repo: "https://github.com/somunaexe/Anomaly-Detector",
       texture: "/textures/project/anomaly.mp4",
       logo: "/assets/project-logo-anomaly-detector.png",
       logoStyle: {
@@ -324,6 +334,7 @@ export const navLinks = [
       desc: "A web application for tracking cryptocurrency trends using React, Redux, and Chart.js.",
       subdesc: "The app fetches real-time cryptocurrency data using React API and displays trends using Chart.js. Features a responsive design and robust debugging tools like Chrome Dev Tools and React Dev Tools Extension.",
       href: "https://github.com/your-username/crypto-webapp", // Replace with actual link if available
+      repo: "https://github.com/somunaexe/Cryptocurrency-Website",
       texture: "/textures/project/crypto.mp4",
       logo: "/assets/project-logo-crypto.png",
       logoStyle: {
@@ -347,6 +358,7 @@ export const navLinks = [
       desc: "A command-line interface tool built from scratch using Node.js.",
       subdesc: "Implemented functionalities like argument parsing, input validation, and error handling. Packaged as a globally installable npm package, designed for ease of use and scalability.",
       href: "https://github.com/your-username/cli-tool", // Replace with actual link
+      repo: "https://github.com/somunaexe/CLI-Tool",
       texture: "/textures/project/cli-tool.mp4",
       logo: "/assets/project-logo-cli.png",
       logoStyle: {
@@ -367,6 +379,7 @@ export const navLinks = [
       desc: "A real estate platform allowing users to list, view, like, reserve, and purchase properties.",
       subdesc: "Built with a microservices architecture using HTML, MongoDB, Express, React, Node, and Tailwind CSS. Includes user authentication, password hashing, and a responsive design.",
       href: "https://github.com/your-username/real-estate-website", // Replace with actual link
+      repo: "https://github.com/somunaexe/BulEstates",
       texture: "/textures/project/real-estate-website.mp4",
       logo: "/assets/project-logo-real-estate.png",
       logoStyle: {
@@ -392,6 +405,7 @@ export const navLinks = [
       desc: "An open-source web-based game inspired by Mario Kart, with game mechanics and user interface built using React and Redux.",
       subdesc: "Contributed to implementing game mechanics and ensuring responsive design and user-friendly interactions. Collaborated via GitHub for version control and open-source practices.",
       href: "https://github.com/your-username/mario-kart-clone", // Replace with actual link
+      repo: "https://github.com/somunaexe/Mario-Kart-3.js",
       texture: "/textures/project/mario-kart-clone.mp4",
       logo: "/assets/project-logo-mario-kart.png",
       logoStyle: {
