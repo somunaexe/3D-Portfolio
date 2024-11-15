@@ -1,14 +1,25 @@
 import { clientReviews } from "../constants"
 
 const Clients = () => {
+    const checkReviewLength = (reviewParam) => {
+        const shortLength = 200
+        const isLong = reviewParam.length > shortLength
+        let slicedReview = (isLong) ? reviewParam.slice(0, shortLength) + '... ' : reviewParam
+        return (
+            <>
+                {slicedReview} {isLong && <span className="hover:underline text-blue-500">read more</span>}
+            </>
+        );
+    }
+
   return (
-    <section className="c-space my-20">
+    <section className="c-space my-20" id="clients">
         <h3 className="head-text">Hear from My Clients</h3>
         <div className="client-container">
-            {clientReviews.map(({id, name, review, img, position}) => (
+            {clientReviews.map(({id, name, review, img, position, link}) => (
                 <div key={id} className="client-review">
                     <div>
-                        <p className="text-white font-light">{review}</p>
+                        <a href={link} target="_blank"><p className="text-white font-light justify-between">{checkReviewLength(review)}</p></a>
                         <div className="client-content">
                             <div className="flex gap-3">
                                 <img src={img} alt={name} className="w-12 h-12 rounded-full" />
