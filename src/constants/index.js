@@ -38,6 +38,7 @@ export const navLinks = [
       position: 'Software Engineering Graduate at University of Salford',
       img: 'assets/review1.png',
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
+      rating: 2,
       review:
         'It was a pleasure working with Somunachimso Nzenwa during our time at the University of Salford. He is an exceptional individual with a deep understanding of software engineering principles, particularly in mobile, web, and game development. His problem-solving skills and dedication to his craft make him a valuable team player, and his leadership abilities helped drive multiple projects to success, even under tight deadlines. Somunachimso consistently demonstrated a passion for learning and collaboration, which has positively impacted both his teammates and the final outcomes of his work. I highly recommend him for any software engineering role.',
     },
@@ -47,6 +48,7 @@ export const navLinks = [
       position: 'Software Engineering Graduate at University of Salford',
       img: 'assets/review2.png',
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
+      rating: 5,
       review:
       'I would like to recommend Somuna.He has shown class and excellence in his ability to team bond and carry on a team to the achievement of thier expected goals. His organisational skills coupled with his leadership skills has proven useful and insightful in various projects and activities we had partaken in. This has lead not only to increased productivity but excellence in product delivery even in situations of immerse pressure. I must say I have richly benefited from this peculiarities of his in the areas of mobile Development, Web Developemnt and game development.'
     },
@@ -56,6 +58,7 @@ export const navLinks = [
       position: 'Placement Engineer at Dematic',
       img: 'assets/review3.png',
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
+      rating: 5,
       review:
       'Somuna is very determined and open to help out in any way he can. Personally received help from Somunachimso with various tricky concepts in programming and that really helped my understanding.\nWith in depth understanding of mobile, CI & CD, web and game development, Somuna’s technical skills are one of the best I’ve seen. \nAlso his teamwork and communication skills are brilliant along side his ability to work under pressure.\nHe is a great leader with exceptional leadership qualities.\nHe is skilful, kind and resourceful. Ready to make an impact in the cooperate world!'
     },
@@ -63,8 +66,9 @@ export const navLinks = [
       id: 4,
       name: 'Odiepriye Graham-Douglas',
       position: 'Full Stack Software Developer at The Software Institute',
-      img: 'assets/review4.png',
+      img: 'assets/ody.jpeg',
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
+      rating: 5,
       review:
       'I am pleased to recommend Somuna, whose expertise in mobile, web, and game development, as well as CI & CD practices, has been truly impressive. During our time together, we’ve worked together on a website and application using PHP and Java respectively at university, Somuna demonstrated exceptional technical skills and a strong grasp of development practices.\nIn our Java project, Somuna was instrumental in designing and implementing robust solutions. His deep understanding of Java, combined with his ability to tackle complex coding challenges, significantly contributed to the project’s success. His attention to detail and commitment to best practices were evident throughout the development process.\nSomunas experience with CI & CD practices was also a major asset. He effectively managed our continuous integration and delivery processes, ensuring smooth and efficient deployment cycles. His skills in automating workflows and maintaining high-quality standards greatly improved our projects development efficiency.\nSomunas technical proficiency, problem-solving abilities, and dedication to his work make him a standout professional. I highly recommend him for any role requiring expertise in development and CI & CD practices.'
     },
@@ -72,8 +76,9 @@ export const navLinks = [
       id: 5,
       name: 'Solomon Adukwu',
       position: 'Software Engineering Graduate at University of Salford',
-      img: 'assets/review4.png',
+      img: 'assets/solomon.jpeg',
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
+      rating: 5,
       review:
         'There’s a lot about Somunachimso that stands out. He is hardworking and a goal getter. I have worked with him on various projects in the past and he is definitely a team player. His tenacity to exceed expectations with allocated projects is very admirable. He is very ambitious and a go getter and I know he would be a great addition to any team. 👍',
     },
@@ -83,6 +88,7 @@ export const navLinks = [
       position: 'Software Engineering Graduate at University of Salford',
       img: 'assets/review4.png',
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
+      rating: 5,
       review:
         'I can confidently testify to Somuna’s expertise in mobile, web, and game development, as well as his solid understanding of CI/CD processes. He has shown proficiency in building and deploying scalable applications, utilizing modern tools and frameworks to deliver high-quality results. His ability to automate and streamline workflows through CI/CD has greatly enhanced development efficiency.\nSomuna is also an excellent collaborator and team player, effectively communicating and working with others to achieve project goals. He thrives under pressure, maintaining focus and delivering results while exhibiting strong leadership skills, guiding teams through challenges with confidence and clarity.',
     }

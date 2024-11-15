@@ -12,11 +12,26 @@ const Clients = () => {
         );
     }
 
+    const getRating = (rating) => {
+        const fullStars = Array.from({ length: rating }).map((_, index) => (
+            <img key={index} src="/assets/star.png" alt="star" className="w-5 h-5" />
+        ))
+        const emptyStars = Array.from({ length: 5 - rating }).map((_, index) => (
+            <img key={index} src="/assets/no-star.png" alt="star" className="w-5 h-5" />
+        ))
+        return (
+            <>
+                {fullStars}{emptyStars}
+            </>
+        )
+    }
+
+
   return (
     <section className="c-space my-20" id="clients">
         <h3 className="head-text">Hear from My Clients</h3>
         <div className="client-container">
-            {clientReviews.map(({id, name, review, img, position, link}) => (
+            {clientReviews.map(({id, name, review, img, position, link, rating}) => (
                 <div key={id} className="client-review">
                     <div>
                         <a href={link} target="_blank"><p className="text-white font-light justify-between">{checkReviewLength(review)}</p></a>
@@ -29,9 +44,7 @@ const Clients = () => {
                                 </div>
                             </div>
                             <div className="flex self-end items-center gap-2">
-                                {Array.from({ length: 5 }).map((_, index) => (
-                                    <img key={index} src="/assets/star.png" alt="star" className="w-5 h-5" />
-                                ))}
+                                {getRating(rating)}
                             </div>
                         </div>
                     </div>
