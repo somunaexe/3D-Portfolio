@@ -169,7 +169,7 @@ export const navLinks = [
       subdesc: "Integrated coroutines for animations and player mechanics, with attack features and coin collection gameplay.",
       href: "https://somunaexe.itch.io/bullfighter-rush",
       repo: "https://github.com/somunaexe/endless-running-game",
-      texture: "/textures/project/endless-runner.mp4",
+      texture: "/textures/project/bulrush.mp4",
       logo: "/assets/project-logo-endless-runner.png",
       logoStyle: {
         backgroundColor: "#FCE4EC",
@@ -333,7 +333,7 @@ export const navLinks = [
       title: "Cryptocurrency WebApp",
       desc: "A web application for tracking cryptocurrency trends using React, Redux, and Chart.js.",
       subdesc: "The app fetches real-time cryptocurrency data using React API and displays trends using Chart.js. Features a responsive design and robust debugging tools like Chrome Dev Tools and React Dev Tools Extension.",
-      href: "https://github.com/your-username/crypto-webapp", // Replace with actual link if available
+      href: null, // Replace with actual link if available
       repo: "https://github.com/somunaexe/Cryptocurrency-Website",
       texture: "/textures/project/crypto.mp4",
       logo: "/assets/project-logo-crypto.png",
@@ -357,7 +357,7 @@ export const navLinks = [
       title: "Custom CLI Tool",
       desc: "A command-line interface tool built from scratch using Node.js.",
       subdesc: "Implemented functionalities like argument parsing, input validation, and error handling. Packaged as a globally installable npm package, designed for ease of use and scalability.",
-      href: "https://github.com/your-username/cli-tool", // Replace with actual link
+      href: null, // Replace with actual link
       repo: "https://github.com/somunaexe/CLI-Tool",
       texture: "/textures/project/cli-tool.mp4",
       logo: "/assets/project-logo-cli.png",
@@ -378,7 +378,7 @@ export const navLinks = [
       title: "Real Estate Website",
       desc: "A real estate platform allowing users to list, view, like, reserve, and purchase properties.",
       subdesc: "Built with a microservices architecture using HTML, MongoDB, Express, React, Node, and Tailwind CSS. Includes user authentication, password hashing, and a responsive design.",
-      href: "https://github.com/your-username/real-estate-website", // Replace with actual link
+      href: null, // Replace with actual link
       repo: "https://github.com/somunaexe/BulEstates",
       texture: "/textures/project/real-estate-website.mp4",
       logo: "/assets/project-logo-real-estate.png",
@@ -404,7 +404,7 @@ export const navLinks = [
       title: "Mario Kart Clone Web Game",
       desc: "An open-source web-based game inspired by Mario Kart, with game mechanics and user interface built using React and Redux.",
       subdesc: "Contributed to implementing game mechanics and ensuring responsive design and user-friendly interactions. Collaborated via GitHub for version control and open-source practices.",
-      href: "https://github.com/your-username/mario-kart-clone", // Replace with actual link
+      href: "https://mario-kart-3-js.vercel.app/#r=RCHKS", // Replace with actual link
       repo: "https://github.com/somunaexe/Mario-Kart-3.js",
       texture: "/textures/project/mario-kart-clone.mp4",
       logo: "/assets/project-logo-mario-kart.png",
