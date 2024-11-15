@@ -94,196 +94,413 @@ export const navLinks = [
     }
   ];
   
+  const tagList = [
+    {
+      "name": "React.js",
+      "path": "/assets/react.svg"
+    },
+    {
+      "name": "TailwindCSS",
+      "path": "/assets/tailwindcss.png"
+    },
+    {
+      "name": "TypeScript",
+      "path": "/assets/typescript.png"
+    },
+    {
+      "name": "Framer Motion",
+      "path": "/assets/framer.png"
+    },
+    {
+      "name": "JavaScript",
+      "path": "/assets/js.svg"
+    },
+    {
+      "name": "Node.js",
+      "path": "/assets/nodejs.svg"
+    },
+    {
+      "name": "MongoDB",
+      "path": "/assets/mongodb.svg"
+    },
+    {
+      "name": "Express.js",
+      "path": "/assets/express.svg"
+    },
+    {
+      "name": "HTML",
+      "path": "/assets/html.png"
+    },
+    {
+      "name": "CSS",
+      "path": "/assets/css.png"
+    },
+    {
+      "name": "Redux",
+      "path": "/assets/redux.svg"
+    },
+    {
+      "name": "Firebase",
+      "path": "/assets/firebase.svg"
+    },
+    {
+      "name": "Flutter",
+      "path": "/assets/flutter.svg"
+    },
+    {
+      "name": "Dart",
+      "path": "/assets/dart.svg"
+    },
+    {
+      "name": "PHP",
+      "path": "/assets/php.svg"
+    },
+    {
+      "name": "MySQL",
+      "path": "/assets/mysql.svg"
+    },
+    {
+      "name": "Kotlin",
+      "path": "/assets/kotlin.svg"
+    },
+    {
+      "name": "Swift",
+      "path": "/assets/swift.svg"
+    },
+    {
+      "name": "Blender",
+      "path": "/assets/blender.svg"
+    },
+    {
+      "name": "Unity",
+      "path": "/assets/unity.svg"
+    },
+    {
+      "name": "XCode",
+      "path": "/assets/xcode.svg"
+    },
+    {
+      "name": "Matplotlib",
+      "path": "/assets/matplotlib.svg"
+    },
+    {
+      "name": "Chart.js",
+      "path": "/assets/chartjs.svg"
+    },
+    {
+      "name": "Stripe",
+      "path": "/assets/stripe.svg"
+    },
+    {
+      "name": "Twilio",
+      "path": "/assets/twilio.svg"
+    },
+    {
+      "name": "ASP.Net",
+      "path": "/assets/aspnet.png"
+    }
+  ]  
+
+  const findTag = (nameStr) => {
+    return { ...tagList.find((tag) => tag.name === nameStr) || {} }
+  }
+
   export const myProjects = [
     {
-      title: 'Real Estate Website',
-      desc: 'A platform for users to list, view, like, reserve, and purchase real estate',
-      subdesc:
-        'Built as a unique Software-as-a-Service app with Node.js, Tailwind CSS, MongoDB, Express, and React. The website is designed for optimal performance and scalability.',
-      href: 'https://www.youtube.com/@bullfighter.inc.',
-      texture: '/textures/project/project1.mp4',
-      logo: '/assets/project-logo1.png',
+      title: "Online Clothing Store w/ Stripe",
+      desc: "An ASP.Net-based shopping platform with secure payment integrations and database management.",
+      subdesc: "Built using ASP.Net, C#, and SQL Server with MVC pattern to ensure modularity. Integrated a secure payment gateway via Stripe, allowing transactions with cards, Revolut, and Klarna.",
+      href: null,
+      texture: "/textures/project/shopping-store.mp4",
+      logo: "/assets/project-logo-shopping-store.png",
       logoStyle: {
-        backgroundColor: '#2A1816',
-        border: '0.2px solid #36201D',
-        boxShadow: '0px 0px 60px 0px #AA3C304D',
+        backgroundColor: "#F0F0F0",
+        border: "0.2px solid #CCCCCC",
+        boxShadow: "0px 0px 60px 0px #CCCCCC4D",
       },
-      spotlight: '/assets/spotlight1.png',
+      spotlight: "/assets/spotlight-shopping-store.png",
       tags: [
-        {
-          id: 1,
-          name: 'React.js',
-          path: '/assets/react.svg',
-        },
-        {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
-          id: 3,
-          name: 'TypeScript',
-          path: '/assets/typescript.png',
-        },
-        {
-          id: 4,
-          name: 'Framer Motion',
-          path: '/assets/framer.png',
-        },
+        { id: 1, tag: findTag("ASP.Net") },
+        { id: 2, name: "C#", path: "/assets/csharp.svg" },
+        { id: 3, name: "SQL Server", path: "/assets/sqlserver.png" },
+        { id: 4, name: "HTML", path: "/assets/html.svg" },
+        { id: 5, name: "CSS", path: "/assets/css.svg" },
       ],
     },
     {
-      title: 'LiveDoc - Real-Time Google Docs Clone',
-      desc: 'LiveDoc is a powerful collaborative app that elevates the capabilities of real-time document editing. As an enhanced version of Google Docs, It supports millions of collaborators simultaneously, ensuring that every change is captured instantly and accurately.',
-      subdesc:
-        'With LiveDoc, users can experience the future of collaboration, where multiple contributors work together in real time without any lag, by using Next.js and Liveblocks newest features.',
-      href: 'https://www.youtube.com/watch?v=y5vE8y_f_OM',
-      texture: '/textures/project/project2.mp4',
-      logo: '/assets/project-logo2.png',
+      title: "Charging Station Locator",
+      desc: "A web app for locating EV charging stations using geolocation and AJAX.",
+      subdesc: "Developed with PHP and MySQL, featuring a map-based search and user authentication. Scaled to support 2000 users simultaneously.",
+      href: null,
+      texture: "/textures/project/charging-station.mp4",
+      logo: "/assets/project-logo-charging-station.png",
       logoStyle: {
-        backgroundColor: '#13202F',
-        border: '0.2px solid #17293E',
-        boxShadow: '0px 0px 60px 0px #2F6DB54D',
+        backgroundColor: "#E8F5E9",
+        border: "0.2px solid #C8E6C9",
+        boxShadow: "0px 0px 60px 0px #81C7844D",
       },
-      spotlight: '/assets/spotlight2.png',
+      spotlight: "/assets/spotlight-charging-station.png",
       tags: [
-        {
-          id: 1,
-          name: 'React.js',
-          path: '/assets/react.svg',
-        },
-        {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
-          id: 3,
-          name: 'TypeScript',
-          path: '/assets/typescript.png',
-        },
-        {
-          id: 4,
-          name: 'Framer Motion',
-          path: '/assets/framer.png',
-        },
+        { id: 1, name: "PHP", path: "/assets/php.svg" },
+        { id: 2, name: "JavaScript", path: "/assets/javascript.svg" },
+        { id: 3, name: "MySQL", path: "/assets/mysql.svg" },
+        { id: 4, name: "HTML", path: "/assets/html.svg" },
+        { id: 5, name: "CSS", path: "/assets/css.svg" },
+        { id: 6, name: "Bootstrap", path: "/assets/bootstrap.png" },
       ],
     },
     {
-      title: 'CarePulse - Health Management System',
-      desc: 'An innovative healthcare platform designed to streamline essential medical processes. It simplifies patient registration, appointment scheduling, and medical record management, providing a seamless experience for both healthcare providers and patients.',
-      subdesc:
-        'With a focus on efficiency, CarePulse integrantes complex forms and SMS notifications, by using Next.js, Appwrite, Twillio and Sentry that enhance operational workflows.',
-      href: 'https://www.youtube.com/watch?v=lEflo_sc82g',
-      texture: '/textures/project/project3.mp4',
-      logo: '/assets/project-logo3.png',
+      title: "First-Person Shooter Virtual Reality Game",
+      desc: "A cutting-edge VR game with immersive gameplay and advanced AI.",
+      subdesc: "Implemented advanced AI for enemy behavior and intuitive HUD elements using Unity and Blender.",
+      href: null,
+      texture: "/textures/project/vr-fps-game.mp4",
+      logo: "/assets/project-logo-vr-fps.png",
       logoStyle: {
-        backgroundColor: '#60f5a1',
-        background:
-          'linear-gradient(0deg, #60F5A150, #60F5A150), linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(208, 213, 221, 0.8) 100%)',
-        border: '0.2px solid rgba(208, 213, 221, 1)',
-        boxShadow: '0px 0px 60px 0px rgba(35, 131, 96, 0.3)',
+        backgroundColor: "#000000",
+        border: "0.2px solid #333333",
+        boxShadow: "0px 0px 60px 0px #5555554D",
       },
-      spotlight: '/assets/spotlight3.png',
+      spotlight: "/assets/spotlight-vr-fps.png",
       tags: [
-        {
-          id: 1,
-          name: 'React.js',
-          path: '/assets/react.svg',
-        },
-        {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
-          id: 3,
-          name: 'TypeScript',
-          path: '/assets/typescript.png',
-        },
-        {
-          id: 4,
-          name: 'Framer Motion',
-          path: '/assets/framer.png',
-        },
+        { id: 1, name: "Unity", path: "/assets/unity.svg" },
+        { id: 2, name: "C#", path: "/assets/csharp.svg" },
+        { id: 3, name: "Blender", path: "/assets/blender.png" },
       ],
     },
     {
-      title: 'Horizon - Online Banking Platform',
-      desc: 'Horizon is a comprehensive online banking platform that offers users a centralized finance management dashboard. It allows users to connect multiple bank accounts, monitor real-time transactions, and seamlessly transfer money to other users.',
-      subdesc:
-        'Built with Next.js 14 Appwrite, Dwolla and Plaid, Horizon ensures a smooth and secure banking experience, tailored to meet the needs of modern consumers.',
-      href: 'https://www.youtube.com/watch?v=PuOVqP_cjkE',
-      texture: '/textures/project/project4.mp4',
-      logo: '/assets/project-logo4.png',
+      title: "Laptop Game: Endless Running 3D Game",
+      desc: "A Unity-based endless runner game with combat and score systems.",
+      subdesc: "Integrated coroutines for animations and player mechanics, with attack features and coin collection gameplay.",
+      href: null,
+      texture: "/textures/project/endless-runner.mp4",
+      logo: "/assets/project-logo-endless-runner.png",
       logoStyle: {
-        backgroundColor: '#0E1F38',
-        border: '0.2px solid #0E2D58',
-        boxShadow: '0px 0px 60px 0px #2F67B64D',
+        backgroundColor: "#FCE4EC",
+        border: "0.2px solid #F48FB1",
+        boxShadow: "0px 0px 60px 0px #F062924D",
       },
-      spotlight: '/assets/spotlight4.png',
+      spotlight: "/assets/spotlight-endless-runner.png",
       tags: [
-        {
-          id: 1,
-          name: 'React.js',
-          path: '/assets/react.svg',
-        },
-        {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
-          id: 3,
-          name: 'TypeScript',
-          path: '/assets/typescript.png',
-        },
-        {
-          id: 4,
-          name: 'Framer Motion',
-          path: '/assets/framer.png',
-        },
+        { id: 1, name: "Unity", path: "/assets/unity.svg" },
+        { id: 2, name: "C#", path: "/assets/csharp.svg" },
       ],
     },
     {
-      title: 'Imaginify - AI Photo Manipulation App',
-      desc: 'Imaginify is a groundbreaking Software-as-a-Service application that empowers users to create stunning photo manipulations using AI technology. With features like AI-driven image editing, a payments system, and a credits-based model.',
-      subdesc:
-        'Built with Next.js 14, Cloudinary AI, Clerk, and Stripe, Imaginify combines cutting-edge technology with a user-centric approach. It can be turned into a side income or even a full-fledged business.',
-      href: 'https://www.youtube.com/watch?v=Ahwoks_dawU',
-      texture: '/textures/project/project5.mp4',
-      logo: '/assets/project-logo5.png',
+      title: "Mobile Science Game",
+      desc: "An educational mobile game for iOS and Android platforms.",
+      subdesc: "Built with Kotlin and Swift to teach science in a fun and interactive way, featuring touch gestures and a reward system.",
+      href: null,
+      texture: "/textures/project/science-game.mp4",
+      logo: "/assets/project-logo-science-game.png",
       logoStyle: {
-        backgroundColor: '#1C1A43',
-        border: '0.2px solid #252262',
-        boxShadow: '0px 0px 60px 0px #635BFF4D',
+        backgroundColor: "#BBDEFB",
+        border: "0.2px solid #90CAF9",
+        boxShadow: "0px 0px 60px 0px #64B5F64D",
       },
-      spotlight: '/assets/spotlight5.png',
+      spotlight: "/assets/spotlight-science-game.png",
       tags: [
-        {
-          id: 1,
-          name: 'React.js',
-          path: '/assets/react.svg',
-        },
-        {
-          id: 2,
-          name: 'TailwindCSS',
-          path: 'assets/tailwindcss.png',
-        },
-        {
-          id: 3,
-          name: 'TypeScript',
-          path: '/assets/typescript.png',
-        },
-        {
-          id: 4,
-          name: 'Framer Motion',
-          path: '/assets/framer.png',
-        },
+        { id: 1, name: "Kotlin", path: "/assets/kotlin.svg" },
+        { id: 2, name: "Swift", path: "/assets/swift.svg" },
       ],
     },
-  ];
-  
+    {
+      title: "Online Clothing Store",
+      desc: "A Flutter-based e-commerce app for buying and recycling clothing.",
+      subdesc: "Implemented search algorithms, filter, and sort functionality. Integrated robust security and a reward system for discounts.",
+      href: null,
+      texture: "/textures/project/online-store.mp4",
+      logo: "/assets/project-logo-clothing-store.png",
+      logoStyle: {
+        backgroundColor: "#FBE9E7",
+        border: "0.2px solid #FFAB91",
+        boxShadow: "0px 0px 60px 0px #FF8A654D",
+      },
+      spotlight: "/assets/spotlight-clothing-store.png",
+      tags: [
+        { id: 1, name: "Flutter", path: "/assets/flutter.svg" },
+        { id: 2, name: "Dart", path: "/assets/dart.svg" },
+        { id: 3, name: "Firebase", path: "/assets/firebase.svg" },
+      ],
+    },
+    {
+      title: "Note Organization Website",
+      desc: "A web app that helps users organize and manage notes with tagging and searching features.",
+      subdesc: "Developed with React, TypeScript, and Bootstrap. Allows users to create, edit, search, and delete notes.",
+      href: null,
+      texture: "/textures/project/note-organization.mp4",
+      logo: "/assets/project-logo-note-organization.png",
+      logoStyle: {
+        backgroundColor: "#E1F5FE",
+        border: "0.2px solid #81D4FA",
+        boxShadow: "0px 0px 60px 0px #4FC3F74D",
+      },
+      spotlight: "/assets/spotlight-note-organization.png",
+      tags: [
+        { id: 1, name: "React.js", path: "/assets/react.svg" },
+        { id: 2, name: "TypeScript", path: "/assets/typescript.png" },
+        { id: 3, name: "Bootstrap", path: "/assets/bootstrap.png" },
+        { id: 4, name: "HTML", path: "/assets/html.svg" },
+        { id: 5, name: "CSS", path: "/assets/css.svg" },
+      ],
+    },
+    {
+      title: "Regex Script",
+      desc: "A JavaScript-based script for efficient text parsing using regular expressions.",
+      subdesc: "Created a script that parses and manipulates complex text patterns across various web applications. Designed for scalability and accuracy.",
+      href: null,
+      texture: "/textures/project/regex-script.mp4",
+      logo: "/assets/project-logo-regex-script.png",
+      logoStyle: {
+        backgroundColor: "#FFFFFF",
+        border: "0.2px solid #E0E0E0",
+        boxShadow: "0px 0px 60px 0px #BDBDBD4D",
+      },
+      spotlight: "/assets/spotlight-regex-script.png",
+      tags: [
+        { id: 1, name: "JavaScript", path: "/assets/javascript.svg" },
+      ],
+    },
+    {
+      title: "3D Voxel Game Engine",
+      desc: "A Java-based 3D voxel game engine for rendering voxel environments.",
+      subdesc: "Engineered a 3D voxel engine using LWJGL to render and interact with voxel-based environments.",
+      href: null,
+      texture: "/textures/project/voxel-game-engine.mp4",
+      logo: "/assets/project-logo-voxel-game-engine.png",
+      logoStyle: {
+        backgroundColor: "#F5F5F5",
+        border: "0.2px solid #CCCCCC",
+        boxShadow: "0px 0px 60px 0px #BDBDBD4D",
+      },
+      spotlight: "/assets/spotlight-voxel-game-engine.png",
+      tags: [
+        { id: 1, name: "Java", path: "/assets/java.svg" },
+        { id: 2, name: "LWJGL", path: "/assets/lwjgl.png" },
+      ],
+    },
+    {
+      title: "Python Bundle",
+      desc: "A Python bundle with various utilities like automation, binary search, and graph plotting.",
+      subdesc: "Created a text automation script, a binary search algorithm, and a graph plotting tool using Matplotlib.",
+      href: null,
+      texture: "/textures/project/python-bundle.mp4",
+      logo: "/assets/project-logo-python-bundle.png",
+      logoStyle: {
+        backgroundColor: "#E8F5E9",
+        border: "0.2px solid #A5D6A7",
+        boxShadow: "0px 0px 60px 0px #81C7844D",
+      },
+      spotlight: "/assets/spotlight-python-bundle.png",
+      tags: [
+        { id: 1, name: "Python", path: "/assets/python.svg" },
+        { id: 2, name: "Matplotlib", path: "/assets/matplotlib.png" },
+      ],
+    },
+    {
+      title: "Real-Time Anomaly Detector",
+      desc: "A Python-based anomaly detection system to identify outliers in continuous data streams.",
+      subdesc: "Developed a Z-score based anomaly detection system using Python's Numpy and Matplotlib for real-time analysis. Features real-time data simulation with seasonal patterns and injected noise for robust testing.",
+      href: null,
+      texture: "/textures/project/anomaly-detector.mp4",
+      logo: "/assets/project-logo-anomaly-detector.png",
+      logoStyle: {
+        backgroundColor: "#FFEB3B",
+        border: "0.2px solid #FBC02D",
+        boxShadow: "0px 0px 60px 0px rgba(255, 193, 7, 0.5)",
+      },
+      spotlight: "/assets/spotlight-anomaly-detector.png",
+      tags: [
+        { id: 1, name: "Python", path: "/assets/python.svg" },
+        { id: 2, name: "Numpy", path: "/assets/numpy.png" },
+        { id: 3, name: "Matplotlib", path: "/assets/matplotlib.png" },
+      ],
+    },
+    {
+      title: "Cryptocurrency WebApp",
+      desc: "A web application for tracking cryptocurrency trends using React, Redux, and Chart.js.",
+      subdesc: "The app fetches real-time cryptocurrency data using React API and displays trends using Chart.js. Features a responsive design and robust debugging tools like Chrome Dev Tools and React Dev Tools Extension.",
+      href: "https://github.com/your-username/crypto-webapp", // Replace with actual link if available
+      texture: "/textures/project/crypto-webapp.mp4",
+      logo: "/assets/project-logo-crypto.png",
+      logoStyle: {
+        backgroundColor: "#4CAF50",
+        border: "0.2px solid #388E3C",
+        boxShadow: "0px 0px 60px 0px rgba(76, 175, 80, 0.5)",
+      },
+      spotlight: "/assets/spotlight-crypto.png",
+      tags: [
+        { id: 1, name: "React.js", path: "/assets/react.svg" },
+        { id: 2, name: "Redux", path: "/assets/redux.png" },
+        { id: 3, name: "Chart.js", path: "/assets/chartjs.png" },
+        { id: 4, name: "HTML", path: "/assets/html.svg" },
+        { id: 5, name: "CSS", path: "/assets/css.svg" },
+      ],
+    },
+    {
+      title: "Custom CLI Tool",
+      desc: "A command-line interface tool built from scratch using Node.js.",
+      subdesc: "Implemented functionalities like argument parsing, input validation, and error handling. Packaged as a globally installable npm package, designed for ease of use and scalability.",
+      href: "https://github.com/your-username/cli-tool", // Replace with actual link
+      texture: "/textures/project/cli-tool.mp4",
+      logo: "/assets/project-logo-cli.png",
+      logoStyle: {
+        backgroundColor: "#333333",
+        border: "0.2px solid #555555",
+        boxShadow: "0px 0px 60px 0px rgba(0, 0, 0, 0.5)",
+      },
+      spotlight: "/assets/spotlight-cli.png",
+      tags: [
+        { id: 1, name: "JavaScript", path: "/assets/javascript.svg" },
+        { id: 2, name: "Node.js", path: "/assets/nodejs.svg" },
+      ],
+    },
+    {
+      title: "Real Estate Website",
+      desc: "A real estate platform allowing users to list, view, like, reserve, and purchase properties.",
+      subdesc: "Built with a microservices architecture using HTML, MongoDB, Express, React, Node, and Tailwind CSS. Includes user authentication, password hashing, and a responsive design.",
+      href: "https://github.com/your-username/real-estate-website", // Replace with actual link
+      texture: "/textures/project/real-estate-website.mp4",
+      logo: "/assets/project-logo-real-estate.png",
+      logoStyle: {
+        backgroundColor: "#2C3E50",
+        border: "0.2px solid #34495E",
+        boxShadow: "0px 0px 60px 0px rgba(44, 62, 80, 0.5)",
+      },
+      spotlight: "/assets/spotlight-real-estate.png",
+      tags: [
+        { id: 1, name: "React.js", path: "/assets/react.svg" },
+        { id: 2, name: "Node.js", path: "/assets/node.png" },
+        { id: 3, name: "MongoDB", path: "/assets/mongodb.png" },
+        { id: 4, name: "Tailwind CSS", path: "/assets/tailwindcss.png" },
+        { id: 5, name: "Express.js", path: "/assets/express.png" },
+        { id: 6, name: "HTML", path: "/assets/html.svg" },
+        { id: 7, name: "CSS", path: "/assets/css.svg" },
+      ],
+    },
+    {
+      title: "Mario Kart Clone Web Game",
+      desc: "An open-source web-based game inspired by Mario Kart, with game mechanics and user interface built using React and Redux.",
+      subdesc: "Contributed to implementing game mechanics and ensuring responsive design and user-friendly interactions. Collaborated via GitHub for version control and open-source practices.",
+      href: "https://github.com/your-username/mario-kart-clone", // Replace with actual link
+      texture: "/textures/project/mario-kart-clone.mp4",
+      logo: "/assets/project-logo-mario-kart.png",
+      logoStyle: {
+        backgroundColor: "#E74C3C",
+        border: "0.2px solid #C0392B",
+        boxShadow: "0px 0px 60px 0px rgba(231, 76, 60, 0.5)",
+      },
+      spotlight: "/assets/spotlight-mario-kart.png",
+      tags: [
+        { id: 1, name: "React.js", path: "/assets/react.svg" },
+        { id: 2, name: "Redux", path: "/assets/redux.png" },
+        { id: 3, name: "HTML", path: "/assets/html.svg" },
+        { id: 4, name: "CSS", path: "/assets/css.svg" },
+        { id: 5, name: "JavaScript", path: "/assets/javascript.svg" },
+      ],
+    }    
+  ];    
+
   export const calculateSizes = (isSmall, isMobile, isTablet) => {
     return {
       deskScale: isSmall ? 0.05 : isMobile ? 0.06 : 0.065,
