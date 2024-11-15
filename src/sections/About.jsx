@@ -2,11 +2,22 @@ import Globe from 'react-globe.gl'
 import Button from '../components/Button.jsx'
 import { useState } from 'react'
 const About = () => {
-    const [hasCopied, setHasCopied] = useState(false) // hasCopied
-    const handleCopy = () => {
-        navigator.clipboard.writeText('somunanzenwa@gmail.com');
-        setHasCopied(true);
-        setTimeout(() => setHasCopied(false), 2000);
+    const [emailCopied, setEmailCopied] = useState(false) 
+    const [numberCopied, setNumberCopied] = useState(false) 
+
+    const handleCopy = (detail) => {
+        if(detail === 'number') {
+            setNumberCopied(true)
+            setTimeout(() => setNumberCopied(false), 2000);
+            navigator.clipboard.writeText('+447936548807')
+            return
+        }
+        else if(detail === 'email'){
+            setEmailCopied(true)
+            setTimeout(() => setEmailCopied(false), 2000);
+            navigator.clipboard.writeText('somunanzenwa@gmail.com')
+            return
+        }
     }
   return (
     <section className="c-space my-20" id="about">
@@ -55,7 +66,7 @@ const About = () => {
                     <div>
                         <p className='grid-headtext'>I work remotely across all timezones</p>
                         <p className="grid-subtext">I'm based in the UK, with remote work available</p>
-                        <Button name="Contact me" isBeam containerClass="w-full mt-10" />
+                        <a href='#contactDetails'><Button name="Contact me" isBeam containerClass="w-full mt-10" /></a>
                     </div>
                 </div>
             </div>
@@ -71,14 +82,18 @@ const About = () => {
                 </div>
             </div>
 
-            <div className="xl:col-span-1 xl:row-span-2">
+            <div className="xl:col-span-1 xl:row-span-2" id="contactDetails">
                 <div className="grid-container">
                     <img src="assets/grid4.png" alt="grid-4" className='w-full md:h-[126px] sm:h-[276px] h-fit object-cover sm:object-top' />
                     <div className="space-y-2">
                         <p className="grid-subtext text-center">Contact me</p>
-                        <div className="copy-container" onClick={handleCopy}>
-                            <img src={hasCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
+                        <div className="copy-container" onClick={() =>handleCopy("email")}>
+                            <img src={emailCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
                             <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">somunanzenwa@gmail.com</p>
+                        </div>
+                        <div className="copy-container" onClick={() => handleCopy("number")}>
+                            <img src={numberCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
+                            <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">+44 793 654 8807</p>
                         </div>
                     </div>
                 </div>
