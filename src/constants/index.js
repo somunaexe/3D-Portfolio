@@ -38,7 +38,7 @@ export const navLinks = [
       position: 'Software Engineering Graduate at University of Salford',
       img: 'assets/review1.png',
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
-      rating: 2,
+      rating: 5,
       review:
         'It was a pleasure working with Somunachimso Nzenwa during our time at the University of Salford. He is an exceptional individual with a deep understanding of software engineering principles, particularly in mobile, web, and game development. His problem-solving skills and dedication to his craft make him a valuable team player, and his leadership abilities helped drive multiple projects to success, even under tight deadlines. Somunachimso consistently demonstrated a passion for learning and collaboration, which has positively impacted both his teammates and the final outcomes of his work. I highly recommend him for any software engineering role.',
     },
@@ -93,117 +93,6 @@ export const navLinks = [
         'I can confidently testify to Somuna’s expertise in mobile, web, and game development, as well as his solid understanding of CI/CD processes. He has shown proficiency in building and deploying scalable applications, utilizing modern tools and frameworks to deliver high-quality results. His ability to automate and streamline workflows through CI/CD has greatly enhanced development efficiency.\nSomuna is also an excellent collaborator and team player, effectively communicating and working with others to achieve project goals. He thrives under pressure, maintaining focus and delivering results while exhibiting strong leadership skills, guiding teams through challenges with confidence and clarity.',
     }
   ];
-  
-  const tagList = [
-    {
-      "name": "React.js",
-      "path": "/assets/react.svg"
-    },
-    {
-      "name": "TailwindCSS",
-      "path": "/assets/tailwindcss.png"
-    },
-    {
-      "name": "TypeScript",
-      "path": "/assets/typescript.png"
-    },
-    {
-      "name": "Framer Motion",
-      "path": "/assets/framer.png"
-    },
-    {
-      "name": "JavaScript",
-      "path": "/assets/js.svg"
-    },
-    {
-      "name": "Node.js",
-      "path": "/assets/nodejs.svg"
-    },
-    {
-      "name": "MongoDB",
-      "path": "/assets/mongodb.svg"
-    },
-    {
-      "name": "Express.js",
-      "path": "/assets/express.svg"
-    },
-    {
-      "name": "HTML",
-      "path": "/assets/html.png"
-    },
-    {
-      "name": "CSS",
-      "path": "/assets/css.png"
-    },
-    {
-      "name": "Redux",
-      "path": "/assets/redux.svg"
-    },
-    {
-      "name": "Firebase",
-      "path": "/assets/firebase.svg"
-    },
-    {
-      "name": "Flutter",
-      "path": "/assets/flutter.svg"
-    },
-    {
-      "name": "Dart",
-      "path": "/assets/dart.svg"
-    },
-    {
-      "name": "PHP",
-      "path": "/assets/php.svg"
-    },
-    {
-      "name": "MySQL",
-      "path": "/assets/mysql.svg"
-    },
-    {
-      "name": "Kotlin",
-      "path": "/assets/kotlin.svg"
-    },
-    {
-      "name": "Swift",
-      "path": "/assets/swift.svg"
-    },
-    {
-      "name": "Blender",
-      "path": "/assets/blender.svg"
-    },
-    {
-      "name": "Unity",
-      "path": "/assets/unity.svg"
-    },
-    {
-      "name": "XCode",
-      "path": "/assets/xcode.svg"
-    },
-    {
-      "name": "Matplotlib",
-      "path": "/assets/matplotlib.svg"
-    },
-    {
-      "name": "Chart.js",
-      "path": "/assets/chartjs.svg"
-    },
-    {
-      "name": "Stripe",
-      "path": "/assets/stripe.svg"
-    },
-    {
-      "name": "Twilio",
-      "path": "/assets/twilio.svg"
-    },
-    {
-      "name": "ASP.Net",
-      "path": "/assets/aspnet.png"
-    }
-  ]  
-
-  const findTag = (nameStr) => {
-    return { ...tagList.find((tag) => tag.name === nameStr) || {} }
-  }
 
   export const myProjects = [
     {
@@ -218,13 +107,13 @@ export const navLinks = [
         border: "0.2px solid #CCCCCC",
         boxShadow: "0px 0px 60px 0px #CCCCCC4D",
       },
-      spotlight: "/assets/spotlight-shopping-store.png",
+      spotlight: "/assets/spotlight1.png",
       tags: [
-        { id: 1, tag: findTag("ASP.Net") },
-        { id: 2, name: "C#", path: "/assets/csharp.svg" },
-        { id: 3, name: "SQL Server", path: "/assets/sqlserver.png" },
-        { id: 4, name: "HTML", path: "/assets/html.svg" },
-        { id: 5, name: "CSS", path: "/assets/css.svg" },
+        {name: "ASP.Net", path: "/assets/aspnet.png" },
+        {name: "C#", path: "/assets/csharp.svg" },
+        {name: "SQL Server", path: "/assets/sqlserver.png" },
+        {name: "HTML", path: "/assets/html.svg" },
+        {name: "CSS", path: "/assets/css.svg" },
       ],
     },
     {
@@ -239,18 +128,18 @@ export const navLinks = [
         border: "0.2px solid #C8E6C9",
         boxShadow: "0px 0px 60px 0px #81C7844D",
       },
-      spotlight: "/assets/spotlight-charging-station.png",
+      spotlight: "/assets/spotlight3.png",
       tags: [
-        { id: 1, name: "PHP", path: "/assets/php.svg" },
-        { id: 2, name: "JavaScript", path: "/assets/javascript.svg" },
-        { id: 3, name: "MySQL", path: "/assets/mysql.svg" },
-        { id: 4, name: "HTML", path: "/assets/html.svg" },
-        { id: 5, name: "CSS", path: "/assets/css.svg" },
-        { id: 6, name: "Bootstrap", path: "/assets/bootstrap.png" },
+        {name: "PHP", path: "/assets/php.svg" },
+        {name: "JavaScript", path: "/assets/javascript.svg" },
+        {name: "MySQL", path: "/assets/mysql.svg" },
+        {name: "HTML", path: "/assets/html.svg" },
+        {name: "CSS", path: "/assets/css.svg" },
+        {name: "Bootstrap", path: "/assets/bootstrap.png" },
       ],
     },
     {
-      title: "First-Person Shooter Virtual Reality Game",
+      title: "First-Person Shooter Zombie Virtual Reality Game",
       desc: "A cutting-edge VR game with immersive gameplay and advanced AI.",
       subdesc: "Implemented advanced AI for enemy behavior and intuitive HUD elements using Unity and Blender.",
       href: null,
@@ -261,11 +150,11 @@ export const navLinks = [
         border: "0.2px solid #333333",
         boxShadow: "0px 0px 60px 0px #5555554D",
       },
-      spotlight: "/assets/spotlight-vr-fps.png",
+      spotlight: "/assets/spotlight3.png",
       tags: [
-        { id: 1, name: "Unity", path: "/assets/unity.svg" },
-        { id: 2, name: "C#", path: "/assets/csharp.svg" },
-        { id: 3, name: "Blender", path: "/assets/blender.png" },
+        {name: "Unity", path: "/assets/unity.svg" },
+        {name: "C#", path: "/assets/csharp.svg" },
+        {name: "Blender", path: "/assets/blender.png" },
       ],
     },
     {
@@ -280,10 +169,10 @@ export const navLinks = [
         border: "0.2px solid #F48FB1",
         boxShadow: "0px 0px 60px 0px #F062924D",
       },
-      spotlight: "/assets/spotlight-endless-runner.png",
+      spotlight: "/assets/spotlight1.png",
       tags: [
-        { id: 1, name: "Unity", path: "/assets/unity.svg" },
-        { id: 2, name: "C#", path: "/assets/csharp.svg" },
+        {name: "Unity", path: "/assets/unity.svg" },
+        {name: "C#", path: "/assets/csharp.svg" },
       ],
     },
     {
@@ -298,10 +187,10 @@ export const navLinks = [
         border: "0.2px solid #90CAF9",
         boxShadow: "0px 0px 60px 0px #64B5F64D",
       },
-      spotlight: "/assets/spotlight-science-game.png",
+      spotlight: "/assets/spotlight4.png",
       tags: [
-        { id: 1, name: "Kotlin", path: "/assets/kotlin.svg" },
-        { id: 2, name: "Swift", path: "/assets/swift.svg" },
+        {name: "Kotlin", path: "/assets/kotlin.svg" },
+        {name: "Swift", path: "/assets/swift.svg" },
       ],
     },
     {
@@ -316,11 +205,11 @@ export const navLinks = [
         border: "0.2px solid #FFAB91",
         boxShadow: "0px 0px 60px 0px #FF8A654D",
       },
-      spotlight: "/assets/spotlight-clothing-store.png",
+      spotlight: "/assets/spotlight5.png",
       tags: [
-        { id: 1, name: "Flutter", path: "/assets/flutter.svg" },
-        { id: 2, name: "Dart", path: "/assets/dart.svg" },
-        { id: 3, name: "Firebase", path: "/assets/firebase.svg" },
+        {name: "Flutter", path: "/assets/flutter.svg" },
+        {name: "Dart", path: "/assets/dart.svg" },
+        {name: "Firebase", path: "/assets/firebase.svg" },
       ],
     },
     {
@@ -335,13 +224,13 @@ export const navLinks = [
         border: "0.2px solid #81D4FA",
         boxShadow: "0px 0px 60px 0px #4FC3F74D",
       },
-      spotlight: "/assets/spotlight-note-organization.png",
+      spotlight: "/assets/spotlight2.png",
       tags: [
-        { id: 1, name: "React.js", path: "/assets/react.svg" },
-        { id: 2, name: "TypeScript", path: "/assets/typescript.png" },
-        { id: 3, name: "Bootstrap", path: "/assets/bootstrap.png" },
-        { id: 4, name: "HTML", path: "/assets/html.svg" },
-        { id: 5, name: "CSS", path: "/assets/css.svg" },
+        {name: "React.js", path: "/assets/react.svg" },
+        {name: "TypeScript", path: "/assets/typescript.png" },
+        {name: "Bootstrap", path: "/assets/bootstrap.png" },
+        {name: "HTML", path: "/assets/html.svg" },
+        {name: "CSS", path: "/assets/css.svg" },
       ],
     },
     {
@@ -356,7 +245,7 @@ export const navLinks = [
         border: "0.2px solid #E0E0E0",
         boxShadow: "0px 0px 60px 0px #BDBDBD4D",
       },
-      spotlight: "/assets/spotlight-regex-script.png",
+      spotlight: "/assets/spotlight3.png",
       tags: [
         { id: 1, name: "JavaScript", path: "/assets/javascript.svg" },
       ],
@@ -373,10 +262,10 @@ export const navLinks = [
         border: "0.2px solid #CCCCCC",
         boxShadow: "0px 0px 60px 0px #BDBDBD4D",
       },
-      spotlight: "/assets/spotlight-voxel-game-engine.png",
+      spotlight: "/assets/spotlight3.png",
       tags: [
-        { id: 1, name: "Java", path: "/assets/java.svg" },
-        { id: 2, name: "LWJGL", path: "/assets/lwjgl.png" },
+        {name: "Java", path: "/assets/java.svg" },
+        {name: "LWJGL", path: "/assets/lwjgl.png" },
       ],
     },
     {
@@ -391,10 +280,10 @@ export const navLinks = [
         border: "0.2px solid #A5D6A7",
         boxShadow: "0px 0px 60px 0px #81C7844D",
       },
-      spotlight: "/assets/spotlight-python-bundle.png",
+      spotlight: "/assets/spotlight2.png",
       tags: [
-        { id: 1, name: "Python", path: "/assets/python.svg" },
-        { id: 2, name: "Matplotlib", path: "/assets/matplotlib.png" },
+        {name: "Python", path: "/assets/python.svg" },
+        {name: "Matplotlib", path: "/assets/matplotlib.png" },
       ],
     },
     {
@@ -402,18 +291,18 @@ export const navLinks = [
       desc: "A Python-based anomaly detection system to identify outliers in continuous data streams.",
       subdesc: "Developed a Z-score based anomaly detection system using Python's Numpy and Matplotlib for real-time analysis. Features real-time data simulation with seasonal patterns and injected noise for robust testing.",
       href: null,
-      texture: "/textures/project/anomaly-detector.mp4",
+      texture: "/textures/project/anomaly.mp4",
       logo: "/assets/project-logo-anomaly-detector.png",
       logoStyle: {
         backgroundColor: "#FFEB3B",
         border: "0.2px solid #FBC02D",
         boxShadow: "0px 0px 60px 0px rgba(255, 193, 7, 0.5)",
       },
-      spotlight: "/assets/spotlight-anomaly-detector.png",
+      spotlight: "/assets/spotlight2.png",
       tags: [
-        { id: 1, name: "Python", path: "/assets/python.svg" },
-        { id: 2, name: "Numpy", path: "/assets/numpy.png" },
-        { id: 3, name: "Matplotlib", path: "/assets/matplotlib.png" },
+        {name: "Python", path: "/assets/python.svg" },
+        {name: "Numpy", path: "/assets/numpy.png" },
+        {name: "Matplotlib", path: "/assets/matplotlib.png" },
       ],
     },
     {
@@ -421,20 +310,20 @@ export const navLinks = [
       desc: "A web application for tracking cryptocurrency trends using React, Redux, and Chart.js.",
       subdesc: "The app fetches real-time cryptocurrency data using React API and displays trends using Chart.js. Features a responsive design and robust debugging tools like Chrome Dev Tools and React Dev Tools Extension.",
       href: "https://github.com/your-username/crypto-webapp", // Replace with actual link if available
-      texture: "/textures/project/crypto-webapp.mp4",
+      texture: "/textures/project/crypto.mp4",
       logo: "/assets/project-logo-crypto.png",
       logoStyle: {
         backgroundColor: "#4CAF50",
         border: "0.2px solid #388E3C",
         boxShadow: "0px 0px 60px 0px rgba(76, 175, 80, 0.5)",
       },
-      spotlight: "/assets/spotlight-crypto.png",
+      spotlight: "/assets/spotlight4.png",
       tags: [
-        { id: 1, name: "React.js", path: "/assets/react.svg" },
-        { id: 2, name: "Redux", path: "/assets/redux.png" },
-        { id: 3, name: "Chart.js", path: "/assets/chartjs.png" },
-        { id: 4, name: "HTML", path: "/assets/html.svg" },
-        { id: 5, name: "CSS", path: "/assets/css.svg" },
+        {name: "React.js", path: "/assets/react.svg" },
+        {name: "Redux", path: "/assets/redux.png" },
+        {name: "Chart.js", path: "/assets/chartjs.png" },
+        {name: "HTML", path: "/assets/html.svg" },
+        {name: "CSS", path: "/assets/css.svg" },
       ],
     },
     {
@@ -449,10 +338,10 @@ export const navLinks = [
         border: "0.2px solid #555555",
         boxShadow: "0px 0px 60px 0px rgba(0, 0, 0, 0.5)",
       },
-      spotlight: "/assets/spotlight-cli.png",
+      spotlight: "/assets/spotlight3.png",
       tags: [
-        { id: 1, name: "JavaScript", path: "/assets/javascript.svg" },
-        { id: 2, name: "Node.js", path: "/assets/nodejs.svg" },
+        {name: "JavaScript", path: "/assets/javascript.svg" },
+        {name: "Node.js", path: "/assets/node.png" },
       ],
     },
     {
@@ -467,15 +356,15 @@ export const navLinks = [
         border: "0.2px solid #34495E",
         boxShadow: "0px 0px 60px 0px rgba(44, 62, 80, 0.5)",
       },
-      spotlight: "/assets/spotlight-real-estate.png",
+      spotlight: "/assets/spotlight5.png",
       tags: [
-        { id: 1, name: "React.js", path: "/assets/react.svg" },
-        { id: 2, name: "Node.js", path: "/assets/node.png" },
-        { id: 3, name: "MongoDB", path: "/assets/mongodb.png" },
-        { id: 4, name: "Tailwind CSS", path: "/assets/tailwindcss.png" },
-        { id: 5, name: "Express.js", path: "/assets/express.png" },
-        { id: 6, name: "HTML", path: "/assets/html.svg" },
-        { id: 7, name: "CSS", path: "/assets/css.svg" },
+        {name: "React.js", path: "/assets/react.svg" },
+        {name: "Node.js", path: "/assets/node.png" },
+        {name: "MongoDB", path: "/assets/mongodb.jfif" },
+        {name: "Tailwind CSS", path: "/assets/tailwindcss.png" },
+        {name: "Express.js", path: "/assets/express.png" },
+        {name: "HTML", path: "/assets/html.svg" },
+        {name: "CSS", path: "/assets/css.svg" },
       ],
     },
     {
@@ -490,13 +379,13 @@ export const navLinks = [
         border: "0.2px solid #C0392B",
         boxShadow: "0px 0px 60px 0px rgba(231, 76, 60, 0.5)",
       },
-      spotlight: "/assets/spotlight-mario-kart.png",
+      spotlight: "/assets/spotlight4.png",
       tags: [
-        { id: 1, name: "React.js", path: "/assets/react.svg" },
-        { id: 2, name: "Redux", path: "/assets/redux.png" },
-        { id: 3, name: "HTML", path: "/assets/html.svg" },
-        { id: 4, name: "CSS", path: "/assets/css.svg" },
-        { id: 5, name: "JavaScript", path: "/assets/javascript.svg" },
+        {name: "React.js", path: "/assets/react.svg" },
+        {name: "Redux", path: "/assets/redux.png" },
+        {name: "HTML", path: "/assets/html.svg" },
+        {name: "CSS", path: "/assets/css.svg" },
+        {name: "JavaScript", path: "/assets/javascript.svg" },
       ],
     }    
   ];    
