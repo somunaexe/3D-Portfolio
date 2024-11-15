@@ -56,7 +56,7 @@ export const navLinks = [
       id: 3,
       name: 'Israel Karibo Alalibo',
       position: 'Placement Engineer at Dematic',
-      img: 'assets/review3.png',
+      img: 'assets/isreal.png',
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
       rating: 5,
       review:
@@ -64,11 +64,11 @@ export const navLinks = [
     },
     {
       id: 4,
-      name: 'Odiepriye Graham-Douglas',
+      name: 'O\'diepriye Graham-Douglas',
       position: 'Full Stack Software Developer at The Software Institute',
       img: 'assets/ody.jpeg',
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
-      rating: 5,
+      rating: 4,
       review:
       'I am pleased to recommend Somuna, whose expertise in mobile, web, and game development, as well as CI & CD practices, has been truly impressive. During our time together, we’ve worked together on a website and application using PHP and Java respectively at university, Somuna demonstrated exceptional technical skills and a strong grasp of development practices.\nIn our Java project, Somuna was instrumental in designing and implementing robust solutions. His deep understanding of Java, combined with his ability to tackle complex coding challenges, significantly contributed to the project’s success. His attention to detail and commitment to best practices were evident throughout the development process.\nSomunas experience with CI & CD practices was also a major asset. He effectively managed our continuous integration and delivery processes, ensuring smooth and efficient deployment cycles. His skills in automating workflows and maintaining high-quality standards greatly improved our projects development efficiency.\nSomunas technical proficiency, problem-solving abilities, and dedication to his work make him a standout professional. I highly recommend him for any role requiring expertise in development and CI & CD practices.'
     },
@@ -100,6 +100,7 @@ export const navLinks = [
       desc: "An ASP.Net-based shopping platform with secure payment integrations and database management.",
       subdesc: "Built using ASP.Net, C#, and SQL Server with MVC pattern to ensure modularity. Integrated a secure payment gateway via Stripe, allowing transactions with cards, Revolut, and Klarna.",
       href: null,
+      repo: ,
       texture: "/textures/project/shopping-store.mp4",
       logo: "/assets/project-logo-shopping-store.png",
       logoStyle: {
@@ -113,7 +114,10 @@ export const navLinks = [
         {name: "C#", path: "/assets/csharp.svg" },
         {name: "SQL Server", path: "/assets/sqlserver.png" },
         {name: "HTML", path: "/assets/html.svg" },
-        {name: "CSS", path: "/assets/css.svg" },
+        {name: "CSS", path: "/assets/css.svg" },        
+        {name: "Stripe", path: "/assets/stripe.png" },
+        {name: "Git", path: "/assets/git.png" },
+        {name: "GitHub", path: "/assets/github.svg" },
       ],
     },
     {
@@ -173,6 +177,8 @@ export const navLinks = [
       tags: [
         {name: "Unity", path: "/assets/unity.svg" },
         {name: "C#", path: "/assets/csharp.svg" },
+        {name: "Git", path: "/assets/git.png" },
+        {name: "GitHub", path: "/assets/github.svg" },
       ],
     },
     {
@@ -231,6 +237,8 @@ export const navLinks = [
         {name: "Bootstrap", path: "/assets/bootstrap.png" },
         {name: "HTML", path: "/assets/html.svg" },
         {name: "CSS", path: "/assets/css.svg" },
+        {name: "Git", path: "/assets/git.png" },
+        {name: "GitHub", path: "/assets/github.svg" },
       ],
     },
     {
@@ -266,6 +274,8 @@ export const navLinks = [
       tags: [
         {name: "Java", path: "/assets/java.svg" },
         {name: "LWJGL", path: "/assets/lwjgl.png" },
+        {name: "Git", path: "/assets/git.png" },
+        {name: "GitHub", path: "/assets/github.svg" },
       ],
     },
     {
@@ -284,6 +294,8 @@ export const navLinks = [
       tags: [
         {name: "Python", path: "/assets/python.svg" },
         {name: "Matplotlib", path: "/assets/matplotlib.png" },
+        {name: "Git", path: "/assets/git.png" },
+        {name: "GitHub", path: "/assets/github.svg" },
       ],
     },
     {
@@ -303,6 +315,8 @@ export const navLinks = [
         {name: "Python", path: "/assets/python.svg" },
         {name: "Numpy", path: "/assets/numpy.png" },
         {name: "Matplotlib", path: "/assets/matplotlib.png" },
+        {name: "Git", path: "/assets/git.png" },
+        {name: "GitHub", path: "/assets/github.svg" },
       ],
     },
     {
@@ -324,6 +338,8 @@ export const navLinks = [
         {name: "Chart.js", path: "/assets/chartjs.png" },
         {name: "HTML", path: "/assets/html.svg" },
         {name: "CSS", path: "/assets/css.svg" },
+        {name: "Git", path: "/assets/git.png" },
+        {name: "GitHub", path: "/assets/github.svg" },
       ],
     },
     {
@@ -342,6 +358,8 @@ export const navLinks = [
       tags: [
         {name: "JavaScript", path: "/assets/javascript.svg" },
         {name: "Node.js", path: "/assets/node.png" },
+        {name: "Git", path: "/assets/git.png" },
+        {name: "GitHub", path: "/assets/github.svg" },
       ],
     },
     {
@@ -365,6 +383,8 @@ export const navLinks = [
         {name: "Express.js", path: "/assets/express.png" },
         {name: "HTML", path: "/assets/html.svg" },
         {name: "CSS", path: "/assets/css.svg" },
+        {name: "Git", path: "/assets/git.png" },
+        {name: "GitHub", path: "/assets/github.svg" },
       ],
     },
     {
@@ -386,6 +406,8 @@ export const navLinks = [
         {name: "HTML", path: "/assets/html.svg" },
         {name: "CSS", path: "/assets/css.svg" },
         {name: "JavaScript", path: "/assets/javascript.svg" },
+        {name: "Git", path: "/assets/git.png" },
+        {name: "GitHub", path: "/assets/github.svg" },
       ],
     }    
   ];    
@@ -404,29 +426,74 @@ export const navLinks = [
   export const workExperiences = [
     {
       id: 1,
-      name: 'Framer',
-      pos: 'Lead Web Developer',
-      duration: '2022 - Present',
-      title: "Framer serves as my go-to tool for creating interactive prototypes. I use it to bring designs to  life, allowing stakeholders to experience the user flow and interactions before development.",
-      icon: '/assets/framer.svg',
+      name: 'Car2Enquiries',
+      pos: 'Full Stack Web Developer',
+      duration: 'December 2022 - January 2023',
+      title: "Maintained database reliability (ACID), collaborated in a 5-person Agile/Scrum team, and developed a car insurance invoice website with regular task-planning meetings.",
+      icon: null,
       animation: 'victory',
     },
     {
       id: 2,
-      name: 'Figma',
-      pos: 'Web Developer',
-      duration: '2020 - 2022',
-      title: "Figma is my collaborative design platform of choice. I utilize it to work seamlessly with team members and clients, facilitating real-time feedback and design iterations. Its cloud-based.",
-      icon: '/assets/figma.svg',
-      animation: 'clapping',
+      name: 'University of Salford',
+      pos: 'Course Representative',
+      duration: 'October 2021 - July 2024',
+      title: "Advocated for peers by presenting feedback to the university and collaborating on solutions to academic concerns.",
+      icon: '/assets/uosalford.jfif',
+      animation: 'salute',
     },
     {
       id: 3,
-      name: 'Notion',
-      pos: 'Junior Web Developer',
-      duration: '2019 - 2020',
-      title: "Notion helps me keep my projects organized. I use it for project management, task tracking, and as a central hub for documentation, ensuring that everything from design notes to.",
-      icon: '/assets/notion.svg',
+      name: 'Indeed Flex',
+      pos: 'Retail Merchandiser',
+      duration: 'November 2023 - August 2024',
+      title: "Performed warehousing, order packaging, and retail roles across multiple cities, achieving a 4.3/5 employer rating and joining Tesco's talent pool.",
+      icon: '/assets/indeed.jfif',
+      animation: 'clapping',
+    },    
+    {
+      id: 4,
+      name: 'River',
+      pos: 'Sales and Marketing Associate',
+      duration: 'September - October 2024',
+      title: "Conducted market research, managed client relationships, and developed targeted marketing strategies, increasing lead generation by 20%.",
+      icon: '/assets/river.jfif',
+      animation: 'victory',
+    },
+    {
+      id: 5,
+      name: 'Berry Recruitment',
+      pos: 'Kitchen Porter',
+      duration: 'February - April 2024',
+      title: "Maintained cleanliness, prevented cross-contamination, and ensured a safe environment in school canteens.",
+      icon: '/assets/berry.jfif',
+      animation: 'salute',
+    },    
+    {
+      id: 6,
+      name: 'The Retail People',
+      pos: 'Retail Member',
+      duration: 'December 2023 - January 2024',
+      title: "Provided excellent customer service by maintaining cleanliness, arranging items, and restocking shelves.",
+      icon: '/assets/trp.png',
+      animation: 'clapping',
+    },    
+    {
+      id: 7,
+      name: 'NCUK',
+      pos: 'Student Ambassador',
+      duration: 'June 2022 - July 2024',
+      title: "Guided prospective students on educational choices, created promotional media, and collaborated with fellow ambassadors.",
+      icon: '/assets/ncuk.png',
+      animation: 'victory',
+    },    
+    {
+      id: 8,
+      name: 'Extra Care Charitable Trust',
+      pos: 'Retail Assistant',
+      duration: 'May - July 2023',
+      title: "Supported charity operations by assisting customers, restocking, and preparing clothes for display.",
+      icon: '/assets/extracare.png',
       animation: 'salute',
     },
   ];

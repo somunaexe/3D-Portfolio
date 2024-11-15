@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useAnimations, useFBX, useGLTF } from '@react-three/drei'
 
 const Developer = ({ animationName = 'idle', ...props}) => {
-const group = useRef()
+  const group = useRef()
   const { nodes, materials } = useGLTF('/models/animations/developer.glb')
   const { animations: idleAnimation } = useFBX('/models/animations/idle.fbx')
   const { animations: saluteAnimation } = useFBX('/models/animations/salute.fbx')
@@ -25,7 +25,7 @@ const group = useRef()
   
 
   return (
-    <group {...props} dispose={null}>
+    <group ref={group} {...props} dispose={null}>
       <primitive object={nodes.Hips} />
       <skinnedMesh
         name="EyeLeft"

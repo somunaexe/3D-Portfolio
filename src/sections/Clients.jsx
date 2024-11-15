@@ -1,6 +1,13 @@
 import { clientReviews } from "../constants"
-
+import { useState } from "react"
 const Clients = () => {
+    const [pageNumber, setPageNumber] = useState(1)
+
+    const handleNavigation = (direction) => {
+        if(direction === "previous") setPageNumber((prevPageNumber) => prevPageNumber === 1 ? Math.ceil(clientReviews.length / 4) : prevPageNumber - 1)
+        else setPageNumber((prevPageNumber) => prevPageNumber === Math.ceil(clientReviews.length / 4) ? 1 : prevPageNumber + 1)
+    }
+
     const checkReviewLength = (reviewParam) => {
         const shortLength = 200
         const isLong = reviewParam.length > shortLength
@@ -26,12 +33,11 @@ const Clients = () => {
         )
     }
 
-
   return (
     <section className="c-space my-20" id="clients">
         <h3 className="head-text">Hear from My Clients</h3>
         <div className="client-container">
-            {clientReviews.map(({id, name, review, img, position, link, rating}) => (
+            {clientReviews.slice(pageNumber * 4 - 4, pageNumber * 4).map(({id, name, review, img, position, link, rating}) => (
                 <div key={id} className="client-review">
                     <div>
                         <a href={link} target="_blank"><p className="text-white font-light justify-between">{checkReviewLength(review)}</p></a>
@@ -50,7 +56,17 @@ const Clients = () => {
                     </div>
                 </div>
             ))}
+            
         </div>
+        <div className="flex justify-between items-center mt-7">
+                            <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
+                                <img src="/assets/left-arrow.png" alt="left arrow" className='w-4 h-4'/>
+                            </button>
+
+                            <button className="arrow-btn" onClick={() => handleNavigation('next')}>
+                                <img src="/assets/right-arrow.png" alt="right arrow" className='w-4 h-4'/>
+                            </button>
+                        </div>
     </section>
   )
 }
