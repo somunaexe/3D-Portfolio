@@ -91,6 +91,16 @@ export const navLinks = [
       rating: 5,
       review:
         'I can confidently testify to Somuna’s expertise in mobile, web, and game development, as well as his solid understanding of CI/CD processes. He has shown proficiency in building and deploying scalable applications, utilizing modern tools and frameworks to deliver high-quality results. His ability to automate and streamline workflows through CI/CD has greatly enhanced development efficiency.\nSomuna is also an excellent collaborator and team player, effectively communicating and working with others to achieve project goals. He thrives under pressure, maintaining focus and delivering results while exhibiting strong leadership skills, guiding teams through challenges with confidence and clarity.',
+    },
+    {
+      id: 7,
+      name: 'Mamre Abatcha',
+      position: '2nd Year Software Engineering Student at University of Salford',
+      img: null,
+      link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
+      rating: 5,
+      review:
+        'I am pleased to recommend Somuna, an exceptional software developer whose expertise spans various programming languages, including Java, HTML, and PHP just to mention a few. As my mentor, he has been instrumental in guiding me through complex assignments throughout my study as a cyber security student in the university, His passion for his work is evident in the numerous software applications and games he has created, showcasing his creativity and technical prowess.\nSomuna\'s dedication to his craft is truly commendable. He consistently delivers high-quality work, always going above and beyond to ensure that projects are completed successfully. His recent endeavor of coding a 3D interactive portfolio exemplifies his innovative spirit and commitment to excellence. \nWhat sets Somuna apart is not just his technical skills but also his genuine care for those he mentors. He has always been there to support me, providing invaluable insights and encouragement. I wholeheartedly recommend Somuna for any opportunity that allows him to continue sharing his remarkable talents and passion for software development.',
     }
   ];
 
