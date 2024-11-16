@@ -33,9 +33,16 @@ const Clients = () => {
         )
     }
 
+    const getAverageRating = () => {
+            const average = clientReviews.reduce((prevTotal, review) => prevTotal + review.rating, 0)
+            console.log("Average: ", average)
+            return average / clientReviews.length
+    }
+
   return (
     <section className="c-space my-20" id="clients">
         <h3 className="head-text">Hear from My Clients</h3>
+        <p className="font-semibold text-white-700">Average Rating: {getAverageRating().toFixed(1)}/5</p>
         <div className="client-container">
             {clientReviews.slice(pageNumber * 4 - 4, pageNumber * 4).map(({id, name, review, img, position, link, rating}) => (
                 <div key={id} className="client-review">
@@ -59,14 +66,14 @@ const Clients = () => {
             
         </div>
         <div className="flex justify-between items-center mt-7">
-                            <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
-                                <img src="/assets/left-arrow.png" alt="left arrow" className='w-4 h-4'/>
-                            </button>
+            <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
+                <img src="/assets/left-arrow.png" alt="left arrow" className='w-4 h-4'/>
+            </button>
 
-                            <button className="arrow-btn" onClick={() => handleNavigation('next')}>
-                                <img src="/assets/right-arrow.png" alt="right arrow" className='w-4 h-4'/>
-                            </button>
-                        </div>
+            <button className="arrow-btn" onClick={() => handleNavigation('next')}>
+                <img src="/assets/right-arrow.png" alt="right arrow" className='w-4 h-4'/>
+            </button>
+        </div>
     </section>
   )
 }
