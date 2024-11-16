@@ -37,7 +37,7 @@ const Experience = () => {
                             <div key={id} className="work-content_container group" onClick={() => setAnimationName(animation.toLowerCase())} onPointerOver={() => setAnimationName(animation.toLowerCase())} onPointerOut={() => setAnimationName('idle')}>
                                 <div className="flex flex-col h-full justify-start items-center py-2">
                                     <div className="work-content_logo">
-                                        {icon && <img src={icon} alt="logo" className='w-full h-full' />}
+                                        <img src={icon ? icon : '/assets/no_company.jfif'} alt="logo" className='w-full h-full' />
                                     </div>
                                     <div className="work-content_bar" />
                                 </div>

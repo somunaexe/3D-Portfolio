@@ -46,7 +46,7 @@ export const navLinks = [
       id: 2,
       name: 'Emmanuel Uduma',
       position: 'Software Engineering Graduate at University of Salford',
-      img: 'assets/uduma.jpeg',
+      img: null,
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
       rating: 5,
       review:
@@ -56,7 +56,7 @@ export const navLinks = [
       id: 3,
       name: 'Israel Karibo Alalibo',
       position: 'Placement Engineer at Dematic',
-      img: 'assets/isreal.png',
+      img: null,
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
       rating: 5,
       review:
@@ -86,7 +86,7 @@ export const navLinks = [
       id: 6,
       name: 'Aleixo Carvalho',
       position: 'Software Engineering Graduate at University of Salford',
-      img: 'assets/review4.png',
+      img: null,
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
       rating: 5,
       review:
