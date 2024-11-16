@@ -56,7 +56,7 @@ export const navLinks = [
       id: 3,
       name: 'Israel Karibo Alalibo',
       position: 'Placement Engineer at Dematic',
-      img: null,
+      img: 'israel.jpeg',
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
       rating: 5,
       review:
