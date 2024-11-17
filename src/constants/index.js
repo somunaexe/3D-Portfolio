@@ -86,7 +86,7 @@ export const navLinks = [
       id: 6,
       name: 'Aleixo Carvalho',
       position: 'Software Engineering Graduate at University of Salford',
-      img: null,
+      img: "assets/aleixo.jpeg",
       link: 'https://www.linkedin.com/in/somunachimso-nzenwa-a738a1192/details/recommendations/?detailScreenTabIndex=0',
       rating: 5,
       review:

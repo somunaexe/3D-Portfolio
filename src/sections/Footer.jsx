@@ -1,4 +1,3 @@
-import Links from '../components/Links'
 const Footer = () => {
   return (
     <footer className="c-space pt-7 pb-3 border-t border-black-300 flex justify-between items-center flex-wrap gap-5">
@@ -7,8 +6,7 @@ const Footer = () => {
             <p>|</p>
             <p>Privacy Policy</p>
         </div>
-        
-        <Links />
+        <p className="text-white-500">This portfolio is built with React <img src="/assets/react.svg" alt="react" className="w-5 h-5 inline-block" />, Three.js <img src="/assets/three.png" alt="threejs" className="w-5 h-5 inline-block" />, Tailwind CSS <img src="/assets/tailwindcss.png" alt="tailwind" className="w-5 h-5 inline-block" />, and Git <img src="/assets/git.png" alt="git" className="w-5 h-5 inline-block" />.</p>
         <p className="text-white-500">© 2024 Somuna. All rights reserved.</p>
     </footer>
   )
