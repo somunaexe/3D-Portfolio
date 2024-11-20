@@ -83,7 +83,7 @@ const Projects = () => {
         <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full">
             <div className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200">
                 <input type="text" name="search"
-                    placeholder="Search for a language, tool, framework, etc..." 
+                    placeholder="Search for a language, tool, framework, etc, then press enter to tag it" 
                     style={{position: 'relative', zIndex: 10 }} 
                     onChange={findProjects}
                     onKeyDown={setTagQuery}

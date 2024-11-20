@@ -1,6 +1,6 @@
 import { clientReviews } from "../constants"
 import { useState } from "react"
-const Clients = () => {
+const Reviews = () => {
     const [pageNumber, setPageNumber] = useState(1)
 
     const handleNavigation = (direction) => {
@@ -34,15 +34,21 @@ const Clients = () => {
     }
 
     const getAverageRating = () => {
-            const average = clientReviews.reduce((prevTotal, review) => prevTotal + review.rating, 0)
-            console.log("Average: ", average)
-            return average / clientReviews.length
+        return (clientReviews.reduce((prevTotal, review) => prevTotal + review.rating, 0)) / clientReviews.length
+
+    }
+
+    const colourRating = () => {
+        const average = getAverageRating()
+        if (average >= 4) return 'text-green-500'
+        else if(average >= 3 && average < 4) return 'text-yellow-500'
+        else return 'text-red-500'
     }
 
   return (
-    <section className="c-space my-20" id="clients">
-        <h3 className="head-text">Hear from My Clients</h3>
-        <p className="font-semibold text-white-700">Average Rating: {getAverageRating().toFixed(1)}/5</p>
+    <section className="c-space my-20" id="reviews">
+        <h3 className="head-text">My Reviews</h3>
+        <p className="font-semibold text-white-700">Average Rating: <span className={colourRating()}>{getAverageRating().toFixed(1)}</span>/5</p>
         <div className="client-container">
             {clientReviews.slice(pageNumber * 4 - 4, pageNumber * 4).map(({id, name, review, img, position, link, rating}) => (
                 <div key={id} className="client-review">
@@ -78,4 +84,4 @@ const Clients = () => {
   )
 }
 
-export default Clients
+export default Reviews

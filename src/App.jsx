@@ -2,7 +2,7 @@ import Navbar from './sections/Navbar'
 import Hero from './sections/Hero'
 import About from './sections/About'
 import Projects from './sections/Projects'
-import Clients from './sections/Clients'
+import Reviews from './sections/Reviews'
 import Contact from './sections/Contact'
 import Footer from './sections/Footer'
 import Experience from './sections/Experience'
@@ -13,7 +13,7 @@ const App = () => {
       <Hero />
       <About />
       <Projects />
-      <Clients />
+      <Reviews />
       <Experience />
       <Contact />
       <Footer />
