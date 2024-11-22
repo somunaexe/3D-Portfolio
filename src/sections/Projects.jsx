@@ -6,7 +6,6 @@ import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import { Center, OrbitControls } from '@react-three/drei'
 import Button from '../components/Button.jsx'
-import { Document, Packer, TextRun, Paragraph } from 'docx'
 import { saveAs } from 'file-saver'
 const Projects = () => {
     const [projectCount, setProjectCount] = useState(myProjects.length)
@@ -79,28 +78,19 @@ const Projects = () => {
         findProjects(e)
     }
 
-    const generateProjectDoc = async() => {
-        console.log("started")
+    const generateProjectDoc = () => {
 
-        const doc = new Document({
-            sections: [
-                {
-                    children: [searchedProjects.map(project =>
-                    new Paragraph({
-                        children: project.entry.map(en =>
-                                    new TextRun(en)
-                                )
-                            
-                        
-                    }))
-                ]
-            }
-            ]
-        })
+        const content = searchedProjects.map(project =>
+        [
+            `Title: ${project.title}`,
+            `Languages and Tools: ${project.tags.map(tag => tag.name).join(", ")}`,
+            `${project.entry.map((entry, index) => index + 1 + ". " + entry).join("\n")}`
+        ].join("\n")
+        ).join("\n\n--------------\n\n")
 
-        const blob = await Packer.toBlob(doc)
-        saveAs(blob, "tagged-projects")
-        console.log(doc)
+        const blob =  new Blob([content], {type: "text/plain;charset=utf-8"})
+        saveAs(blob, "tagged-projects.txt")
+        console.log(content.textContent)
     }
   return (
     <section className='c-space my-20' id='projects'>
