@@ -317,7 +317,6 @@ export const navLinks = [
         spotlight: "/assets/spotlight3.png",
         tags: [
           {id: 1, name: "JavaScript", path: "/assets/javascript.svg" },
-          {id: 2, name: "HTML", path: "/assets/html.svg" },
         ],
         entry: [
           "Developed a robust regular expression-based script to efficiently parse and manipulate complex text patterns across a variety of web applications",
@@ -532,11 +531,11 @@ export const navLinks = [
       {
         id: 16,
         title: "Vertical Platformer Fighting Webgame",
-        desc: "A web-based platformer fighting game built using JavaScript, HTML, and CSS, featuring sprite-based animations, collision detection, and immersive audio-visual elements.",
+        desc: "A web-based platformer fighting game featuring sprite-based animations, collision detection, and immersive audio-visual elements.",
         subdesc: "Developed smooth player animations, responsive controls, and robust collision mechanics. Enhanced user experience with engaging background music, sound effects, and fullscreen gameplay.",
-        href: "https://your-game-link-here.com", // Replace with actual link
-        repo: "https://github.com/somunaexe/vertical-platformer-fighting-game",
-        texture: "/textures/project/platformer-fighting.mp4",
+        href: "https://somunaexe.itch.io/vertical-platformer-game", 
+        repo: "https://github.com/somunaexe/Vertical-Platformer-Webgame",
+        texture: "/textures/project/Swordfighter.mp4",
         logo: "/assets/project-logo-platformer.png",
         logoStyle: {
           backgroundColor: "#2ECC71",
