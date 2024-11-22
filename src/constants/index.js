@@ -130,6 +130,12 @@ export const navLinks = [
           {name: "Git", path: "/assets/git.png" },
           {name: "GitHub", path: "/assets/github.svg" },
         ],
+        entry: [
+          "Integrated a secure payment gateway using Stripe which accepts card, Revolut, or Klarna.",
+          "Wrote code for product data fixes, updates, deletions, and joins in MS SQL",
+          "Maintained loose coupling using the MVC design pattern.",
+          "Implemented various frameworks including .Net Core and Entity Framework Core."
+        ],
       },
       {
         id: 2,
@@ -154,6 +160,12 @@ export const navLinks = [
           {name: "CSS", path: "/assets/css.svg" },
           {name: "Bootstrap", path: "/assets/bootstrap.png" },
         ],
+        entry: [
+          "Users search for car charging stations using geolocation and the result is queried from the database onto a map and list view using AJAX and JSON.",
+          "Implemented user authentication, verification, password hashing, and MVC.",
+          "Used Chrome Dev Tools for debugging and performance optimization during the SDLC.",
+          "Scaled the website to run with 2000 users simultaneously logged in."
+        ],
       },
       {
         id: 3,
@@ -174,6 +186,10 @@ export const navLinks = [
           {name: "Unity", path: "/assets/unity.svg" },
           {name: "C#", path: "/assets/csharp.svg" },
           {name: "Blender", path: "/assets/blender.png" },
+        ],
+        entry: [
+          "Developed a comprehensive user interface with HUD elements, experience design, game logic, and a player model for a cutting-edge game.",
+          "Implemented advanced AI algorithms for zombie/enemy behavior and gameplay features that enhanced player immersion and interaction."
         ],
       },
       {
@@ -197,6 +213,11 @@ export const navLinks = [
           {name: "Git", path: "/assets/git.png" },
           {name: "GitHub", path: "/assets/github.svg" },
         ],
+        entry: [
+          "The character/runner jumping animation is implemented using key events and coroutines.",
+          "Furthermore, the player can attack enemies (bulls) by throwing weapons at them, eating their meat, and collecting coins.",
+          "The score/distance ran is calculated as the player runs."
+        ],
       },
       {
         id: 5,
@@ -217,6 +238,11 @@ export const navLinks = [
           {name: "Kotlin", path: "/assets/kotlin.svg" },
           {name: "Swift", path: "/assets/swift.svg" },
         ],
+        entry: [
+          "Developed an iOS and Android game that teaches science in a fun and intriguing manner.",
+          "It also implements touch event listeners, gestures and coroutines.",
+          "Implemented a reward system which awards various medals depending on the player’s score. The achievements e.g. high score, are stored in a text file."
+        ]
       },
       {
         id: 6,
@@ -237,6 +263,12 @@ export const navLinks = [
           {name: "Flutter", path: "/assets/flutter.svg" },
           {name: "Dart", path: "/assets/dart.svg" },
           {name: "Firebase", path: "/assets/firebase.svg" },
+        ],
+        entry: [
+          "The mobile application implements searching, filtering and sorting functionality.",
+          "Used microservices architecture to implement an order, review, recycle, cart, and likes system. This includes a point/reward system for discounts.",
+          "Includes robust security using user verification, authentication, and password hashing.",
+          "Has referenced articles on air, water, and land pollution to aid environmental awareness."
         ],
       },
       {
@@ -263,6 +295,10 @@ export const navLinks = [
           {name: "Git", path: "/assets/git.png" },
           {name: "GitHub", path: "/assets/github.svg" },
         ],
+        entry: [
+          "A website where users can CRUD notes. The notes can be searched for using the notes contect and it’s tags.",
+          "Routing is used to navigate the website and forms are used for updating the notes."
+        ],
       },
       {
         id: 8,
@@ -283,6 +319,10 @@ export const navLinks = [
           {id: 1, name: "JavaScript", path: "/assets/javascript.svg" },
           {id: 2, name: "HTML", path: "/assets/html.svg" },
         ],
+        entry: [
+          "Developed a robust regular expression-based script to efficiently parse and manipulate complex text patterns across a variety of web applications",
+          "Designed with scalability in mind, improving data extraction accuracy and speeding up content filtering processes for large datasets"
+        ]
       },
       {
         id: 9,
@@ -305,6 +345,10 @@ export const navLinks = [
           {name: "Git", path: "/assets/git.png" },
           {name: "GitHub", path: "/assets/github.svg" },
         ],
+        entry: [
+          "Engineered a 3D voxel engine from the ground up, allowing for the dynamic rendering of voxel-based environments, using quads, vertices, and indices.",
+          "Implemented key graphics optimizations, supporting real-time interaction and manipulation of large-scale voxel grids for immersive gameplay and design features"
+        ]
       },
       {
         id: 10,
@@ -327,6 +371,11 @@ export const navLinks = [
           {name: "Git", path: "/assets/git.png" },
           {name: "GitHub", path: "/assets/github.svg" },
         ],
+        entry: [
+          "Built a text automation script to send SMS at specified intervals using Trello. ",
+          "Built a site connectivity checker.",
+          "Implemented a binary search algorithm, password generator and QR code generator."
+        ]
       },
       {
         id: 11,
@@ -349,6 +398,13 @@ export const navLinks = [
           {name: "Matplotlib", path: "/assets/matplotlib.png" },
           {name: "Git", path: "/assets/git.png" },
           {name: "GitHub", path: "/assets/github.svg" },
+        ],
+        entry: [
+          "Developed a Z-score anomaly detection system to analyze continuous data streams.",
+          "Simulated a real-time data stream with seasonal patterns, random noise, and anomalies for testing robustness.",
+          "Created a visualization tool to plot data points in real-time and highlight anomalies.",
+          "Used efficient data structures for sliding window calculations, optimizing performance and memory usage.",
+          "Integrated error handling and data validation to maintain a smooth data flow."
         ],
       },
       {
@@ -375,6 +431,12 @@ export const navLinks = [
           {name: "Git", path: "/assets/git.png" },
           {name: "GitHub", path: "/assets/github.svg" },
         ],
+        entry: [
+          "Fetched crypto data using ReactAPI and redux-toolkit in JSON format.",
+          "Used Chart.js to display crypto trends along a specified time range using charts.",
+          "Made the website design responsive ensuring great user experience.",
+          "Used Chrome Dev Tools and a React Dev Tools Extension to aid in debugging."
+        ],
       },
       {
         id: 13,
@@ -396,6 +458,11 @@ export const navLinks = [
           {name: "Node.js", path: "/assets/node.png" },
           {name: "Git", path: "/assets/git.png" },
           {name: "GitHub", path: "/assets/github.svg" },
+        ],
+        entry: [
+          "Created a command-line interface (CLI) tool from scratch using Node.",
+          "Implemented core functionalities such as argument parsing, input validation, and error handling, ensuring the code was modular and maintainable.",
+          "Packaged the tool as a globally installable npm package for user accessibility."
         ],
       },
       {
@@ -424,9 +491,16 @@ export const navLinks = [
           {name: "Git", path: "/assets/git.png" },
           {name: "GitHub", path: "/assets/github.svg" },
         ],
+        entry: [
+          "Used Chrome Dev Tools and a React Dev Tools Extension to aid in debugging.",
+          "Implemented user authentication and verification, and password hashing.",
+          "Integrated a responsive design enhancing usability across devices.",
+          "Handled API requests and facilitated smooth communication for data management.",
+          "Leveraged Chrome Dev Tools for debugging and performance optimization."
+        ],
       },
       {
-        
+        id: 15,
         title: "Mario Kart Clone Web Game",
         desc: "An open-source web-based game inspired by Mario Kart, with game mechanics and user interface built using React and Redux.",
         subdesc: "Contributed to implementing game mechanics and ensuring responsive design and user-friendly interactions. Collaborated via GitHub for version control and open-source practices.",
@@ -448,6 +522,11 @@ export const navLinks = [
           {name: "JavaScript", path: "/assets/javascript.svg" },
           {name: "Git", path: "/assets/git.png" },
           {name: "GitHub", path: "/assets/github.svg" },
+        ],
+        entry: [
+          "Contributed to implementing game mechanics and user interface and guided collaborators who wanted to join the project",
+          "Ensured responsive design and user-friendly interaction.",
+          "Collaborated on GitHub using version control and open-source practices for project management.",
         ],
       }    
   ];
