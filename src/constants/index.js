@@ -528,7 +528,37 @@ export const navLinks = [
           "Ensured responsive design and user-friendly interaction.",
           "Collaborated on GitHub using version control and open-source practices for project management.",
         ],
-      }    
+      },
+      {
+        id: 16,
+        title: "Vertical Platformer Fighting Webgame",
+        desc: "A web-based platformer fighting game built using JavaScript, HTML, and CSS, featuring sprite-based animations, collision detection, and immersive audio-visual elements.",
+        subdesc: "Developed smooth player animations, responsive controls, and robust collision mechanics. Enhanced user experience with engaging background music, sound effects, and fullscreen gameplay.",
+        href: "https://your-game-link-here.com", // Replace with actual link
+        repo: "https://github.com/somunaexe/vertical-platformer-fighting-game",
+        texture: "/textures/project/platformer-fighting.mp4",
+        logo: "/assets/project-logo-platformer.png",
+        logoStyle: {
+          backgroundColor: "#2ECC71",
+          border: "0.2px solid #27AE60",
+          boxShadow: "0px 0px 60px 0px rgba(46, 204, 113, 0.5)",
+        },
+        spotlight: "/assets/spotlight5.png",
+        tags: [
+          {name: "JavaScript", path: "/assets/javascript.svg" },
+          {name: "HTML", path: "/assets/html.svg" },
+          {name: "CSS", path: "/assets/css.svg" },
+          {name: "Tiled", path: "/assets/tiled.jfif" },
+          {name: "Git", path: "/assets/git.png" },
+          {name: "GitHub", path: "/assets/github.svg" },
+        ],
+        entry: [
+          "Used event listeners to handle player actions for smooth animations between frames.",
+          "Handled collision detection using sprite coordinates and collision data generated using Tiled.",
+          "Ensured good UI/UX design by making the game fill the entire screen and adding background music and  sound effects for actions like jumping etc.",
+          "Implemented robust error handling for audio or image files to ensure seamless gameplay."
+        ],
+      },      
   ];
 
   export const calculateSizes = (isSmall, isMobile, isTablet) => {
