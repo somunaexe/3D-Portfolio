@@ -5,7 +5,9 @@ import { useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import { Center, OrbitControls } from '@react-three/drei'
-
+import Button from '../components/Button.jsx'
+import { Document, Packer, TextRun, Paragraph } from 'docx'
+import { saveAs } from 'file-saver'
 const Projects = () => {
     const [projectCount, setProjectCount] = useState(myProjects.length)
     const [searchedProjects, setSearchedProjects] = useState(myProjects)
@@ -77,6 +79,29 @@ const Projects = () => {
         findProjects(e)
     }
 
+    const generateProjectDoc = async() => {
+        console.log("started")
+
+        const doc = new Document({
+            sections: [
+                {
+                    children: [searchedProjects.map(project =>
+                    new Paragraph({
+                        children: project.entry.map(en =>
+                                    new TextRun(en)
+                                )
+                            
+                        
+                    }))
+                ]
+            }
+            ]
+        })
+
+        const blob = await Packer.toBlob(doc)
+        saveAs(blob, "tagged-projects")
+        console.log(doc)
+    }
   return (
     <section className='c-space my-20' id='projects'>
         <p className="head-text">My Projects</p>
@@ -141,7 +166,11 @@ const Projects = () => {
                         <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
                             <img src="/assets/left-arrow.png" alt="left arrow" className='w-4 h-4'/>
                         </button>
-
+                            
+                        {query.length > 0 && (
+                            <button onClick={generateProjectDoc}><Button name="Download tagged projects info" isBeam containerClass='bg-[#2455b1] text-white' /></button>
+                        )}
+                        
                         <button className="arrow-btn" onClick={() => handleNavigation('next')} style={{position: 'relative', zIndex: 10 }}>
                             <img src="/assets/right-arrow.png" alt="right arrow" className='w-4 h-4'/>
                         </button>
