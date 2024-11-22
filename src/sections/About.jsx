@@ -34,11 +34,11 @@ const About = () => {
             </div>
 
             <div className="col-span-1 xl:row-span-3">
-                <div className="grid-container">
-                    <img src="/assets/grid2.png" alt="grid-2" className="w-full sm:w-[276px] h-fit object-contain"/>
+                <div className="grid-container justify-between">
+                    <img src="/assets/stack.png" alt="grid-2" className="w-full sm:w-[276px] lg:w-[676px] h-fit object-contain"/>
                     <div>
                         <p className="grid-headtext">Tech Stack</p>
-                        <p className="grid-subtext">I specialize in JavaScript with a focus on React and Node.js ecosystems. Additionaly, I&apos;m an expert in Flutter and Unity/C# for mobile and game development respectively.</p>
+                        <p className="grid-subtext">I specialize in JavaScript with a focus on React and Node.js ecosystems.</p><p className="grid-subtext">Additionaly, I&apos;m an expert in Flutter/Kotlin/Swift and Unity/C# for mobile and game development respectively.</p>
                     </div>
                 </div>
             </div>
