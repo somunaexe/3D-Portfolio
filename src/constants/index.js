@@ -592,7 +592,37 @@ export const clientReviews = [
         "Ensured modular design by following OOP and SOLID principles for reusable components.",
         "Managed project dependencies using npm and version control with GitHub."
       ]
-    },      
+    },   
+    {
+      id: 19,
+      title: "HTTP Server for Localhost",
+      desc: "A lightweight HTTP server developed with PHP and Bash scripting.",
+      subdesc: "Supports initiating a server with commands like 'php server 80' and efficient handling of local server operations, status codes, and headers.",
+      href: null,
+      repo: "https://github.com/somunaexe/HTTP-Server",
+      texture: "/textures/project/server.mp4",
+      logo: "/assets/project-logo-http-server.png",
+      logoStyle: {
+        backgroundColor: "#F3E5F5",
+        border: "0.2px solid #CE93D8",
+        boxShadow: "0px 0px 60px 0px #BA68C84D"
+      },
+      spotlight: "/assets/spotlight3.png",
+      tags: [
+        {name: "PHP", path: "/assets/php.svg"},
+        {name: "Bash", path: "/assets/bash.png"},
+        {name: "Composer", path: "/assets/composer.jpg"},
+        {name: "Git", path: "/assets/git.png"},
+      ],
+      entry: [
+        "Developed a lightweight HTTP server with PHP and Bash scripting.",
+        "Commands like 'php server 80' initiate the server, 80 being the listening port.",
+        "Enabled seamless interaction between Bash and PHP for efficient local server operations.",
+        "Tested for robust error handling and command validation.",
+        "Implemented efficient handling of local server status codes and headers.",
+        "Managed project dependencies using Composer and version control with GitHub.",
+      ],
+    },     
   ];
 
   export const calculateSizes = (isSmall, isMobile, isTablet) => {
