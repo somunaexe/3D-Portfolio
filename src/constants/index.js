@@ -639,6 +639,24 @@ export const clientReviews = [
   export const workExperiences = [
     {
       id: 1,
+      name: 'Reality AI Lab',
+      pos: 'Generative AI Engineer',
+      duration: 'December 2024 - Present',
+      title: "I contributed to Marvel AI, an open-source AI Teaching Assistant empowering educators worldwide. I designed and fine-tuned AI models to streamline workflows, foster global collaboration, and enable teachers to focus on inspiring students.",
+      icon: "/assets/realityai.jpg",
+      animation: 'salute',
+    },
+    {
+      id: 2,
+      name: 'Entain',
+      pos: 'Customer Service Manager',
+      duration: 'December 2024 - Present',
+      title: "Delivered exceptional service, resolved escalations efficiently, and fostered customer loyalty. I excel in training staff, optimizing performance, and implementing strategies to enhance customer satisfaction.",
+      icon: "/assets/entain.jpg",
+      animation: 'clapping',
+    },
+    {
+      id: 3,
       name: 'Car2Enquiries',
       pos: 'Full Stack Web Developer',
       duration: 'December 2022 - January 2023',
@@ -647,7 +665,7 @@ export const clientReviews = [
       animation: 'victory',
     },
     {
-      id: 2,
+      id: 4,
       name: 'University of Salford',
       pos: 'Course Representative',
       duration: 'October 2021 - July 2024',
@@ -656,7 +674,7 @@ export const clientReviews = [
       animation: 'salute',
     },
     {
-      id: 3,
+      id: 5,
       name: 'Indeed Flex',
       pos: 'Retail Merchandiser',
       duration: 'November 2023 - August 2024',
@@ -665,7 +683,7 @@ export const clientReviews = [
       animation: 'clapping',
     },    
     {
-      id: 4,
+      id: 6,
       name: 'River',
       pos: 'Sales and Marketing Associate',
       duration: 'September - October 2024',
@@ -674,7 +692,7 @@ export const clientReviews = [
       animation: 'victory',
     },
     {
-      id: 5,
+      id: 7,
       name: 'Berry Recruitment',
       pos: 'Kitchen Porter',
       duration: 'February - April 2024',
@@ -683,7 +701,7 @@ export const clientReviews = [
       animation: 'salute',
     },    
     {
-      id: 6,
+      id: 8,
       name: 'The Retail People',
       pos: 'Retail Member',
       duration: 'December 2023 - January 2024',
@@ -692,7 +710,7 @@ export const clientReviews = [
       animation: 'clapping',
     },    
     {
-      id: 7,
+      id: 9,
       name: 'NCUK',
       pos: 'Student Ambassador',
       duration: 'June 2022 - July 2024',
@@ -701,7 +719,7 @@ export const clientReviews = [
       animation: 'victory',
     },    
     {
-      id: 8,
+      id: 10,
       name: 'Extra Care Charitable Trust',
       pos: 'Retail Assistant',
       duration: 'May - July 2023',
