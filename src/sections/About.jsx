@@ -91,10 +91,10 @@ const About = () => {
                             <img src={emailCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
                             <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">somunanzenwa@gmail.com</p>
                         </div>
-                        <div className="copy-container" onClick={() => handleCopy("number")}>
+                        {/* <div className="copy-container" onClick={() => handleCopy("number")}>
                             <img src={numberCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
                             <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">+44 793 654 8807</p>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
