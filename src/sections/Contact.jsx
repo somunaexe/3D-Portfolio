@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react'
-import emailjs from '@emailjs/browser'
+// import emailjs from '@emailjs/browser'
 
 const Contact = () => {
     const formRef = useRef();
+    const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         name: '',
@@ -16,36 +17,67 @@ const Contact = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true)
+        setLoading(true);
 
-        try {
-            await emailjs.send(
-                'service_3wzb08p',
-                'template_5zwtiy8', 
-                {
-                    from_name: form.name,
-                    to_name: 'Somuna',
-                    from_email: form.email,
-                    to_email: 'somunanzenwa@gmail.com',
-                    message: form.message,
-                },
-                'YnXxUAX9UmdXN5MoZ'
-            )
-
-            setLoading(false)
-            alert('Message sent successfully!')
-
-            setForm({
-                name: '',
-                email: '',
-                message: '',
-            })
-        } catch (error) {
-            setLoading(false)
-            console.log(error)
-            alert('Something went wrong!')
+        const enquiry = {
+            fullName: form.name,
+            email: form.email,
+            message: form.message,
         }
+
+        const response = await fetch("https://db4zdyqcd6.execute-api.eu-north-1.amazonaws.com/default/",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(enquiry),
+            }
+        );
+
+        const data = await response.json();
+        setMessage(data.message || "Message sent successfully!");
+
+        // reset form fields
+        setForm({
+        name: "",
+        email: "",
+        message: "",
+        });
+
+        setLoading(false);
     }
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setLoading(true)
+
+    //     try {
+    //         await emailjs.send(
+    //             'service_3wzb08p',
+    //             'template_5zwtiy8', 
+    //             {
+    //                 from_name: form.name,
+    //                 to_name: 'Somuna',
+    //                 from_email: form.email,
+    //                 to_email: 'somunanzenwa@gmail.com',
+    //                 message: form.message,
+    //             },
+    //             'YnXxUAX9UmdXN5MoZ'
+    //         )
+
+    //         setLoading(false)
+    //         alert('Message sent successfully!')
+
+    //         setForm({
+    //             name: '',
+    //             email: '',
+    //             message: '',
+    //         })
+    //     } catch (error) {
+    //         setLoading(false)
+    //         console.log(error)
+    //         alert('Something went wrong!')
+    //     }
+    // }
   return (
     <section className="c-space my-20" id="contact">
         <div className="relative min-h-screen flex items-center justify-center flex-col">
@@ -56,6 +88,9 @@ const Contact = () => {
                 <p className="text-lg text-white-600 mt-3">
                     Whether you&apos;re looking to build a new website, improve your existing platform, or bring a unique project to life, I&apos;m here to help.
                 </p>
+                {message && (
+                    <p className="text-lg text-green-500 mt-3 font-semibold">{message}</p>
+                )}
                 <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7">
                     <label className="space-y-3">
                         <span className="field-label">Full Name</span>
