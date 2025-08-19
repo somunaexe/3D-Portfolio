@@ -33,50 +33,18 @@ const Contact = () => {
         );
 
         const data = await response.json();
-        setMessage(data.message || "Message sent successfully!");
+        setMessage(data.message || "");
 
         // reset form fields
         setForm({
-        name: "",
-        email: "",
-        message: "",
+            name: "",
+            email: "",
+            message: "",
         });
 
         setLoading(false);
     }
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     setLoading(true)
-
-    //     try {
-    //         await emailjs.send(
-    //             'service_3wzb08p',
-    //             'template_5zwtiy8', 
-    //             {
-    //                 from_name: form.name,
-    //                 to_name: 'Somuna',
-    //                 from_email: form.email,
-    //                 to_email: 'somunanzenwa@gmail.com',
-    //                 message: form.message,
-    //             },
-    //             'YnXxUAX9UmdXN5MoZ'
-    //         )
-
-    //         setLoading(false)
-    //         alert('Message sent successfully!')
-
-    //         setForm({
-    //             name: '',
-    //             email: '',
-    //             message: '',
-    //         })
-    //     } catch (error) {
-    //         setLoading(false)
-    //         console.log(error)
-    //         alert('Something went wrong!')
-    //     }
-    // }
   return (
     <section className="c-space my-20" id="contact">
         <div className="relative min-h-screen flex items-center justify-center flex-col">
