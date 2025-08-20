@@ -1,4 +1,4 @@
-#testing
+#testing sync1
 name: Sync to S3
 descrion: "Brings the portfolio S3 up-to-date"
 
