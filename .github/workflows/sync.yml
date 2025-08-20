@@ -1,4 +1,4 @@
-name: Sync to S3
+name: Sync to S3 & GitHub pages
 description: "Brings the portfolio S3 up-to-date"
 
 on:
