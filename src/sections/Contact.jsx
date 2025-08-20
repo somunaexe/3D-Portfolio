@@ -47,8 +47,8 @@ const Contact = () => {
 
   return (
     <section className="c-space my-20" id="contact">
-        <div className="relative min-h-screen flex items-center justify-center flex-col">
-            <img src="/assets/terminal.png" alt="terminal background" className="absolute inset-0 min-h-screen"/>
+        <div className="relative min-h-screen flex items-center justify-center flex-col py-10">
+            <img src="/assets/terminal.png" alt="terminal background" className="absolute inset-0 w-full h-full object-cover"/>
             
             <div className="contact-container">
                 <h3 className="head-text">Let&apos;s talk</h3>
@@ -58,7 +58,7 @@ const Contact = () => {
                 {message && (
                     <p className="text-lg text-green-500 mt-3 font-semibold">{message}</p>
                 )}
-                <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7">
+                <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7 z-10 relative">
                     <label className="space-y-3">
                         <span className="field-label">Full Name</span>
                         <input type="text" name="name" value={form.name} onChange={handleChange} required className="field-input" placeholder="ex., John Doe"/>
