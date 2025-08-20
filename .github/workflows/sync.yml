@@ -35,5 +35,6 @@ jobs:
         with:
           personal_token: ${{ secrets.TARGET_REPO_PAT }}
           publish_dir: ./dist
-          destination_repo: somunaexe/somunaexe.github.io
+          external_repository: somunaexe/somunaexe.github.io
+          publish_branch: main        # the branch to push to in the target repo
           force_orphan: true
