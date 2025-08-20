@@ -1,0 +1,33 @@
+name: Sync to S3
+descrion: "Brings the portfolio S3 up-to-date"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm Install
+
+      - name: Build
+        run: npm run build
+        
+      - name: Configure AWS credentials for authorization
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{secret.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secret.AWS_SECRET_ACCESS_KEY}}
+          aws-reigion: 'eu-north-1',
+
+      - name: Deploy to S3
+        run: aws s3 sync ./dist s3://portfolio-exe --delete
+
+
