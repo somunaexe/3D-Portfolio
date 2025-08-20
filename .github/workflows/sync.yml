@@ -1,6 +1,6 @@
 #testing sync1
 name: Sync to S3
-descrion: "Brings the portfolio S3 up-to-date"
+description: "Brings the portfolio S3 up-to-date"
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: npm Install
+        run: npm install
 
       - name: Build
         run: npm run build
@@ -24,8 +24,8 @@ jobs:
       - name: Configure AWS credentials for authorization
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{secret.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key: ${{secret.AWS_SECRET_ACCESS_KEY}}
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: 'eu-north-1',
 
       - name: Deploy to S3
