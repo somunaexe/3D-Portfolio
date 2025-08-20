@@ -29,3 +29,11 @@ jobs:
 
       - name: Deploy to S3
         run: aws s3 sync ./dist s3://portfolio-exe --delete
+      
+      - name: Deploy to target repository
+        uses: peaceiris/actions-gh-pages@v6
+        with:
+          personal_token: ${{ secrets.TARGET_REPO_PAT }}
+          publish_dir: ./dist
+          destination_repo: somunaexe/somunaexe.github.io
+          force_orphan: true
