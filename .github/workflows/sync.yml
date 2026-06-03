@@ -3,7 +3,7 @@ description: "Brings the portfolio S3 up-to-date"
 
 permissions:
   contents: write
-  
+
 on:
   push:
     branches:
@@ -36,7 +36,7 @@ jobs:
       - name: Deploy to target repository
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          deploy_token: ${{ secrets.GITHUB_TOKEN }}
           external_repository: somunaexe/somunaexe.github.io
           publish_branch: pre-build
           publish_dir: ./dist
