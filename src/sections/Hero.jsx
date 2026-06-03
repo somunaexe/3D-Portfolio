@@ -5,7 +5,7 @@ import { useMediaQuery } from "react-responsive"
 import { calculateSizes } from "../constants/index.js"
 import HackerRoom from "../components/HackerRoom"
 import CanvasLoader from "../components/CanvasLoader"
-import Target from "../components/Target"
+// import Target from "../components/Target"
 import ReactLogo from "../components/ReactLogo.jsx"
 import Cube from "../components/Cube"
 import Rings from "../components/Rings"
@@ -37,7 +37,7 @@ const sizes = calculateSizes(isSmall, isMobile, isTablet)
                         />
                     </HeroCamera>
                     <group>
-                        <Target position={sizes.targetPosition} />
+                        {/* <Target position={sizes.targetPosition} /> */}
                         <ReactLogo position={sizes.reactLogoPosition} />
                         <Cube position={sizes.cubePosition} />
                         <Rings position={sizes.ringPosition} />
