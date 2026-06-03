@@ -36,7 +36,7 @@ jobs:
       - name: Deploy to target repository
         uses: peaceiris/actions-gh-pages@v4
         with:
-          deploy_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.GITHUB_TOKEN }}
           external_repository: somunaexe/somunaexe.github.io
           publish_branch: pre-build
           publish_dir: ./dist
