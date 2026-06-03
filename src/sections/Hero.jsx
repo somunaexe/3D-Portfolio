@@ -37,6 +37,7 @@ const sizes = calculateSizes(isSmall, isMobile, isTablet)
                         />
                     </HeroCamera>
                     <group>
+                        {/* Target model not working */}
                         {/* <Target position={sizes.targetPosition} /> */}
                         <ReactLogo position={sizes.reactLogoPosition} />
                         <Cube position={sizes.cubePosition} />
