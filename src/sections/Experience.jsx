@@ -33,7 +33,7 @@ const Experience = () => {
 
                 <div className="work-content">
                     <div className="sm:py-10 py-5 sm:px-5 px-2.5">
-                        {workExperiences.slice(pageNumber * 3 - 3, pageNumber * 3, 3).map(({ id, name, pos, icon, duration, title, animation }) => (
+                        {workExperiences.slice(pageNumber * 3 - 3, pageNumber * 3, 3).map(({ id, name, pos, icon, duration, title, animation, site }) => (
                             <div key={id} className="work-content_container group" onClick={() => setAnimationName(animation.toLowerCase())} onPointerOver={() => setAnimationName(animation.toLowerCase())} onPointerOut={() => setAnimationName('idle')}>
                                 <div className="flex flex-col h-full justify-start items-center py-2">
                                     <div className="work-content_logo">
@@ -45,6 +45,12 @@ const Experience = () => {
                                     <p className="font-bold text-white-800">{name}</p>
                                     <p className="text-sm mb-5">{pos} -- {duration}</p>
                                     <p className="group-hover:text-white transition ease-in-out duration-500">{title}</p>
+                                    {site && (
+                                        <a className="inline-flex items-center gap-2 mt-3 cursor-pointer text-white-600 hover:text-white" href={site} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
+                                            <p>Visit site</p>
+                                            <img src="/assets/arrow-up.png" alt="arrow-up" className="w-3 h-3" />
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         ))}

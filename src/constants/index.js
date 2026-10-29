@@ -113,7 +113,7 @@ export const clientReviews = [
       href: "https://d1hspb5r4tyd4l.cloudfront.net",
       repo: "https://github.com/somunaexe/Bulwriter",
       texture: null,
-      logo: "/assets/project-logo1.png",
+      logo: "/assets/bulwriter.png",
       logoStyle: {
         backgroundColor: "#F0F0F0",
         border: "0.2px solid #CCCCCC",
@@ -121,9 +121,9 @@ export const clientReviews = [
       },
       spotlight: "/assets/spotlight1.png",
       tags: [
-        {name: "Angular", path: null },
+        {name: "Angular", path: "/assets/angular.svg" },
         {name: "TypeScript", path: "/assets/typescript.png" },
-        {name: "Go", path: null },
+        {name: "Go", path: "/assets/go.svg" },
         {name: "Yjs", path: null },
         {name: "PostgreSQL", path: "/assets/postgresql.png" },
         {name: "Docker", path: "/assets/docker.png" },
@@ -147,7 +147,7 @@ export const clientReviews = [
       desc: "An industrial IoT platform ingesting high-frequency sensor telemetry in real time.",
       subdesc: "Azure Event Hubs pipeline with a hexagonal-architecture backend, a GraphQL data layer and real-time machine risk scoring.",
       href: null,
-      repo: "https://github.com/somunaexe",
+      repo: "https://github.com/somunaexe/IoT-Palm-Processor",
       texture: null,
       logo: "/assets/project-logo2.png",
       logoStyle: {
@@ -158,15 +158,15 @@ export const clientReviews = [
       spotlight: "/assets/spotlight2.png",
       tags: [
         {name: "Python", path: "/assets/python.svg" },
-        {name: "FastAPI", path: null },
-        {name: "GraphQL", path: null },
-        {name: "Next.js", path: null },
-        {name: "Streamlit", path: null },
-        {name: "Terraform", path: null },
+        {name: "FastAPI", path: "/assets/fastapi.svg" },
+        {name: "GraphQL", path: "/assets/graphql.svg" },
+        {name: "Next.js", path: "/assets/nextjs.svg" },
+        {name: "Streamlit", path: "/assets/streamlit.svg" },
+        {name: "Terraform", path: "/assets/terraform.svg" },
         {name: "Docker", path: "/assets/docker.png" },
-        {name: "Kubernetes", path: null },
-        {name: "Scikit-learn", path: null },
-        {name: "Azure", path: null },
+        {name: "Kubernetes", path: "/assets/kubernetes.svg" },
+        {name: "Scikit-learn", path: "/assets/scikitlearn.svg" },
+        {name: "Azure", path: "/assets/azure.svg" },
       ],
       entry: [
         "Built a real-time industrial IoT data platform using Azure Event Hubs, ingesting and processing high-frequency sensor telemetry through a structured event-driven pipeline.",
@@ -194,7 +194,7 @@ export const clientReviews = [
         {name: "Python", path: "/assets/python.svg" },
         {name: "YOLOv8/v9", path: null },
         {name: "Roboflow", path: null },
-        {name: "Google Colab", path: null },
+        {name: "Google Colab", path: "/assets/googlecolab.svg" },
       ],
       entry: [
         "Built an end-to-end computer vision pipeline — data exploration, augmentation, and training — to detect multiple animal classes in images and video.",
@@ -218,9 +218,9 @@ export const clientReviews = [
       spotlight: "/assets/spotlight4.png",
       tags: [
         {name: "Python", path: "/assets/python.svg" },
-        {name: "TensorFlow/Keras", path: null },
-        {name: "Jupyter", path: null },
-        {name: "Google Colab", path: null },
+        {name: "TensorFlow/Keras", path: "/assets/tensorflow.svg" },
+        {name: "Jupyter", path: "/assets/jupyter.svg" },
+        {name: "Google Colab", path: "/assets/googlecolab.svg" },
         {name: "Linux", path: "/assets/linux.svg" },
       ],
       entry: [
@@ -245,9 +245,9 @@ export const clientReviews = [
       spotlight: "/assets/spotlight5.png",
       tags: [
         {name: "Python", path: "/assets/python.svg" },
-        {name: "Databricks", path: null },
-        {name: "Apache Spark", path: null },
-        {name: "MLflow", path: null },
+        {name: "Databricks", path: "/assets/databricks.svg" },
+        {name: "Apache Spark", path: "/assets/apachespark.svg" },
+        {name: "MLflow", path: "/assets/mlflow.svg" },
       ],
       entry: [
         "Built a big data pipeline and trained an ALS matrix-factorisation model to recommend games based on purchase and playtime history.",
@@ -271,9 +271,9 @@ export const clientReviews = [
       spotlight: "/assets/spotlight1.png",
       tags: [
         {name: "Python", path: "/assets/python.svg" },
-        {name: "Databricks", path: null },
-        {name: "Apache Spark", path: null },
-        {name: "Jupyter", path: null },
+        {name: "Databricks", path: "/assets/databricks.svg" },
+        {name: "Apache Spark", path: "/assets/apachespark.svg" },
+        {name: "Jupyter", path: "/assets/jupyter.svg" },
       ],
       entry: [
         "Built a big data pipeline (Databricks/Apache Spark) to extract, clean, and preprocess large volumes of tweet data.",
@@ -297,8 +297,8 @@ export const clientReviews = [
       spotlight: "/assets/spotlight2.png",
       tags: [
         {name: "Python", path: "/assets/python.svg" },
-        {name: "Jupyter", path: null },
-        {name: "Google Colab", path: null },
+        {name: "Jupyter", path: "/assets/jupyter.svg" },
+        {name: "Google Colab", path: "/assets/googlecolab.svg" },
         {name: "Linux", path: "/assets/linux.svg" },
       ],
       entry: [
@@ -323,10 +323,10 @@ export const clientReviews = [
       spotlight: "/assets/spotlight3.png",
       tags: [
         {name: "AWS", path: "/assets/aws-light.png" },
-        {name: "Azure", path: null },
-        {name: "Terraform", path: null },
+        {name: "Azure", path: "/assets/azure.svg" },
+        {name: "Terraform", path: "/assets/terraform.svg" },
         {name: "Express.js", path: "/assets/express.png" },
-        {name: "GitHub Actions", path: null },
+        {name: "GitHub Actions", path: "/assets/githubactions.svg" },
         {name: "Bash", path: "/assets/bash.png" },
         {name: "HTML", path: "/assets/html.svg" },
         {name: "CSS", path: "/assets/css.svg" },
@@ -356,10 +356,10 @@ export const clientReviews = [
       tags: [
         {name: "Flutter", path: "/assets/flutter.svg" },
         {name: "Dart", path: "/assets/dart.svg" },
-        {name: "WebRTC", path: null },
-        {name: "Azure", path: null },
-        {name: "Kubernetes", path: null },
-        {name: "Terraform", path: null },
+        {name: "WebRTC", path: "/assets/webrtc.svg" },
+        {name: "Azure", path: "/assets/azure.svg" },
+        {name: "Kubernetes", path: "/assets/kubernetes.svg" },
+        {name: "Terraform", path: "/assets/terraform.svg" },
       ],
       entry: [
         "Built an MVP audio-only peer-to-peer calling mobile app, enabling users to be randomly matched and connected via real-time voice calls using WebRTC.",
@@ -373,7 +373,7 @@ export const clientReviews = [
       desc: "A complete VR FPS experience with AI-driven enemies.",
       subdesc: "Built in Unity with a custom HUD, animations, save/load, and spatial audio with reverb zones.",
       href: null,
-      repo: "https://github.com/somunaexe",
+      repo: "https://github.com/somunaexe/VR-Zombie-First-Person-Shooter",
       texture: "/textures/project/Shooting.mp4",
       logo: "/assets/project-logo5.png",
       logoStyle: {
@@ -930,8 +930,9 @@ export const clientReviews = [
       name: 'Bulfighter',
       pos: 'Full Stack Developer',
       duration: 'September 2025 - Present',
+      site: 'https://bulfighter.com',
       title: "Owned a React 18 + Vite and Express/Node.js product end to end for 100 monthly active users. Built a serverless AWS Lambda email pipeline (99% delivery/open rate) and CI/CD with GitHub Actions that cut release time from 30 minutes to 40 seconds.",
-      icon: null,
+      icon: "/assets/bulfighter.gif",
       animation: 'salute',
     },
     {
