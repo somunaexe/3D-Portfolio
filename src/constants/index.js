@@ -110,8 +110,8 @@ export const clientReviews = [
       title: "Bulwriter: Collaborative Screenwriting Platform",
       desc: "A real-time, multi-user screenwriting editor with Git-style draft history.",
       subdesc: "Angular front end with a Go server, CRDT sync via Yjs over WebSockets, Clerk auth, Stripe donations and an MCP server for AI-agent access.",
-      href: null,
-      repo: "https://github.com/somunaexe",
+      href: "https://d1hspb5r4tyd4l.cloudfront.net",
+      repo: "https://github.com/somunaexe/Bulwriter",
       texture: null,
       logo: "/assets/project-logo1.png",
       logoStyle: {
@@ -181,7 +181,7 @@ export const clientReviews = [
       desc: "A computer vision pipeline that detects multiple animal classes in images and video.",
       subdesc: "End-to-end YOLOv8/YOLOv9 workflow covering data exploration, augmentation and training, benchmarked at 84% and 75% accuracy.",
       href: null,
-      repo: "https://github.com/somunaexe",
+      repo: "https://github.com/somunaexe/ANIMAL-OBJECT-DETECTOR",
       texture: null,
       logo: "/assets/project-logo3.png",
       logoStyle: {
@@ -207,7 +207,7 @@ export const clientReviews = [
       desc: "CNN classifiers that sort scientific imagery into 6 categories such as microscopy and macroscopy.",
       subdesc: "MobileNetV2 and InceptionV3 both exceeded 80% accuracy after augmentation, with training benchmarked across cloud and local Linux.",
       href: null,
-      repo: "https://github.com/somunaexe",
+      repo: "https://github.com/somunaexe/DL-IMAGE-CLASSIFICATION",
       texture: null,
       logo: "/assets/project-logo4.png",
       logoStyle: {
@@ -260,7 +260,7 @@ export const clientReviews = [
       desc: "A Spark pipeline and classifier that scores tweets by sentiment.",
       subdesc: "Large-scale tweet extraction, cleaning and preprocessing in Databricks, with a model reaching ~85% classification accuracy.",
       href: null,
-      repo: "https://github.com/somunaexe",
+      repo: "https://github.com/somunaexe/nlp-sentiment-classifier",
       texture: null,
       logo: "/assets/project-logo1.png",
       logoStyle: {
@@ -286,7 +286,7 @@ export const clientReviews = [
       desc: "Unsupervised clustering that groups patients by similarity.",
       subdesc: "Exploratory analysis and a cleaning pipeline over patient health records, identifying 4 distinct subgroups for further study.",
       href: null,
-      repo: "https://github.com/somunaexe",
+      repo: "https://github.com/somunaexe/Patient_Clustering",
       texture: null,
       logo: "/assets/project-logo2.png",
       logoStyle: {
@@ -312,7 +312,7 @@ export const clientReviews = [
       desc: "A multi-cloud weather app across AWS and Azure with automated DNS failover.",
       subdesc: "Terraform-provisioned infrastructure, Route 53 failover, and GitHub Actions deployments to EC2 monitored through CloudWatch.",
       href: null,
-      repo: "https://github.com/somunaexe",
+      repo: "https://github.com/somunaexe/weather-tracker-with-disaster-recovery",
       texture: null,
       logo: "/assets/project-logo3.png",
       logoStyle: {
