@@ -941,7 +941,7 @@ export const clientReviews = [
       pos: 'Generative AI Engineer',
       duration: 'December 2024 - June 2025',
       title: "Designed, fine-tuned, and deployed open-source AI models powering a teaching-assistant tool that streamlines lesson planning and cuts lesson-prep time for early-adopter educators.",
-      icon: "/assets/realityai.jpg",
+      icon: "/assets/realityai.gif",
       animation: 'clapping',
     },
     {
@@ -950,7 +950,7 @@ export const clientReviews = [
       pos: 'Customer Service Manager',
       duration: 'March 2025 - September 2026',
       title: "Resolved escalated complaints with a high first-contact resolution rate, implemented performance-optimisation strategies, enforced safer gambling, and tackled money laundering.",
-      icon: "/assets/entain.jpg",
+      icon: "/assets/entain.gif",
       animation: 'victory',
     },
     {
@@ -968,7 +968,7 @@ export const clientReviews = [
       pos: 'Course Representative (Voluntary)',
       duration: 'October 2021 - May 2022, October 2023 - Present',
       title: "Represented student cohort feedback to faculty, contributing to improvements in 10+ modules.",
-      icon: '/assets/uosalford.jfif',
+      icon: '/assets/uosalford.gif',
       animation: 'salute',
     },
     {
@@ -977,7 +977,7 @@ export const clientReviews = [
       pos: 'Retail Merchandiser',
       duration: 'November 2023 - August 2024',
       title: "Performed warehousing, order packaging, and retail roles across multiple cities, achieving a 4.3/5 employer rating and joining Tesco's talent pool.",
-      icon: '/assets/indeed.jfif',
+      icon: '/assets/indeed.gif',
       animation: 'clapping',
     },    
     {
@@ -986,7 +986,7 @@ export const clientReviews = [
       pos: 'Sales and Marketing Associate',
       duration: 'September - October 2024',
       title: "Conducted market research, managed client relationships, and developed targeted marketing strategies, increasing lead generation by 20%.",
-      icon: '/assets/river.jfif',
+      icon: '/assets/river.gif',
       animation: 'victory',
     },
     {
@@ -995,7 +995,7 @@ export const clientReviews = [
       pos: 'Kitchen Porter',
       duration: 'February - April 2024',
       title: "Maintained cleanliness, prevented cross-contamination, and ensured a safe environment in school canteens.",
-      icon: '/assets/berry.jfif',
+      icon: '/assets/berry.gif',
       animation: 'salute',
     },    
     {
@@ -1004,7 +1004,7 @@ export const clientReviews = [
       pos: 'Retail Member',
       duration: 'December 2023 - January 2024',
       title: "Provided excellent customer service by maintaining cleanliness, arranging items, and restocking shelves.",
-      icon: '/assets/trp.png',
+      icon: '/assets/trp.gif',
       animation: 'clapping',
     },    
     {
@@ -1013,7 +1013,7 @@ export const clientReviews = [
       pos: 'Student Ambassador (Voluntary)',
       duration: 'June 2022 - July 2023',
       title: "Supported prospective students through Q&A sessions, improving enrolment conversion.",
-      icon: '/assets/ncuk.png',
+      icon: '/assets/ncuk.gif',
       animation: 'victory',
     },    
     {
@@ -1022,7 +1022,7 @@ export const clientReviews = [
       pos: 'Retail Assistant',
       duration: 'May - July 2023',
       title: "Supported charity operations by assisting customers, restocking, and preparing clothes for display.",
-      icon: '/assets/extracare.png',
+      icon: '/assets/extracare.gif',
       animation: 'salute',
     },
   ];
