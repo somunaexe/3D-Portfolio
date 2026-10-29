@@ -4,12 +4,161 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Themes ──
+   Every colour the site uses is a CSS variable holding an "R G B" triplet, so Tailwind
+   can add opacity (see tailwind.config.js). The slider in the navbar sets
+   <html data-theme="..."> (see hooks/useTheme.js); each block below redefines the
+   same variable names. The default block is the original dark look.
+
+   black-100 page   black-200 cards   black-300 raised / borders   black-500 stronger border
+   white-900 primary text … white-500 faint text   accent = buttons & highlights  */
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-black-100: 1 1 3;
+  --color-black-200: 14 14 16;
+  --color-black-300: 28 28 33;
+  --color-black-500: 58 58 73;
+  --color-black-600: 26 26 26;
+
+  --color-white-900: 255 255 255;
+  --color-white-800: 228 228 230;
+  --color-white-700: 214 217 233;
+  --color-white-600: 175 176 182;
+  --color-white-500: 98 100 108;
+
+  --theme-accent: 36 85 177;
+  --on-accent: 255 255 255;
+
+  --heading-grad-from: #BEC1CF;
+  --heading-grad-to: #D5D8EA;
+  --navbar-bg: 0 0 0 / 0.9;
+  --navbar-border: rgb(var(--color-black-300));
+
+  --icon-filter: none;
+  --icon-invert: invert(1);
+}
+
+/* Bulfighter dark: same neutrals, its brand-pink accent. */
+:root[data-theme="bulfighter-dark"] {
+  --theme-accent: 240 56 178;
+  --on-accent: 1 1 3;
+  --navbar-bg: 28 28 33 / 0.9;
+}
+
+/* Bulwriter dark: warm brown surfaces, gold accent. */
+:root[data-theme="bulwriter-dark"] {
+  --color-black-100: 28 26 22;
+  --color-black-200: 38 35 32;
+  --color-black-300: 48 43 36;
+  --color-black-500: 66 59 48;
+  --color-black-600: 34 31 27;
+
+  --color-white-900: 247 242 232;
+  --color-white-800: 237 230 216;
+  --color-white-700: 196 187 172;
+  --color-white-600: 156 145 132;
+  --color-white-500: 148 138 125;
+
+  --theme-accent: 217 162 86;
+  --on-accent: 36 26 10;
+
+  --heading-grad-from: #EDE6D8;
+  --heading-grad-to: #D9A256;
+  --navbar-bg: 28 26 22 / 0.92;
+  --navbar-border: rgb(var(--color-black-500));
+}
+
+/* Portfolio light: clean neutral, the original blue accent. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-black-100: 247 248 251;
+  --color-black-200: 255 255 255;
+  --color-black-300: 232 235 242;
+  --color-black-500: 205 210 223;
+  --color-black-600: 240 242 247;
+
+  --color-white-900: 10 12 20;
+  --color-white-800: 28 31 43;
+  --color-white-700: 52 57 74;
+  --color-white-600: 88 93 110;
+  --color-white-500: 105 110 126;
+
+  --theme-accent: 36 85 177;
+  --on-accent: 255 255 255;
+
+  --heading-grad-from: #1C1F2B;
+  --heading-grad-to: #2455B1;
+  --navbar-bg: 247 248 251 / 0.85;
+  --navbar-border: rgb(var(--color-black-500));
+
+  --icon-filter: invert(1);
+  --icon-invert: invert(0);
+}
+
+/* Bulfighter light: cool greys, orange accent. */
+:root[data-theme="bulfighter-light"] {
+  color-scheme: light;
+  --color-black-100: 244 244 247;
+  --color-black-200: 234 234 239;
+  --color-black-300: 255 255 255;
+  --color-black-500: 214 214 222;
+  --color-black-600: 255 255 255;
+
+  --color-white-900: 10 10 14;
+  --color-white-800: 22 23 26;
+  --color-white-700: 44 46 56;
+  --color-white-600: 75 77 87;
+  --color-white-500: 98 100 109;
+
+  --theme-accent: 255 130 16;
+  --on-accent: 22 23 26;
+
+  --heading-grad-from: #6B4E71;
+  --heading-grad-to: #8A5A8F;
+  --navbar-bg: 255 255 255 / 0.8;
+  --navbar-border: rgb(var(--color-black-500));
+
+  --icon-filter: invert(1);
+  --icon-invert: invert(0);
+}
+
+/* Bulwriter light: cream paper, bronze accent. */
+:root[data-theme="bulwriter-light"] {
+  color-scheme: light;
+  --color-black-100: 246 241 230;
+  --color-black-200: 255 255 255;
+  --color-black-300: 239 230 211;
+  --color-black-500: 226 213 184;
+  --color-black-600: 255 253 247;
+
+  --color-white-900: 27 26 23;
+  --color-white-800: 46 42 34;
+  --color-white-700: 74 67 55;
+  --color-white-600: 111 101 85;
+  --color-white-500: 112 102 87;
+
+  --theme-accent: 148 101 39;
+  --on-accent: 255 253 247;
+
+  --heading-grad-from: #2E2A22;
+  --heading-grad-to: #946527;
+  --navbar-bg: 246 241 230 / 0.9;
+  --navbar-border: rgb(var(--color-black-500));
+
+  --icon-filter: invert(1);
+  --icon-invert: invert(0);
+}
+
+
 * {
   scroll-behavior: smooth;
 }
 
 body {
-  background: #010103;
+  background: rgb(var(--color-black-100));
+  color: rgb(var(--color-white-600));
   font-family: 'General Sans', sans-serif;
 }
 
@@ -39,12 +188,12 @@ body {
   }
 
   .text-gray_gradient {
-    @apply bg-gradient-to-r from-[#BEC1CF] from-60% via-[#D5D8EA] via-60% to-[#D5D8EA] to-100% bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-[color:var(--heading-grad-from)] to-[color:var(--heading-grad-to)] bg-clip-text text-transparent;
   }
 
   /* button component */
   .btn {
-    @apply flex gap-4 items-center justify-center cursor-pointer p-3 rounded-md bg-black-300  transition-all active:scale-95 text-white mx-auto;
+    @apply flex gap-4 items-center justify-center cursor-pointer p-3 rounded-md bg-black-300  transition-all active:scale-95 text-white-900 mx-auto;
   }
 
   .btn-ping {
@@ -66,11 +215,11 @@ body {
   }
 
   .grid-headtext {
-    @apply text-xl font-semibold mb-2 text-white font-generalsans;
+    @apply text-xl font-semibold mb-2 text-white-900 font-generalsans;
   }
 
   .grid-subtext {
-    @apply text-[#afb0b6] text-base font-generalsans;
+    @apply text-white-600 text-base font-generalsans;
   }
 
   .copy-container {
@@ -83,7 +232,7 @@ body {
   }
 
   .tech-logo {
-    @apply w-10 h-10 rounded-md p-2 bg-neutral-100 bg-opacity-10 backdrop-filter backdrop-blur-lg flex justify-center items-center;
+    @apply w-10 h-10 rounded-md p-2 bg-white-800/10 backdrop-filter backdrop-blur-lg flex justify-center items-center;
   }
 
   /* clients section */
@@ -138,11 +287,12 @@ body {
   }
 
   .field-btn {
-    @apply bg-black-500 px-5 py-2 min-h-12 rounded-lg shadow-black-200 shadow-2xl flex justify-center items-center text-lg text-white gap-3;
+    @apply bg-black-500 px-5 py-2 min-h-12 rounded-lg shadow-black-200 shadow-2xl flex justify-center items-center text-lg text-white-900 gap-3;
   }
 
   .field-btn_arrow {
-    @apply w-2.5 h-2.5 object-contain invert brightness-0;
+    @apply w-2.5 h-2.5 object-contain;
+    filter: brightness(0) var(--icon-invert);
   }
 
   /*  footer */
@@ -162,10 +312,10 @@ body {
 .arrow-gradient {
   background-image: linear-gradient(
     to right,
-    rgba(255, 255, 255, 0.1) 10%,
-    rgba(255, 255, 255, 0.000025) 50%,
-    rgba(255, 255, 255, 0.000025) 50%,
-    rgba(255, 255, 255, 0.025) 100%
+    rgb(var(--color-white-800) / 0.1) 10%,
+    rgb(var(--color-white-800) / 0.000025) 50%,
+    rgb(var(--color-white-800) / 0.000025) 50%,
+    rgb(var(--color-white-800) / 0.025) 100%
   );
 }
 
@@ -194,4 +344,9 @@ body {
   100% {
     transform: rotate(0deg);
   }
+}
+
+/* White UI icons (arrows, menu, GitHub...) flip to dark on light themes. */
+.themed-icon {
+  filter: var(--icon-filter);
 }

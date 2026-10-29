@@ -28,7 +28,7 @@ const About = () => {
                     <img src="/assets/grid1.png" alt="grid-1" className="w-full sm:h-[276px] h-fit object-contain" />
                     <div>
                         <p className="grid-headtext">Hi, I'm Somuna</p>
-                        <p className="grid-subtext">Software engineering graduate with strong expertise in mobile, web, and game development. Passionate about creating innovative solutions that make a difference.</p>
+                        <p className="grid-subtext">MSc Artificial Intelligence graduate (Distinction) and full-stack software engineer. I build production-grade web apps, machine learning pipelines and cloud infrastructure, and I&apos;m an AWS Certified Cloud Practitioner.</p>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@ const About = () => {
                     <img src="/assets/stack.png" alt="grid-2" className="w-full sm:w-[276px] lg:w-[676px] h-fit object-contain"/>
                     <div>
                         <p className="grid-headtext">Tech Stack</p>
-                        <p className="grid-subtext">I specialize in JavaScript with a focus on React and Node.js ecosystems.</p><p className="grid-subtext">Additionaly, I&apos;m an expert in Flutter/Kotlin/Swift and Unity/C# for mobile and game development respectively.</p>
+                        <p className="grid-subtext">I work across the stack with React, Angular, Node.js, Go and Python, deployed on AWS and Azure with Docker, Terraform and GitHub Actions.</p><p className="grid-subtext">On the AI side: TensorFlow, YOLO, Spark and MLflow. I also build mobile (Flutter, React Native) and games (Unity/C#).</p>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@ const About = () => {
                     <div className="space-y-2">
                         <p className="grid-subtext text-center">Contact me</p>
                         <div className="copy-container" onClick={() =>handleCopy("email")}>
-                            <img src={emailCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
+                            <img src={emailCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" className="themed-icon" />
                             <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">somunanzenwa@gmail.com</p>
                         </div>
                         {/* <div className="copy-container" onClick={() => handleCopy("number")}>

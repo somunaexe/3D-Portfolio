@@ -94,7 +94,12 @@ const Projects = () => {
     }
   return (
     <section className='c-space my-20' id='projects'>
-        <p className="head-text">My Projects</p>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+            <p className="head-text">My Projects</p>
+            <a href="/projects.html" target="_blank" rel="noreferrer">
+                <Button name="Browse all projects" isBeam containerClass="!bg-accent !text-on-accent" />
+            </a>
+        </div>
         <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full">
             <div className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200">
                 <input type="text" name="search"
@@ -106,13 +111,13 @@ const Projects = () => {
                     w-full p-3 pl-10 pr-4 
                     text-md rounded-lg font-semibold
                     shadow-md focus:outline-none 
-                    focus:ring-2 focus:ring-blue-500
-                    bg-[#ffffff] placeholder-gray-500'
+                    focus:ring-2 focus:ring-accent border border-black-500
+                    bg-[#ffffff] text-neutral-900 placeholder-gray-500'
                 />
                 <div className='flex flex-wrap items-center gap-2'>
                     {query.map((tag, index) => (
-                        <div key={index} style={{position: 'relative', zIndex: 10 }} className="flex items-center gap-1 bg-[#2455b1] rounded">
-                            <span className='text-white px-1 py-1'>{tag}</span>
+                        <div key={index} style={{position: 'relative', zIndex: 10 }} className="flex items-center gap-1 bg-accent rounded">
+                            <span className='text-on-accent px-1 py-1'>{tag}</span>
                             <img src="/assets/close.svg" alt={index} className='w-6 h-6' onClick={(e) => removeTagQuery(e, index)}/>
                         </div>
                         ))
@@ -127,15 +132,15 @@ const Projects = () => {
                         <img src={currentProject.logo} alt="logo" className="w-10 h-10 shadow-sm" />
                     </div> */}
                     <div className="flex flex-col gap-5 text-white-600 my-5">
-                        <p className="text-white text-2xl font-semibold animatedText">{currentProject.title}</p>
-                        <p className="animatedText text-white">{currentProject.desc}</p>
+                        <p className="text-white-900 text-2xl font-semibold animatedText">{currentProject.title}</p>
+                        <p className="animatedText text-white-900">{currentProject.desc}</p>
                     <p className="animatedText">{currentProject.subdesc}</p>
                     </div>
                     <div className="flex items-center justify-between flex-wrap gap-5">
-                        <div className="flex items-center gap-3">
+                        <div className="flex flex-wrap items-center gap-3">
                             {currentProject.tags.map((tag, index) => (
-                                <div key={index} className='tech-logo'>
-                                    <img src={tag.path} alt={tag.name} />
+                                <div key={index} className={tag.path ? 'tech-logo' : 'tech-logo px-3 w-auto text-xs text-white-600 whitespace-nowrap'}>
+                                    {tag.path ? <img src={tag.path} alt={tag.name} /> : tag.name}
                                 </div>
                             ))}
                         </div>
@@ -154,15 +159,15 @@ const Projects = () => {
                     </div>
                     <div className="flex justify-between items-center mt-7">
                         <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
-                            <img src="/assets/left-arrow.png" alt="left arrow" className='w-4 h-4'/>
+                            <img src="/assets/left-arrow.png" alt="left arrow" className='w-4 h-4 themed-icon'/>
                         </button>
                             
                         {query.length > 0 && (
-                            <button onClick={generateProjectDoc}><Button name="Download tagged projects info" isBeam containerClass='bg-[#2455b1] text-white' /></button>
+                            <button onClick={generateProjectDoc}><Button name="Download tagged projects info" isBeam containerClass='!bg-accent !text-on-accent' /></button>
                         )}
                         
                         <button className="arrow-btn" onClick={() => handleNavigation('next')} style={{position: 'relative', zIndex: 10 }}>
-                            <img src="/assets/right-arrow.png" alt="right arrow" className='w-4 h-4'/>
+                            <img src="/assets/right-arrow.png" alt="right arrow" className='w-4 h-4 themed-icon'/>
                         </button>
                     </div>
                 </>) : (
