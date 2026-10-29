@@ -94,7 +94,12 @@ const Projects = () => {
     }
   return (
     <section className='c-space my-20' id='projects'>
-        <p className="head-text">My Projects</p>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+            <p className="head-text">My Projects</p>
+            <a href="/projects.html" target="_blank" rel="noreferrer">
+                <Button name="Browse all projects" isBeam containerClass="bg-[#2455b1] text-white" />
+            </a>
+        </div>
         <div className="grid lg:grid-cols-2 grid-cols-1 mt-12 gap-5 w-full">
             <div className="flex flex-col gap-5 relative sm:p-10 py-10 px-5 shadow-2xl shadow-black-200">
                 <input type="text" name="search"
