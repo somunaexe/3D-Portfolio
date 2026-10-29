@@ -44,9 +44,9 @@ const Experience = () => {
                                 <div className="sm:p-5 px-2.5 py-5">
                                     <p className="font-bold text-white-800">{name}</p>
                                     <p className="text-sm mb-5">{pos} -- {duration}</p>
-                                    <p className="group-hover:text-white transition ease-in-out duration-500">{title}</p>
+                                    <p className="group-hover:text-white-900 transition ease-in-out duration-500">{title}</p>
                                     {site && (
-                                        <a className="inline-flex items-center gap-2 mt-3 cursor-pointer text-white-600 hover:text-white" href={site} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
+                                        <a className="inline-flex items-center gap-2 mt-3 cursor-pointer text-white-600 hover:text-white-900" href={site} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
                                             <p>Visit site</p>
                                             <img src="/assets/arrow-up.png" alt="arrow-up" className="w-3 h-3" />
                                         </a>
@@ -57,11 +57,11 @@ const Experience = () => {
 
                         <div className="flex justify-between items-center mt-7">
                             <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
-                                <img src="/assets/left-arrow.png" alt="left arrow" className='w-4 h-4'/>
+                                <img src="/assets/left-arrow.png" alt="left arrow" className='w-4 h-4 themed-icon'/>
                             </button>
 
                             <button className="arrow-btn" onClick={() => handleNavigation('next')}>
-                                <img src="/assets/right-arrow.png" alt="right arrow" className='w-4 h-4'/>
+                                <img src="/assets/right-arrow.png" alt="right arrow" className='w-4 h-4 themed-icon'/>
                             </button>
                         </div>
                     </div>

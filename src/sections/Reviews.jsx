@@ -53,7 +53,7 @@ const Reviews = () => {
             {clientReviews.slice(pageNumber * 4 - 4, pageNumber * 4).map(({id, name, review, img, position, link, rating}) => (
                 <div key={id} className="client-review">
                     <div>
-                        <a href={link} target="_blank"><p className="text-white font-light justify-between">{checkReviewLength(review)}</p></a>
+                        <a href={link} target="_blank"><p className="text-white-900 font-light justify-between">{checkReviewLength(review)}</p></a>
                         <div className="client-content">
                             <div className="flex gap-3">
                                 <img src={img ? img : '/assets/blank_profile.png'} alt={name} className="w-12 h-12 rounded-full" />
@@ -73,11 +73,11 @@ const Reviews = () => {
         </div>
         <div className="flex justify-between items-center mt-7">
             <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
-                <img src="/assets/left-arrow.png" alt="left arrow" className='w-4 h-4'/>
+                <img src="/assets/left-arrow.png" alt="left arrow" className='w-4 h-4 themed-icon'/>
             </button>
 
             <button className="arrow-btn" onClick={() => handleNavigation('next')}>
-                <img src="/assets/right-arrow.png" alt="right arrow" className='w-4 h-4'/>
+                <img src="/assets/right-arrow.png" alt="right arrow" className='w-4 h-4 themed-icon'/>
             </button>
         </div>
     </section>

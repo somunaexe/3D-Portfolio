@@ -48,7 +48,7 @@ const Contact = () => {
   return (
     <section className="c-space my-20" id="contact">
         <div className="relative min-h-screen flex items-center justify-center flex-col py-10">
-            <img src="/assets/terminal.png" alt="terminal background" className="absolute inset-0 w-full h-full object-cover"/>
+            <img src="/assets/terminal.png" alt="terminal background" className="absolute inset-0 w-full h-full object-cover themed-icon"/>
             
             <div className="contact-container">
                 <h3 className="head-text">Let&apos;s talk</h3>

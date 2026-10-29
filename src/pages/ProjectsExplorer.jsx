@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import ThemeSlider from '../components/ThemeSlider.jsx'
 import { PLATFORMS, STACKS } from '../constants/projectMeta.js'
 import {
     allProjects,
@@ -15,7 +16,7 @@ import {
 } from '../lib/projectSearch.js'
 
 const controlClass =
-    'w-full rounded-lg bg-black-300 text-white px-3 py-2 border border-black-500 focus:outline-none focus:ring-2 focus:ring-blue-500'
+    'w-full rounded-lg bg-black-300 text-white-900 px-3 py-2 border border-black-500 focus:outline-none focus:ring-2 focus:ring-accent'
 
 const formatDate = (date) =>
     date ? new Date(`${date}T00:00:00`).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' }) : null
@@ -43,12 +44,12 @@ const ProjectCard = ({ project }) => {
     return (
         <article className="flex flex-col gap-4 rounded-xl bg-black-200 border border-black-300 p-5 hover:border-black-500 transition-colors">
             <div className="flex flex-wrap items-center gap-2 text-xs">
-                <span className="rounded-full bg-blue-500/20 text-blue-200 px-2.5 py-1">{project.platform}</span>
-                <span className="rounded-full bg-white/10 text-white-700 px-2.5 py-1">{project.stack}</span>
+                <span className="rounded-full bg-accent/20 text-white-800 px-2.5 py-1">{project.platform}</span>
+                <span className="rounded-full bg-white-800/10 text-white-700 px-2.5 py-1">{project.stack}</span>
                 <span className="ml-auto text-white-500">{added ? `Added ${added}` : 'Date unavailable'}</span>
             </div>
             <div>
-                <h2 className="text-white text-xl font-semibold">{project.title}</h2>
+                <h2 className="text-white-900 text-xl font-semibold">{project.title}</h2>
                 <p className="mt-2 text-white-600">{project.desc}</p>
             </div>
             <p className="text-sm text-white-500">{project.languages.join(' · ')}</p>
@@ -64,11 +65,11 @@ const ProjectCard = ({ project }) => {
             </div>
             <div className="flex flex-wrap gap-4 mt-auto pt-2 text-white-600">
                 {project.href && (
-                    <a className="flex items-center gap-2 hover:text-white" href={project.href} target="_blank" rel="noreferrer">
+                    <a className="flex items-center gap-2 hover:text-white-900" href={project.href} target="_blank" rel="noreferrer">
                         Live site <img src="/assets/arrow-up.png" alt="" className="w-3 h-3" />
                     </a>
                 )}
-                <a className="flex items-center gap-2 hover:text-white" href={project.repo} target="_blank" rel="noreferrer">
+                <a className="flex items-center gap-2 hover:text-white-900" href={project.repo} target="_blank" rel="noreferrer">
                     GitHub <img src="/assets/arrow-up.png" alt="" className="w-3 h-3" />
                 </a>
             </div>
@@ -78,7 +79,7 @@ const ProjectCard = ({ project }) => {
 
 const Pagination = ({ page, totalPages, onChange }) => {
     if (totalPages <= 1) return null
-    const stepClass = 'min-w-10 h-10 px-3 rounded-lg border border-black-500 bg-black-300 text-white disabled:opacity-40 disabled:cursor-not-allowed'
+    const stepClass = 'min-w-10 h-10 px-3 rounded-lg border border-black-500 bg-black-300 text-white-900 disabled:opacity-40 disabled:cursor-not-allowed'
     return (
         <nav aria-label="Pagination" className="flex flex-wrap items-center justify-center gap-2 mt-10">
             <button className={stepClass} onClick={() => onChange(page - 1)} disabled={page === 1}>
@@ -92,7 +93,7 @@ const Pagination = ({ page, totalPages, onChange }) => {
                         key={item}
                         onClick={() => onChange(item)}
                         aria-current={item === page ? 'page' : undefined}
-                        className={`${stepClass} ${item === page ? '!bg-blue-600 !border-blue-600' : ''}`}
+                        className={`${stepClass} ${item === page ? '!bg-accent !border-accent !text-on-accent' : ''}`}
                     >
                         {item}
                     </button>
@@ -143,13 +144,14 @@ const ProjectsExplorer = () => {
 
     return (
         <div className="min-h-screen text-white-600">
-            <header className="border-b border-black-300 bg-black/90">
+            <header className="border-b border-[color:var(--navbar-border)] bg-[rgb(var(--navbar-bg))]">
                 <div className="max-w-7xl mx-auto c-space py-5 flex items-center justify-between gap-4">
-                    <a href="/#projects" className="flex items-center gap-2 text-neutral-400 hover:text-white transition-colors">
-                        <img src="/assets/left-arrow.png" alt="" className="w-4 h-4" />
+                    <a href="/#projects" className="flex items-center gap-2 text-white-600 hover:text-white-900 transition-colors">
+                        <img src="/assets/left-arrow.png" alt="" className="w-4 h-4 themed-icon" />
                         Back to portfolio
                     </a>
-                    <span className="font-bold text-xl text-neutral-400">SuperSomu</span>
+                    <ThemeSlider className="hidden sm:flex ml-auto mr-6" />
+                    <span className="font-bold text-xl text-white-600">SuperSomu</span>
                 </div>
             </header>
 
@@ -193,7 +195,7 @@ const ProjectsExplorer = () => {
                                         key={language}
                                         aria-pressed={active}
                                         onClick={() => toggleLanguage(language)}
-                                        className={`rounded-full px-3 py-1 text-sm border transition-colors ${active ? 'bg-blue-600 border-blue-600 text-white' : 'bg-black-300 border-black-500 text-white-600 hover:text-white'}`}
+                                        className={`rounded-full px-3 py-1 text-sm border transition-colors ${active ? 'bg-accent border-accent text-on-accent' : 'bg-black-300 border-black-500 text-white-600 hover:text-white'}`}
                                     >
                                         {language}
                                     </button>
@@ -208,7 +210,7 @@ const ProjectsExplorer = () => {
                             Has a live site
                         </label>
                         {isFiltered && (
-                            <button className="text-sm underline hover:text-white" onClick={clearFilters}>
+                            <button className="text-sm underline hover:text-white-900" onClick={clearFilters}>
                                 Clear filters
                             </button>
                         )}
@@ -223,7 +225,7 @@ const ProjectsExplorer = () => {
 
                 {results.total === 0 ? (
                     <div className="rounded-xl border border-dashed border-black-500 p-10 text-center">
-                        <p className="text-white text-lg">Nothing found</p>
+                        <p className="text-white-900 text-lg">Nothing found</p>
                         <p className="mt-1">Try fewer words or clear a filter.</p>
                     </div>
                 ) : (

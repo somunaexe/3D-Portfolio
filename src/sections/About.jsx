@@ -88,7 +88,7 @@ const About = () => {
                     <div className="space-y-2">
                         <p className="grid-subtext text-center">Contact me</p>
                         <div className="copy-container" onClick={() =>handleCopy("email")}>
-                            <img src={emailCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" />
+                            <img src={emailCopied ? 'assets/tick.svg' : 'assets/copy.svg'} alt="copy" className="themed-icon" />
                             <p className="lg:text-2xl md:text-xl font-medium text-gray_gradient text-white">somunanzenwa@gmail.com</p>
                         </div>
                         {/* <div className="copy-container" onClick={() => handleCopy("number")}>
