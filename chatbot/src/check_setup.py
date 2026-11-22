@@ -18,6 +18,19 @@ from importlib import import_module
 ME = os.path.abspath(__file__)
 STEPS = []   # filled by @step, in order
 
+CRASH_ON_IMPORT_ADVICE = (
+    "A crash while loading usually means a clashing Microsoft C++ runtime DLL (common with Anaconda's Python) or an "
+    "incompatible build. Create the virtual environment from a python.org Python instead of Anaconda's."
+)
+
+
+def conda_warning(prefix):
+    """Warning text if the Python in use comes from Anaconda/Miniconda, else None."""
+    if any(marker in prefix.lower() for marker in ("anaconda", "miniconda", "conda")):
+        return ("This Python comes from Anaconda/conda. It bundles its own, older Microsoft C++ runtime, which is a known "
+                "cause of silent crashes in onnxruntime on Windows.")
+    return None
+
 
 def step(name, hint, required=True, timeout=120):
     def decorate(function):
@@ -40,7 +53,7 @@ for _module, _why in [
     ("onnxruntime", "onnxruntime runs the embedding model; a crash here usually means the build doesn't suit your CPU"),
     ("chromadb", "chromadb is the vector database"),
 ]:
-    step(f"{_module} loads", _why + ". Try: pip install --force-reinstall " + _module)(_loads(_module))
+    step(f"{_module} loads", _why + ". " + CRASH_ON_IMPORT_ADVICE)(_loads(_module))
 
 
 @step("other libraries installed", "Activate the virtual environment, then: pip install -r chatbot/requirements-dev.txt")
@@ -150,7 +163,12 @@ def run_child(index):
 
 
 def main():
-    print(f"Python {sys.version.split()[0]} on {platform.system()} {platform.machine()} ({platform.processor() or 'CPU unknown'})\n")
+    print(f"Python {sys.version.split()[0]} on {platform.system()} {platform.machine()} ({platform.processor() or 'CPU unknown'})")
+    print(f"Python installed at: {sys.base_prefix}")
+    warning = conda_warning(sys.base_prefix)
+    if warning:
+        print(f"WARNING: {warning}")
+    print()
     failures = []
     for index, spec in enumerate(STEPS):
         status, text = run_isolated([sys.executable, "-X", "faulthandler", ME, "--run", str(index)], spec["timeout"])

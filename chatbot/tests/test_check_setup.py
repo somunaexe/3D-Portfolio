@@ -70,3 +70,17 @@ def test_a_crash_in_one_step_does_not_stop_the_steps_after_it(tmp_path):
     assert "[FAIL] crashing step: crashed: exit code 5" in out
     assert "[OK  ] last step: still ran" in out
     assert "Needs attention: crashing step" in out and done.returncode == 1
+
+
+@pytest.mark.parametrize(
+    "prefix, warns",
+    [
+        (r"C:\Users\ADMIN\anaconda3", True),
+        (r"C:\Users\me\miniconda3\envs\x", True),
+        ("/opt/conda", True),
+        (r"C:\Users\ADMIN\AppData\Local\Programs\Python\Python312", False),
+        ("/usr", False),
+    ],
+)
+def test_it_warns_when_python_comes_from_conda(prefix, warns):
+    assert (check_setup.conda_warning(prefix) is not None) is warns
