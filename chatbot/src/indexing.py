@@ -10,13 +10,18 @@ phone number removed by redact_cv.py) and produces one Chunk per:
     * individual project        tagged with its role group (the H2 it sits under)
     * Projects overview         the intro and "Additional projects" lines that belong to no project
 
+Then embeds every chunk and stores it in a local Chroma database (chatbot/chroma_db):
+
     python chatbot/src/indexing.py            # prints a summary of the chunks
+    python chatbot/src/indexing.py --index    # ...and embeds + stores them (rebuilds from scratch)
 """
 import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import chromadb
+from chromadb.utils.embedding_functions import ONNXMiniLM_L6_V2
 from docx import Document
 from docx.oxml.ns import qn
 from docx.table import Table
@@ -26,6 +31,9 @@ from redact_cv import PHONE
 from tag_cv_headings import is_tech_line, run_format
 
 CV_PATH = Path(__file__).resolve().parents[1] / "data" / "Main_CV_Improved.docx"
+
+DB_DIR = Path(__file__).resolve().parents[1] / "chroma_db"
+COLLECTION = "portfolio_cv"
 
 PROJECTS = "PROJECTS"
 SKILLS = "KEY SKILLS"
@@ -208,11 +216,58 @@ def build_chunks(path=CV_PATH):
     return chunks
 
 
-def main():
+def embedding_function():
+    """The ONE embedding model, defined in a single place.
+
+    Stored chunk vectors and later query vectors must come from the same model, so
+    anything that embeds text (indexing now, the query pipeline later) must call this.
+    all-MiniLM-L6-v2 runs locally via ONNX: 384 dimensions, no API key.
+    """
+    return ONNXMiniLM_L6_V2()
+
+
+def chunk_metadata(chunk):
+    """Chroma metadata must be flat str/int/float/bool, and may not hold None or lists."""
+    values = {
+        "kind": chunk.kind,
+        "title": chunk.title,
+        "section": chunk.section,
+        "role_group": chunk.role_group,
+        "company": chunk.company,
+        "dates": chunk.detail if chunk.kind == "experience" else None,
+        "links": " ".join(chunk.links) or None,
+    }
+    return {key: value for key, value in values.items() if value is not None}
+
+
+def index_chunks(chunks, db_dir=DB_DIR):
+    """Embed and store every chunk. Rebuilds the collection so stale chunks never linger."""
+    client = chromadb.PersistentClient(path=str(db_dir))
+    existing = [c if isinstance(c, str) else c.name for c in client.list_collections()]
+    if COLLECTION in existing:
+        client.delete_collection(COLLECTION)
+    collection = client.create_collection(
+        COLLECTION,
+        embedding_function=embedding_function(),
+        configuration={"hnsw": {"space": "cosine"}},
+    )
+    collection.add(
+        ids=[chunk.id for chunk in chunks],
+        documents=[chunk.text for chunk in chunks],
+        metadatas=[chunk_metadata(chunk) for chunk in chunks],
+    )
+    return collection
+
+
+def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
     chunks = build_chunks()
     print(f"{len(chunks)} chunks from {CV_PATH.name}\n")
     for chunk in chunks:
         print(f"{chunk.id:<58} {chunk.kind:<18} {len(chunk.text):>5} chars  {chunk.detail or ''}")
+    if "--index" in argv:
+        collection = index_chunks(chunks)
+        print(f"\nStored {collection.count()} chunks in {DB_DIR} (collection {COLLECTION!r}, cosine distance)")
     return 0
 
 
