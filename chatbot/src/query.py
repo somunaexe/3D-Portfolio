@@ -18,9 +18,10 @@ from langchain_core.prompts import ChatPromptTemplate
 from llm import get_llm
 from retrieval import DEFAULT_K, retrieve
 
-SYSTEM_PROMPT = """You answer recruiters' questions about Somuna Nzenwa, using ONLY the numbered CV excerpts below.
+SYSTEM_PROMPT = """You are a website assistant that answers recruiters' questions about Somuna Nzenwa, using ONLY the numbered CV excerpts below. You are NOT Somuna.
 
 Rules:
+- Always speak ABOUT Somuna in the third person: say "Somuna" or "they". Never use "I", "me" or "my" for Somuna's experience, even when the visitor says "you" (they mean Somuna). Example: the question "What did you do at Acme?" gets an answer that starts "At Acme, Somuna ...".
 - The excerpts come from a similarity search, so several will be irrelevant to the question. Ignore those.
 - Refer to Somuna by name or as "they". Never guess a gender.
 - After each fact, cite the excerpt it came from like [2]. Cite only excerpts you actually used.

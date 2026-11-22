@@ -8,11 +8,24 @@ because stored and query vectors must come from the same model.
         and OLLAMA_MODEL=<a name from `curl https://ollama.com/api/tags`>. With a key set, it is sent as
         "Authorization: Bearer <key>". A local server needs no key.
     LLM_PROVIDER=openai              OPENAI_MODEL=gpt-4o-mini    OPENAI_API_KEY=...   (read by LangChain)
-    LLM_TIMEOUT_SECONDS=30           give up on a stuck model (a public endpoint must not hang)
+    LLM_TIMEOUT_SECONDS              give up on a stuck model. Default 120 for Ollama on this computer (a CPU can take a
+                                     minute per answer), 30 for hosted models (a public endpoint must not hang)
 
 Providers are imported lazily so you only need the one you use installed and configured.
 """
 import os
+from urllib.parse import urlparse
+
+
+def request_timeout():
+    """Seconds to wait for the model. A local model on a CPU can legitimately take over a minute per answer;
+    hosted models answer in seconds, and a public endpoint must not hang on a stuck one."""
+    override = os.environ.get("LLM_TIMEOUT_SECONDS")
+    if override:
+        return float(override)
+    provider = os.environ.get("LLM_PROVIDER", "ollama").lower()
+    host = urlparse(os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")).hostname or ""
+    return 120.0 if provider == "ollama" and host in ("localhost", "127.0.0.1", "::1") else 30.0
 
 
 def describe_llm():
@@ -25,7 +38,11 @@ def describe_llm():
     return f"{provider}, model {model} at {url}"
 
 
-def troubleshooting_hint():
+def troubleshooting_hint(error=None):
+    description = f"{type(error).__name__} {error}".lower() if error is not None else ""
+    if "timeout" in description or "timed out" in description:
+        return ("The model took too long to answer (a local model on a CPU can be slow). Raise LLM_TIMEOUT_SECONDS "
+                "(for example 300), or use a smaller or hosted model.")
     if os.environ.get("LLM_PROVIDER", "ollama").lower() == "openai":
         return "Check that OPENAI_API_KEY is set and valid, and that you have network access."
     return ("Is Ollama running, and is the model downloaded? Try `ollama list` (and `ollama pull <model>`). "
@@ -34,7 +51,7 @@ def troubleshooting_hint():
 
 def get_llm():
     provider = os.environ.get("LLM_PROVIDER", "ollama").lower()
-    timeout = float(os.environ.get("LLM_TIMEOUT_SECONDS", "30"))
+    timeout = request_timeout()
     if provider == "ollama":
         from langchain_ollama import ChatOllama
 

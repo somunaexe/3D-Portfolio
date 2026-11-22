@@ -2,6 +2,7 @@
 
     python chatbot/src/chat.py demo-1 "Tell me about Bulwriter"
     python chatbot/src/chat.py demo-1 "What technologies does it use?"     # "it" = Bulwriter
+    python chatbot/src/chat.py --repl          # an interactive chat; remembers the conversation even without Redis
 
 Why condense: retrieval embeds the question text. "What technologies does it use?" carries no
 information about WHICH project, so it would retrieve the wrong chunks. Before retrieving, one
@@ -14,6 +15,7 @@ without conversation context) and `memory_error` says what went wrong.
 """
 import re
 import sys
+import uuid
 from dataclasses import dataclass
 
 import redis
@@ -21,7 +23,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 from llm import describe_llm, get_llm, troubleshooting_hint
-from memory import ChatMemory
+from memory import ChatMemory, InMemoryChatMemory
 from query import Answer, answer
 
 CONDENSE_SYSTEM = """Rewrite the visitor's latest message as ONE standalone question that makes sense without the conversation, so it can be used to search a CV.
@@ -94,22 +96,8 @@ def chat(chat_id, question, memory=None, llm=None, **options):
     return ChatResult(answer=result, standalone_question=standalone, history_turns=len(history), memory_error=memory_error)
 
 
-def main(argv=None):
-    args = sys.argv[1:] if argv is None else argv
-    if len(args) != 2:
-        print(__doc__)
-        return 1
-    chat_id, question = args
-    # Windows consoles often cannot show every character a model writes (arrows, emoji): show a ? rather than crash.
-    if hasattr(sys.stdout, "reconfigure"):
-        sys.stdout.reconfigure(errors="replace")
-    print(f"(using {describe_llm()})")
-    try:
-        result = chat(chat_id, question)
-    except Exception as error:   # a command-line tool: say what went wrong instead of a stack trace
-        print(f"\nCould not get an answer: {type(error).__name__}: {error}")
-        print(troubleshooting_hint())
-        return 1
+def show(result, question):
+    """Print one answer for the command line. Returns an exit code (1 if the model said nothing)."""
     if result.standalone_question != question:
         print(f"(searched for: {result.standalone_question})")
     if not result.answer.answer.strip():
@@ -122,6 +110,72 @@ def main(argv=None):
     if result.memory_error:
         print(f"\n   note: {result.memory_error}")
     return 0
+
+
+def pick_memory():
+    """Redis if it is running, otherwise an in-process store. Returns (memory, note_or_None)."""
+    try:
+        memory = ChatMemory()
+        memory.client.ping()
+        return memory, None
+    except redis.RedisError:
+        return InMemoryChatMemory(), "Redis isn't running, so this conversation is remembered only while this window stays open."
+
+
+def repl():
+    """An interactive chat in one process, so follow-up questions work without Redis."""
+    print(f"(using {describe_llm()})")
+    try:
+        llm = get_llm()
+    except Exception as error:
+        print(f"Could not set up the model: {type(error).__name__}: {error}")
+        return 1
+    memory, note = pick_memory()
+    if note:
+        print(note)
+    print('Type a question and press Enter. Type "exit" (or press Ctrl+C) to stop.')
+    chat_id = uuid.uuid4().hex
+    while True:
+        try:
+            question = input("\nyou> ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            return 0
+        if question.lower() in ("exit", "quit"):
+            return 0
+        if not question:
+            continue
+        if len(question) > 200:
+            print("Please keep questions under 200 characters.")
+            continue
+        try:
+            result = chat(chat_id, question, memory=memory, llm=llm)
+        except Exception as error:
+            print(f"\nCould not get an answer: {type(error).__name__}: {error}")
+            print(troubleshooting_hint(error))
+            continue
+        show(result, question)
+
+
+def main(argv=None):
+    args = sys.argv[1:] if argv is None else argv
+    # Windows consoles often cannot show every character a model writes (arrows, emoji): show a ? rather than crash.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")
+    if args == ["--repl"]:
+        return repl()
+    if len(args) != 2:
+        print(__doc__)
+        return 1
+    chat_id, question = args
+    print(f"(using {describe_llm()})")
+    try:
+        result = chat(chat_id, question)
+    except Exception as error:   # a command-line tool: say what went wrong instead of a stack trace
+        print(f"\nCould not get an answer: {type(error).__name__}: {error}")
+        print(troubleshooting_hint(error))
+        return 1
+    return show(result, question)
 
 
 if __name__ == "__main__":

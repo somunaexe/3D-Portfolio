@@ -93,3 +93,48 @@ def test_concurrent_requests_on_one_chat_do_not_lose_turns(redis_client):
         thread.join()
     stored = {turn["question"] for turn in memory.load("shared")}
     assert stored == {f"q{n}" for n in range(40)}
+
+
+# --- InMemoryChatMemory: the same behaviour, with no Redis ----------------------------------------
+
+from memory import InMemoryChatMemory  # noqa: E402
+
+
+def test_in_memory_turns_round_trip_oldest_first():
+    memory = InMemoryChatMemory()
+    memory.append("chat-id-0123456789", "first?", "one")
+    memory.append("chat-id-0123456789", "second?", "two")
+    assert memory.load("chat-id-0123456789") == [
+        {"question": "first?", "answer": "one"},
+        {"question": "second?", "answer": "two"},
+    ]
+
+
+def test_in_memory_history_is_trimmed_isolated_and_clearable():
+    memory = InMemoryChatMemory(max_turns=2)
+    for number in range(1, 4):
+        memory.append("alice-0123456789abc", f"q{number}", f"a{number}")
+    assert [t["question"] for t in memory.load("alice-0123456789abc")] == ["q2", "q3"]
+    assert memory.load("bob-0123456789abcdef") == []
+    memory.clear("alice-0123456789abc")
+    assert memory.load("alice-0123456789abc") == []
+
+
+def test_in_memory_rejects_untrusted_chat_ids_like_the_redis_version():
+    with pytest.raises(ValueError, match="chat_id"):
+        InMemoryChatMemory().load("../etc/passwd")
+
+
+def test_in_memory_load_returns_a_copy_so_callers_cannot_corrupt_the_history():
+    memory = InMemoryChatMemory()
+    memory.append("chat-id-0123456789", "q", "a")
+    memory.load("chat-id-0123456789").clear()
+    assert len(memory.load("chat-id-0123456789")) == 1
+
+
+def test_in_memory_concurrent_appends_lose_nothing():
+    memory = InMemoryChatMemory(max_turns=100)
+    threads = [threading.Thread(target=memory.append, args=("shared-0123456789abc", f"q{n}", "a")) for n in range(40)]
+    [t.start() for t in threads]
+    [t.join() for t in threads]
+    assert len(memory.load("shared-0123456789abc")) == 40
