@@ -68,6 +68,20 @@ Keep the key in your environment or a git-ignored `.env`, never in the code or t
   what protect the LLM bill. If you use OpenAI, also set a monthly spend cap in your OpenAI account.
 - **Conversations** live in Redis for 24 hours after the last message (last 10 turns).
 
+## The chat widget on the website
+
+`src/components/ChatWidget.jsx` is a chat icon fixed to the bottom-right of the portfolio. Hovering shows "Ask me about
+Somuna."; clicking opens a small panel that doesn't block the page. It calls this service's `POST /chat`.
+
+- **Development:** `npm run dev` points it at `http://localhost:8000` automatically; start the service first.
+- **Production:** set `VITE_CHATBOT_URL` to the deployed service's URL when building. In GitHub that is the repo variable
+  *Settings > Secrets and variables > Actions > Variables > `VITE_CHATBOT_URL`* (the deploy workflow passes it to the build).
+  With no URL, the icon is not shown, so the site never ships a chatbot that can't answer.
+- The service must allow the site's origin: set `ALLOWED_ORIGINS` (the default already includes
+  `https://somunaexe.github.io` and `http://localhost:5173`).
+- A visitor's `chat_id` (a random UUID) and the conversation are kept in `sessionStorage`, so a reload keeps the chat and
+  closing the tab ends it.
+
 ## Tests
 
 ```bash
