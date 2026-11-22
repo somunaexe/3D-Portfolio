@@ -72,7 +72,7 @@ def test_more_excerpts_put_more_docker_chunks_in_front_of_the_llm(db_dir):
 def test_citations_become_sources_in_order_ignoring_duplicates_and_bad_numbers(db_dir):
     result, _ = ask(db_dir, "What did you do at Entain?", reply="They resolved complaints [2][1]. Also [2] and [99] and [0].", k=5)
     assert [s["id"] for s in result.sources] == [result.retrieved[1]["id"], result.retrieved[0]["id"]]
-    assert set(result.sources[0]) == {"id", "title", "kind", "links"}
+    assert set(result.sources[0]) == {"id", "title", "kind", "section", "links"}
 
 
 def test_an_answer_with_no_citations_has_no_sources(db_dir):

@@ -4,12 +4,11 @@ from pathlib import Path
 
 import pytest
 import redis
-from langchain_core.messages import AIMessage
-from langchain_core.runnables import RunnableLambda
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 import chat  # noqa: E402
 import indexing  # noqa: E402
+from fakes import DeadRedis, FakeLLM  # noqa: E402
 from memory import ChatMemory  # noqa: E402
 from retrieval import retrieve  # noqa: E402
 
@@ -21,24 +20,6 @@ def db_dir(tmp_path_factory):
     path = tmp_path_factory.mktemp("chroma")
     indexing.index_chunks(indexing.build_chunks(), db_dir=path)
     return path
-
-
-class FakeLLM:
-    """Replies to the condense step and the answer step separately, and records both."""
-
-    def __init__(self, answer="They built it [1].", condensed="What technologies does Bulwriter use?"):
-        self.answer, self.condensed = answer, condensed
-        self.calls = []   # [("condense" | "answer", [system, human])]
-        self.runnable = RunnableLambda(self._call)
-
-    def _call(self, prompt_value):
-        messages = prompt_value.to_messages()
-        kind = "condense" if messages[0].content.startswith("Rewrite the visitor") else "answer"
-        self.calls.append((kind, messages))
-        return AIMessage(content=self.condensed if kind == "condense" else self.answer)
-
-    def kinds(self):
-        return [kind for kind, _ in self.calls]
 
 
 def talk(db_dir, memory, fake, chat_id, question, **options):
@@ -129,16 +110,6 @@ def test_an_invalid_chat_id_is_rejected_before_any_llm_call(db_dir, redis_client
     with pytest.raises(ValueError, match="chat_id"):
         talk(db_dir, ChatMemory(redis_client), fake, "bad id!", "hello")
     assert fake.calls == []
-
-
-class DeadRedis:
-    """Every operation fails like a Redis outage."""
-
-    def get(self, *args, **kwargs):
-        raise redis.ConnectionError("connection refused")
-
-    def pipeline(self, *args, **kwargs):
-        raise redis.ConnectionError("connection refused")
 
 
 def test_the_visitor_still_gets_an_answer_when_redis_is_down(db_dir):

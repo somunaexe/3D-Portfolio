@@ -51,7 +51,13 @@ def cited_sources(text, chunks):
         if 1 <= number <= len(chunks) and number not in seen:
             seen.append(number)
     return [
-        {"id": chunks[n - 1]["id"], "title": chunks[n - 1]["title"], "kind": chunks[n - 1]["kind"], "links": chunks[n - 1].get("links", "")}
+        {
+            "id": chunks[n - 1]["id"],
+            "title": chunks[n - 1]["title"],
+            "kind": chunks[n - 1]["kind"],
+            "section": chunks[n - 1].get("section"),   # absent for the contact chunk
+            "links": chunks[n - 1].get("links", ""),
+        }
         for n in seen
     ]
 

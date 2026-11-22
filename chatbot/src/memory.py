@@ -33,7 +33,10 @@ def validate_chat_id(chat_id):
 
 class ChatMemory:
     def __init__(self, client=None, max_turns=MAX_TURNS, ttl_seconds=TTL_SECONDS):
-        self.client = client or redis.Redis.from_url(REDIS_URL, decode_responses=True)
+        # Short timeouts: a dead Redis should fail fast (and chat() then answers without memory), not hang.
+        self.client = client or redis.Redis.from_url(
+            REDIS_URL, decode_responses=True, socket_timeout=2, socket_connect_timeout=2
+        )
         self.max_turns = max_turns
         self.ttl_seconds = ttl_seconds
 
