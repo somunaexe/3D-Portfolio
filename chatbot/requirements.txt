@@ -1,2 +1,5 @@
 python-docx==1.2.0
 chromadb==1.5.9
+langchain-core==1.8.4
+langchain-ollama==1.1.0
+langchain-openai==1.8.5

@@ -8,9 +8,7 @@ is involved. Distance is cosine distance: 0 = identical direction, bigger = less
 """
 import sys
 
-import chromadb
-
-from indexing import COLLECTION, DB_DIR, embedding_function
+from retrieval import retrieve
 
 QUESTIONS = [
     "What did you do at Entain?",
@@ -28,21 +26,11 @@ QUESTIONS = [
 ]
 
 
-def retrieve(question, k=3, db_dir=DB_DIR):
-    client = chromadb.PersistentClient(path=str(db_dir))
-    collection = client.get_collection(COLLECTION, embedding_function=embedding_function())
-    result = collection.query(query_texts=[question], n_results=k)
-    return [
-        {"id": id_, "distance": distance, **metadata}
-        for id_, distance, metadata in zip(result["ids"][0], result["distances"][0], result["metadatas"][0])
-    ]
-
-
 def main(argv=None):
     questions = (sys.argv[1:] if argv is None else argv) or QUESTIONS
     for question in questions:
         print(f"\nQ: {question}")
-        for rank, hit in enumerate(retrieve(question), start=1):
+        for rank, hit in enumerate(retrieve(question, k=3), start=1):
             print(f"   {rank}. {hit['distance']:.3f}  {hit['title']}  [{hit['kind']}]")
     return 0
 
