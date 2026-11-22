@@ -18,7 +18,7 @@ pip install -r requirements-dev.txt
 
 python src/indexing.py --index        # chunk the CV, embed it, store it in chroma_db/ (rebuilds from scratch)
 redis-server &                        # conversation memory
-ollama pull llama3.1:8b               # or set LLM_PROVIDER=openai and OPENAI_API_KEY
+ollama pull llama3.1:8b               # or use Ollama cloud / OpenAI, see "Choosing an LLM" below
 uvicorn api:app --app-dir src --port 8000
 ```
 
@@ -30,12 +30,26 @@ curl -s localhost:8000/chat -H 'Content-Type: application/json' \
 `chat_id` must be 16-64 characters (letters, digits, `_`, `-`). Have the website generate one per
 visitor, e.g. `crypto.randomUUID()`. There is no login, so the id is what keeps conversations apart.
 
+## Choosing an LLM
+
+| Where the model runs | Settings | Disk | Needs |
+|---|---|---|---|
+| **Ollama cloud** (open models on Ollama's servers) | `LLM_PROVIDER=ollama` `OLLAMA_BASE_URL=https://ollama.com` `OLLAMA_API_KEY=...` `OLLAMA_MODEL=<name>` | none | an Ollama account + API key, and a paid plan or usage credits |
+| Local Ollama | `LLM_PROVIDER=ollama` `OLLAMA_MODEL=llama3.1:8b` | ~5 GB | RAM; slow without a GPU |
+| OpenAI | `LLM_PROVIDER=openai` `OPENAI_API_KEY=...` | none | an OpenAI key |
+
+For Ollama cloud, create a key at https://ollama.com/settings/keys (no Ollama install needed), then list the model names
+the direct API accepts: `curl https://ollama.com/api/tags` (these differ from the `:cloud` names the CLI uses).
+Check your credits with `curl https://ollama.com/api/balance -H "Authorization: Bearer $OLLAMA_API_KEY"`.
+Keep the key in your environment or a git-ignored `.env`, never in the code or the website.
+
 ## Settings (environment variables)
 
 | Variable | Default | Meaning |
 |---|---|---|
 | `LLM_PROVIDER` | `ollama` | `ollama` or `openai` |
 | `OLLAMA_MODEL` / `OLLAMA_BASE_URL` | `llama3.1:8b` / `http://localhost:11434` | |
+| `OLLAMA_API_KEY` | - | only for Ollama cloud; sent as a bearer token |
 | `OPENAI_MODEL` / `OPENAI_API_KEY` | `gpt-4o-mini` / - | |
 | `LLM_TIMEOUT_SECONDS` | `30` | give up on a stuck model |
 | `REDIS_URL` | `redis://localhost:6379/0` | |

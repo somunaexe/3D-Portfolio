@@ -104,3 +104,22 @@ def test_provider_switch_builds_the_right_model_without_calling_it(monkeypatch, 
     for key, value in env.items():
         monkeypatch.setenv(key, value)
     assert type(llm_module.get_llm()).__name__ == class_name
+
+
+def test_ollama_cloud_sends_the_api_key_as_a_bearer_token(monkeypatch):
+    monkeypatch.setenv("LLM_PROVIDER", "ollama")
+    monkeypatch.setenv("OLLAMA_BASE_URL", "https://ollama.com")
+    monkeypatch.setenv("OLLAMA_MODEL", "example:model")
+    monkeypatch.setenv("OLLAMA_API_KEY", "placeholder-not-a-real-key")
+    client = llm_module.get_llm()._client._client           # built locally; no request is made
+    assert str(client.base_url).rstrip("/") == "https://ollama.com"
+    assert client.headers["authorization"] == "Bearer placeholder-not-a-real-key"
+
+
+def test_a_local_ollama_server_gets_no_authorization_header(monkeypatch):
+    monkeypatch.setenv("LLM_PROVIDER", "ollama")
+    monkeypatch.delenv("OLLAMA_API_KEY", raising=False)
+    monkeypatch.delenv("OLLAMA_BASE_URL", raising=False)
+    client = llm_module.get_llm()._client._client
+    assert "authorization" not in client.headers
+    assert "localhost:11434" in str(client.base_url)

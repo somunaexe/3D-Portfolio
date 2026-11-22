@@ -4,6 +4,9 @@ Only the LLM is swappable. The embedding model is fixed (see indexing.embedding_
 because stored and query vectors must come from the same model.
 
     LLM_PROVIDER=ollama  (default)   OLLAMA_MODEL=llama3.1:8b   OLLAMA_BASE_URL=http://localhost:11434
+        Ollama CLOUD (no local model, no download): OLLAMA_BASE_URL=https://ollama.com, OLLAMA_API_KEY=...,
+        and OLLAMA_MODEL=<a name from `curl https://ollama.com/api/tags`>. With a key set, it is sent as
+        "Authorization: Bearer <key>". A local server needs no key.
     LLM_PROVIDER=openai              OPENAI_MODEL=gpt-4o-mini    OPENAI_API_KEY=...   (read by LangChain)
     LLM_TIMEOUT_SECONDS=30           give up on a stuck model (a public endpoint must not hang)
 
@@ -18,11 +21,15 @@ def get_llm():
     if provider == "ollama":
         from langchain_ollama import ChatOllama
 
+        client_kwargs = {"timeout": timeout}
+        api_key = os.environ.get("OLLAMA_API_KEY")
+        if api_key:   # Ollama cloud authenticates with a bearer token
+            client_kwargs["headers"] = {"Authorization": f"Bearer {api_key}"}
         return ChatOllama(
             model=os.environ.get("OLLAMA_MODEL", "llama3.1:8b"),
             base_url=os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434"),
             temperature=0,
-            client_kwargs={"timeout": timeout},
+            client_kwargs=client_kwargs,
         )
     if provider == "openai":
         from langchain_openai import ChatOpenAI
