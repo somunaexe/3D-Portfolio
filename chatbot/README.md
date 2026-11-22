@@ -56,6 +56,8 @@ Keep the key in your environment or a git-ignored `.env`, never in the code or t
 | `ALLOWED_ORIGINS` | `https://somunaexe.github.io,http://localhost:5173` | sites allowed to call it from a browser |
 | `RATE_LIMIT_PER_MINUTE` | `20` | per client IP |
 | `MAX_QUESTION_CHARS` | `200` | |
+| `TRUST_X_REAL_IP` | off | set `true` behind Railway so the rate limit uses each visitor's real IP (see below) |
+| `RETRIEVAL_CONCURRENCY` | `2` | how many embedding lookups may run at once (bounds memory) |
 
 ## Things to know
 
@@ -67,6 +69,40 @@ Keep the key in your environment or a git-ignored `.env`, never in the code or t
 - **CORS only constrains browsers.** curl and scripts are not blocked by it; the rate limit and input limits are
   what protect the LLM bill. If you use OpenAI, also set a monthly spend cap in your OpenAI account.
 - **Conversations** live in Redis for 24 hours after the last message (last 10 turns).
+
+## Deploying to Railway
+
+Steps follow Railway's docs (Dockerfiles, Monorepo, Healthchecks, Redis, Variables, Public networking). The image
+builds the vector index at build time, so a container starts ready and offline-capable; changing the CV means redeploying.
+
+1. **Plan.** The Hobby plan ($5/month, which counts toward usage) is the sensible choice. The Free plan limits a service to
+   0.5 GB RAM and can sleep when idle, so a recruiter's first question could wait for a cold start. This service uses
+   roughly 0.3 GB.
+2. **Create the project:** *New Project -> Deploy from GitHub repo -> 3D-Portfolio*. Deploy from `main` once this is merged
+   (or pick the feature branch to test first).
+3. **Service Settings -> Root Directory:** `/chatbot`. Railway then finds `chatbot/Dockerfile` by itself.
+4. **Add Redis:** *+ New -> Database -> Redis* in the same project.
+5. **Service Variables** (on the chatbot service, not Redis):
+
+   | Variable | Value |
+   |---|---|
+   | `REDIS_URL` | `${{Redis.REDIS_URL}}` (the part before the dot is the Redis service's name) |
+   | `LLM_PROVIDER` | `openai` |
+   | `OPENAI_API_KEY` | your key (set a monthly spend cap on the OpenAI account first) |
+   | `ALLOWED_ORIGINS` | `https://somunaexe.github.io` (comma-separate more origins if needed) |
+   | `TRUST_X_REAL_IP` | `true` |
+
+   Optional: `OPENAI_MODEL` (default `gpt-4o-mini`), `RATE_LIMIT_PER_MINUTE`, `LLM_TIMEOUT_SECONDS`.
+6. **Settings -> Networking -> Generate Domain** to get a public `https://<name>.up.railway.app` address.
+7. **Settings -> Healthcheck Path:** `/health`.
+8. **Check it:** open `https://<your-domain>/health` (should show `{"status":"ok"}`), then try a question:
+   `curl -s https://<your-domain>/chat -H 'Content-Type: application/json' -d '{"chat_id":"my-visitor-id-0123456789","question":"What did you do at Entain?"}'`
+9. **Point the website at it:** in the GitHub repo, *Settings -> Secrets and variables -> Actions -> Variables*, add
+   `VITE_CHATBOT_URL` = `https://<your-domain>`, then push to `main` so the site rebuilds with the chat icon.
+
+Why `TRUST_X_REAL_IP=true`: Railway's proxy passes the visitor's real address in the `X-Real-IP` header; without it every
+visitor appears to come from Railway's proxy and they would all share one rate-limit allowance. Do not turn it on for a server
+that can be reached directly, because then anyone could send a fake `X-Real-IP` to dodge the limit.
 
 ## The chat widget on the website
 

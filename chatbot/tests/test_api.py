@@ -26,9 +26,9 @@ def db_dir(tmp_path_factory):
 
 @pytest.fixture
 def make_client(db_dir, redis_client):
-    def build(llm=None, memory=None, limit=1000):
+    def build(llm=None, memory=None, limit=1000, trust_x_real_ip=False):
         fake = llm or FakeLLM()
-        app = api.create_app(allowed_origins=[ORIGIN])
+        app = api.create_app(allowed_origins=[ORIGIN], trust_x_real_ip=trust_x_real_ip)
         app.dependency_overrides[api.get_memory] = lambda: memory or ChatMemory(redis_client)
         app.dependency_overrides[api.get_chat_llm] = lambda: fake.runnable
         app.dependency_overrides[api.get_limiter] = lambda: RateLimiter(redis_client, limit=limit)
@@ -164,6 +164,26 @@ def test_requests_over_the_limit_get_429_with_retry_after(make_client):
     assert set(response.json()) == SHAPE and "Too many requests" in response.json()["error"]
     assert 1 <= int(response.headers["Retry-After"]) <= 60
     assert len(fake.calls) == calls_before                    # a limited request costs nothing
+
+
+def test_a_fake_x_real_ip_cannot_dodge_the_limit_unless_the_header_is_trusted(make_client):
+    """Default: the header is ignored, so rotating it does not give a visitor a fresh allowance."""
+    client, _ = make_client(limit=2)
+    codes = [client.post("/chat", json={"chat_id": CHAT_ID, "question": "hi"}, headers={"X-Real-IP": f"203.0.113.{n}"}).status_code for n in range(4)]
+    assert codes == [200, 200, 429, 429]
+
+
+def test_behind_a_trusted_proxy_each_visitor_gets_their_own_allowance(make_client):
+    client, _ = make_client(limit=1, trust_x_real_ip=True)
+    send = lambda ip: client.post("/chat", json={"chat_id": CHAT_ID, "question": "hi"}, headers={"X-Real-IP": ip}).status_code
+    assert [send("203.0.113.1"), send("203.0.113.2"), send("203.0.113.1")] == [200, 200, 429]
+
+
+@pytest.mark.parametrize("bad", ["", "not-an-ip", "1.2.3.4, 5.6.7.8", "<script>"])
+def test_a_missing_or_invalid_x_real_ip_falls_back_to_the_socket_address(make_client, bad):
+    client, _ = make_client(limit=1, trust_x_real_ip=True)
+    send = lambda: client.post("/chat", json={"chat_id": CHAT_ID, "question": "hi"}, headers={"X-Real-IP": bad}).status_code
+    assert [send(), send()] == [200, 429]      # both counted against the same (socket) address
 
 
 # --- failures downstream ------------------------------------------------------------------------

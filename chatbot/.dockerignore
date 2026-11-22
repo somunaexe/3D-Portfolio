@@ -1,0 +1,9 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+chroma_db/
+tests/
+.env
+.pytest_cache/
+README.md

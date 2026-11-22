@@ -9,9 +9,10 @@ never has to guess whether a call worked (that is the point of the `error` field
 doc). There is no RAG logic here: no embedding, retrieval or prompt building.
 
 Settings (environment): ALLOWED_ORIGINS (comma-separated; the sites allowed to call this from a
-browser), RATE_LIMIT_PER_MINUTE (default 20 per IP), MAX_QUESTION_CHARS (default 200), plus the
-LLM / Redis settings in llm.py and memory.py.
+browser), RATE_LIMIT_PER_MINUTE (default 20 per IP), MAX_QUESTION_CHARS (default 200), TRUST_X_REAL_IP
+(set to true behind Railway, see client_ip), plus the LLM / Redis settings in llm.py and memory.py.
 """
+import ipaddress
 import logging
 import os
 from functools import lru_cache
@@ -34,6 +35,7 @@ logger = logging.getLogger(__name__)
 MAX_QUESTION_CHARS = int(os.environ.get("MAX_QUESTION_CHARS", "200"))
 RATE_LIMIT_PER_MINUTE = int(os.environ.get("RATE_LIMIT_PER_MINUTE", "20"))
 DEFAULT_ORIGINS = "https://somunaexe.github.io,http://localhost:5173"
+TRUST_X_REAL_IP = os.environ.get("TRUST_X_REAL_IP", "").lower() in ("1", "true", "yes")
 
 
 class ChatRequest(BaseModel):
@@ -70,6 +72,22 @@ def source_labels(sources):
     return labels
 
 
+def client_ip(request, trust_x_real_ip):
+    """The visitor's address, for rate limiting.
+
+    Behind Railway every connection arrives from Railway's proxy, so the socket address is the same for every
+    visitor, and one shared bucket would let a single visitor use up everyone's allowance. Railway puts the real
+    visitor in X-Real-IP. That header is only believed when asked for (TRUST_X_REAL_IP=true): on a server that
+    can be reached directly, anyone could send a fake X-Real-IP and dodge the limit.
+    """
+    if trust_x_real_ip:
+        try:
+            return str(ipaddress.ip_address(request.headers.get("x-real-ip", "").strip()))
+        except ValueError:
+            pass   # missing or not an IP: fall back to the socket address
+    return request.client.host if request.client else "unknown"
+
+
 # --- dependencies (tests swap these out with app.dependency_overrides) --------------------------
 
 @lru_cache
@@ -94,7 +112,8 @@ def get_chat_options():
     return {}
 
 
-def create_app(allowed_origins=None):
+def create_app(allowed_origins=None, trust_x_real_ip=None):
+    trust_x_real_ip = TRUST_X_REAL_IP if trust_x_real_ip is None else trust_x_real_ip
     origins = allowed_origins
     if origins is None:
         origins = [origin.strip() for origin in os.environ.get("ALLOWED_ORIGINS", DEFAULT_ORIGINS).split(",") if origin.strip()]
@@ -143,7 +162,7 @@ def create_app(allowed_origins=None):
         limiter: RateLimiter = Depends(get_limiter),
         options: dict = Depends(get_chat_options),
     ):
-        allowed, retry_after = limiter.check(request.client.host if request.client else "unknown")
+        allowed, retry_after = limiter.check(client_ip(request, trust_x_real_ip))
         if not allowed:
             return failure(429, "Too many requests. Please wait a moment and try again.", {"Retry-After": str(retry_after)})
 
