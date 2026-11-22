@@ -43,6 +43,12 @@ the direct API accepts: `curl https://ollama.com/api/tags` (these differ from th
 Check your credits with `curl https://ollama.com/api/balance -H "Authorization: Bearer $OLLAMA_API_KEY"`.
 Keep the key in your environment or a git-ignored `.env`, never in the code or the website.
 
+## If something doesn't work
+
+Run `python chatbot/src/check_setup.py` from the repo root. It checks each piece in order (libraries, CV chunks, vector
+database, retrieval, Redis, the language model) and prints what to fix. `chat.py` also prints which model it is using, and
+a plain error (not a stack trace) if the model can't be reached or returns nothing.
+
 ## Settings (environment variables)
 
 | Variable | Default | Meaning |

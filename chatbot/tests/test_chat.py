@@ -134,3 +134,65 @@ def test_long_assistant_replies_are_trimmed_in_the_condense_prompt():
     history = [{"question": "q", "answer": "word " * 500}]
     shown = chat.format_history(history)
     assert len(shown) < chat.ANSWER_CHARS_IN_HISTORY + 60 and shown.endswith("...")
+
+
+# --- the command-line wrapper (chat.main) ---------------------------------------------------------
+
+def _result(text, question="q?"):
+    from query import Answer
+    return chat.ChatResult(answer=Answer(answer=text, sources=[], retrieved=[]), standalone_question=question, history_turns=0)
+
+
+def test_cli_says_which_model_it_is_using(monkeypatch, capsys):
+    monkeypatch.setenv("LLM_PROVIDER", "ollama")
+    monkeypatch.setenv("OLLAMA_MODEL", "llama3.1:8b")
+    monkeypatch.setattr(chat, "chat", lambda *a, **k: _result("Hello"))
+    assert chat.main(["demo-chat-0123456789", "q?"]) == 0
+    out = capsys.readouterr().out
+    assert "(using ollama, model llama3.1:8b at http://localhost:11434)" in out and "Hello" in out
+
+
+def test_cli_explains_an_empty_model_reply_instead_of_printing_nothing(monkeypatch, capsys):
+    monkeypatch.setattr(chat, "chat", lambda *a, **k: _result("   \n"))
+    assert chat.main(["demo-chat-0123456789", "q?"]) == 1
+    assert "The model returned an empty answer." in capsys.readouterr().out
+
+
+def test_cli_reports_a_failure_in_plain_words_with_a_hint(monkeypatch, capsys):
+    def boom(*args, **kwargs):
+        raise ConnectionError("Failed to connect to Ollama")
+    monkeypatch.setattr(chat, "chat", boom)
+    monkeypatch.setenv("LLM_PROVIDER", "ollama")
+    assert chat.main(["demo-chat-0123456789", "q?"]) == 1
+    out = capsys.readouterr().out
+    assert "Could not get an answer: ConnectionError: Failed to connect to Ollama" in out
+    assert "ollama list" in out and "Traceback" not in out
+
+
+def test_cli_hint_for_openai_mentions_the_key_not_ollama(monkeypatch, capsys):
+    monkeypatch.setenv("LLM_PROVIDER", "openai")
+    monkeypatch.setattr(chat, "chat", lambda *a, **k: (_ for _ in ()).throw(RuntimeError("401")))
+    chat.main(["demo-chat-0123456789", "q?"])
+    out = capsys.readouterr().out
+    assert "OPENAI_API_KEY" in out and "ollama list" not in out
+
+
+def test_cli_does_not_crash_on_characters_the_windows_console_cannot_show(monkeypatch):
+    """A cp1252 console cannot encode an arrow; the CLI must print a replacement, not raise UnicodeEncodeError."""
+    import io
+    import sys
+    raw = io.BytesIO()
+    console = io.TextIOWrapper(raw, encoding="cp1252", errors="strict")
+    monkeypatch.setattr(sys, "stdout", console)
+    monkeypatch.setattr(chat, "chat", lambda *a, **k: _result("Python → Go"))
+    assert chat.main(["demo-chat-0123456789", "q?"]) == 0
+    console.flush()
+    assert b"Python ? Go" in raw.getvalue()
+
+
+def test_the_model_description_never_contains_the_api_key(monkeypatch):
+    import llm
+    monkeypatch.setenv("LLM_PROVIDER", "ollama")
+    monkeypatch.setenv("OLLAMA_BASE_URL", "https://ollama.com")
+    monkeypatch.setenv("OLLAMA_API_KEY", "placeholder-secret-value")
+    assert "placeholder-secret-value" not in llm.describe_llm()

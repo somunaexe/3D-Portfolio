@@ -15,6 +15,23 @@ Providers are imported lazily so you only need the one you use installed and con
 import os
 
 
+def describe_llm():
+    """One line saying which model is configured, for messages. Never includes a key."""
+    provider = os.environ.get("LLM_PROVIDER", "ollama").lower()
+    if provider == "openai":
+        return f"openai, model {os.environ.get('OPENAI_MODEL', 'gpt-4o-mini')}"
+    model = os.environ.get("OLLAMA_MODEL", "llama3.1:8b")
+    url = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
+    return f"{provider}, model {model} at {url}"
+
+
+def troubleshooting_hint():
+    if os.environ.get("LLM_PROVIDER", "ollama").lower() == "openai":
+        return "Check that OPENAI_API_KEY is set and valid, and that you have network access."
+    return ("Is Ollama running, and is the model downloaded? Try `ollama list` (and `ollama pull <model>`). "
+            "Run `python chatbot/src/check_setup.py` to test each piece.")
+
+
 def get_llm():
     provider = os.environ.get("LLM_PROVIDER", "ollama").lower()
     timeout = float(os.environ.get("LLM_TIMEOUT_SECONDS", "30"))

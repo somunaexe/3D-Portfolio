@@ -20,7 +20,7 @@ import redis
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
-from llm import get_llm
+from llm import describe_llm, get_llm, troubleshooting_hint
 from memory import ChatMemory
 from query import Answer, answer
 
@@ -100,9 +100,22 @@ def main(argv=None):
         print(__doc__)
         return 1
     chat_id, question = args
-    result = chat(chat_id, question)
+    # Windows consoles often cannot show every character a model writes (arrows, emoji): show a ? rather than crash.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")
+    print(f"(using {describe_llm()})")
+    try:
+        result = chat(chat_id, question)
+    except Exception as error:   # a command-line tool: say what went wrong instead of a stack trace
+        print(f"\nCould not get an answer: {type(error).__name__}: {error}")
+        print(troubleshooting_hint())
+        return 1
     if result.standalone_question != question:
         print(f"(searched for: {result.standalone_question})")
+    if not result.answer.answer.strip():
+        print("\nThe model returned an empty answer.")
+        print(troubleshooting_hint())
+        return 1
     print(f"\n{result.answer.answer}\n")
     for source in result.answer.sources:
         print(f"   source: {source['title']}  [{source['kind']}]")
