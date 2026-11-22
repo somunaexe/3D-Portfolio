@@ -20,13 +20,13 @@ def paragraph_with_runs(*texts):
     "runs, expected",
     [
         # phone in the middle of the contact line: one separator goes with it
-        (["me@x.com   |   +44 793 654 8807   |   Salford, UK"], "me@x.com   |   Salford, UK"),
+        (["me@x.com   |   +44 7700 900123   |   Salford, UK"], "me@x.com   |   Salford, UK"),
         # phone is the last item: take the separator before it
-        (["me@x.com | Salford | +44 793 654 8807"], "me@x.com | Salford"),
+        (["me@x.com | Salford | +44 7700 900123"], "me@x.com | Salford"),
         # phone split across runs (Word does this after edits)
-        (["me@x.com | +44 793 ", "654 8807", " | Salford"], "me@x.com | Salford"),
+        (["me@x.com | +44 7700 ", "900123", " | Salford"], "me@x.com | Salford"),
         # UK local format
-        (["call 07936 548807 anytime"], "call anytime"),
+        (["call 07700 900456 anytime"], "call anytime"),
     ],
 )
 def test_phone_is_removed(runs, expected):

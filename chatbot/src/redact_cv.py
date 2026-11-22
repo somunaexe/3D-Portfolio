@@ -16,7 +16,7 @@ from docx import Document
 from docx.oxml.ns import qn
 from docx.text.paragraph import Paragraph
 
-# +44 793 654 8807 / 07936 548807 / (0161) 123 4567. Needs a country or area prefix plus
+# +44 7700 900123 / 07700 900456 / (0161) 123 4567. Needs a country or area prefix plus
 # two more digit groups, so years ("2022 – 2023"), "10+" and "224 UCAS points" never match.
 PHONE = r"\+?\d{1,3}[\s.-]?\(?\d{2,4}\)?[\s.-]?\d{3}[\s.-]?\d{3,4}"
 SEPARATOR = r"\s*\|\s*"  # the contact line is "a | b | c"
