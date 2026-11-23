@@ -1,6 +1,7 @@
 import Globe from 'react-globe.gl' 
 import Button from '../components/Button.jsx'
 import { useState } from 'react'
+import { techGroups } from '../constants/techStack.js'
 const About = () => {
     const [emailCopied, setEmailCopied] = useState(false) 
     const [numberCopied, setNumberCopied] = useState(false) 
@@ -23,22 +24,13 @@ const About = () => {
     <section className="c-space my-20" id="about">
         <div className="grid xl:grid-cols-3 xl:grid-rows-6 md:grid-cols-2 grid-cols-1 gap-5 h-full">
             
-            <div className="col-span-1 xl:row-span-3">
+            <div className="col-span-1 md:col-span-2 xl:row-span-3">
                 <div className="grid-container">
                     <img src="/assets/grid1.png" alt="grid-1" className="w-full sm:h-[276px] h-fit object-contain" />
                     <div>
-                        <p className="grid-headtext">Hi, I'm Somuna</p>
-                        <p className="grid-subtext">MSc Artificial Intelligence graduate (Distinction) and full-stack software engineer. I build production-grade web apps, machine learning pipelines and cloud infrastructure, and I&apos;m an AWS Certified Cloud Practitioner.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="col-span-1 xl:row-span-3">
-                <div className="grid-container justify-between">
-                    <img src="/assets/stack.png" alt="grid-2" className="w-full sm:w-[276px] lg:w-[676px] h-fit object-contain"/>
-                    <div>
-                        <p className="grid-headtext">Tech Stack</p>
-                        <p className="grid-subtext">I work across the stack with React, Angular, Node.js, Go and Python, deployed on AWS and Azure with Docker, Terraform and GitHub Actions.</p><p className="grid-subtext">On the AI side: TensorFlow, YOLO, Spark and MLflow. I also build mobile (Flutter, React Native) and games (Unity/C#).</p>
+                        <p className="grid-headtext">Hi, I&apos;m Somuna</p>
+                        <p className="grid-subtext">DevOps engineer, AI/ML specialist and full-stack developer. I hold an MSc in Artificial Intelligence (Distinction) and I&apos;m an AWS Certified Cloud Practitioner.</p>
+                        <p className="grid-subtext mt-3">I&apos;m currently a Full Stack Developer at Bulfighter. I build production-grade web apps like Bulwriter, machine learning pipelines, cloud infrastructure, and Ezem, the AI assistant on this site.</p>
                     </div>
                 </div>
             </div>
@@ -64,8 +56,8 @@ const About = () => {
                         />
                     </div>
                     <div>
-                        <p className='grid-headtext'>I work remotely across all timezones</p>
-                        <p className="grid-subtext">I'm based in the UK, with remote work available</p>
+                        <p className='grid-headtext'>I work across all timezones</p>
+                        <p className="grid-subtext">I&apos;m based in the UK and open to any type of work</p>
                         <a href='#contactDetails'><Button name="Contact me" isBeam containerClass="w-full mt-10" /></a>
                     </div>
                 </div>
@@ -77,7 +69,7 @@ const About = () => {
 
                     <div>
                         <p className="grid-headtext">My Passion for Coding</p>
-                        <p className="grid-subtext">I love solving problems and building software through code. Coding is not just profession, it's my hobby!</p>
+                        <p className="grid-subtext">I love solving problems and building software through code. Coding is not just profession, it&apos;s my hobby!</p>
                     </div>
                 </div>
             </div>
@@ -99,6 +91,28 @@ const About = () => {
                 </div>
             </div>
 
+        </div>
+
+        <div className="mt-5 grid-container" id="techStack">
+            <div>
+                <p className="grid-headtext">Tech Stack</p>
+                <p className="grid-subtext">What I use, grouped by what I use it for. Hover an icon for its name.</p>
+            </div>
+            <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-x-8 gap-y-8">
+                {techGroups.map((group) => (
+                    <div key={group.name}>
+                        <p className="text-white-900 font-semibold font-generalsans">{group.name}</p>
+                        <p className="grid-subtext text-sm mt-1">{group.description}</p>
+                        <div className="flex flex-wrap gap-2 mt-3">
+                            {group.tools.map((tool) => (
+                                <div key={tool.name} title={tool.name} className="tech-logo">
+                                    <img src={tool.icon} alt={tool.name} className={tool.themed ? 'themed-icon' : undefined} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     </section>
   )
