@@ -419,6 +419,7 @@ export const clientReviews = [
         {name: "ChromaDB", path: "/assets/chromadb.svg" },
         {name: "Redis", path: "/assets/redis.svg" },
         {name: "OpenAI", path: "/assets/openai.svg" },
+        {name: "Ollama", path: "/assets/ollama.svg" },
         {name: "Docker", path: "/assets/docker.png" },
         {name: "Railway", path: "/assets/railway.svg" },
         {name: "GitHub Actions", path: "/assets/githubactions.svg" },
