@@ -26,3 +26,4 @@ dist-ssr
 # Python virtual environments (the chatbot)
 .venv/
 venv/
+.env.example
