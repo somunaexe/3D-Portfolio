@@ -427,7 +427,8 @@ export const clientReviews = [
         "Built an interactive 3D portfolio with React 18, Vite, Three.js and Tailwind CSS, featuring six WCAG-checked colour themes and a filterable, sortable, paginated projects explorer, deployed via GitHub Actions.",
         "Engineered Ezem, a retrieval-augmented (RAG) chatbot that answers recruiters' questions from the CV with cited sources, using FastAPI, LangChain, ChromaDB embeddings and Redis conversation memory with a follow-up question rewriting step, on a swappable OpenAI or local Ollama model.",
         "Raised retrieval recall from 50% to 91% by measuring 20 technology questions across different result counts, and added a direct name lookup so companies and projects named in a question are always retrieved.",
-        "Containerised the service with Docker and hosted it on Railway with per-IP rate limiting, CORS, input and reply length caps and a no-tools design that limits prompt-injection risk; cut peak memory from 2 GB to 270 MB and covered the backend with a full automated test suite."
+        "Containerised the service with Docker and hosted it on Railway with per-IP rate limiting, CORS, input and reply length caps and a no-tools design that limits prompt-injection risk; cut peak memory from 2 GB to 270 MB and covered the backend with a full automated test suite.",
+        "Closed the loop between real use and quality with a feedback loop: a privacy-masked 30-day log of visitor questions, a report of unanswered ones, and a golden-question evaluation set that must pass before any prompt or retrieval change ships."
       ],
     },
     {
