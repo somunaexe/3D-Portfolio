@@ -192,8 +192,8 @@ export const clientReviews = [
       spotlight: "/assets/spotlight3.png",
       tags: [
         {name: "Python", path: "/assets/python.svg" },
-        {name: "YOLOv8/v9", path: null },
-        {name: "Roboflow", path: null },
+        {name: "YOLOv8/v9", path: "/assets/yolo.svg" },
+        {name: "Roboflow", path: "/assets/roboflow.svg" },
         {name: "Google Colab", path: "/assets/googlecolab.svg" },
       ],
       entry: [
