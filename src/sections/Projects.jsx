@@ -131,31 +131,39 @@ const Projects = () => {
                     {/* <div className="p-3 backdrop-filter backdrop-blur-3xl w-fit rounded-lg" style={currentProject.logoStyle}>
                         <img src={currentProject.logo} alt="logo" className="w-10 h-10 shadow-sm" />
                     </div> */}
-                    <div className="flex flex-col gap-5 text-white-600 my-5">
-                        <p className="text-white-900 text-2xl font-semibold animatedText">{currentProject.title}</p>
-                        <p className="animatedText text-white-900">{currentProject.desc}</p>
-                    <p className="animatedText">{currentProject.subdesc}</p>
-                    </div>
-                    <div className="flex items-center justify-between flex-wrap gap-5">
-                        <div className="flex flex-wrap items-center gap-3">
-                            {currentProject.tags.map((tag, index) => (
-                                <div key={index} title={tag.name} className={tag.path ? 'tech-logo' : 'tech-logo px-3 w-auto text-xs text-white-600 whitespace-nowrap'}>
-                                    {tag.path ? <img src={tag.path} alt={tag.name} /> : tag.name}
+                    {/* Every project's details share one grid cell and only the selected one is visible, so the card is as tall
+                        as the TALLEST project and the arrows below never move. */}
+                    <div className="grid">
+                        {searchedProjects.map((project, index) => (
+                            <div key={project.id} className={`col-start-1 row-start-1 flex flex-col gap-5 ${index === selectedProjectIndex ? '' : 'invisible'}`} aria-hidden={index !== selectedProjectIndex}>
+                            <div className="flex flex-col gap-5 text-white-600 my-5">
+                                <p className="text-white-900 text-2xl font-semibold animatedText">{project.title}</p>
+                                <p className="animatedText text-white-900">{project.desc}</p>
+                            <p className="animatedText">{project.subdesc}</p>
+                            </div>
+                            <div className="flex items-center justify-between flex-wrap gap-5">
+                                <div className="flex flex-wrap items-center gap-3">
+                                    {project.tags.map((tag, index) => (
+                                        <div key={index} title={tag.name} className={tag.path ? 'tech-logo' : 'tech-logo px-3 w-auto text-xs text-white-600 whitespace-nowrap'}>
+                                            {tag.path ? <img src={tag.path} alt={tag.name} /> : tag.name}
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
-                        </div>
-                        <div className="flex items-center gap-3" style={{position: 'relative', zIndex: 10 }}>
-                            {currentProject.href && (
-                                <a className='flex items-center gap-2 cursor-pointer text-white-600' href={currentProject.href} target="_blank" rel="noreferrer">
-                                    <p>Check Live Site</p>
-                                    <img src="/assets/arrow-up.png" alt="arrow-up" className='w-3 h-3'/>
-                                </a>
-                            )}
-                            <a className='flex items-center gap-2 cursor-pointer text-white-600' href={currentProject.repo} target="_blank" rel="noreferrer">
-                                <p>Check GitHub Repository</p>
-                                <img src="/assets/arrow-up.png" alt="arrow-up" className='w-3 h-3'/>
-                            </a>
-                        </div>
+                                <div className="flex items-center gap-3" style={{position: 'relative', zIndex: 10 }}>
+                                    {project.href && (
+                                        <a className='flex items-center gap-2 cursor-pointer text-white-600' href={project.href} target="_blank" rel="noreferrer">
+                                            <p>Check Live Site</p>
+                                            <img src="/assets/arrow-up.png" alt="arrow-up" className='w-3 h-3'/>
+                                        </a>
+                                    )}
+                                    <a className='flex items-center gap-2 cursor-pointer text-white-600' href={project.repo} target="_blank" rel="noreferrer">
+                                        <p>Check GitHub Repository</p>
+                                        <img src="/assets/arrow-up.png" alt="arrow-up" className='w-3 h-3'/>
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+                        ))}
                     </div>
                     <div className="flex justify-between items-center mt-7">
                         <button className="arrow-btn" onClick={() => handleNavigation('previous')}>

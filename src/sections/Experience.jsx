@@ -4,13 +4,17 @@ import { Suspense, useState } from 'react'
 import { OrbitControls } from '@react-three/drei'
 import CanvasLoader from '../components/CanvasLoader'
 import Developer from '../components/Developer'
+const PER_PAGE = 3
+
 const Experience = () => {
     const [animationName, setAnimationName] = useState('idle')
     const [pageNumber, setPageNumber] = useState(1)
 
+    const pageCount = Math.ceil(workExperiences.length / PER_PAGE)
+
     const handleNavigation = (direction) => {
-        if(direction === "previous") setPageNumber((prevPageNumber) => prevPageNumber === 1 ? Math.ceil(workExperiences.length / 3) : prevPageNumber - 1)
-        else setPageNumber((prevPageNumber) => prevPageNumber === Math.ceil(workExperiences.length / 3) ? 1 : prevPageNumber + 1)
+        if(direction === "previous") setPageNumber((prevPageNumber) => prevPageNumber === 1 ? pageCount : prevPageNumber - 1)
+        else setPageNumber((prevPageNumber) => prevPageNumber === pageCount ? 1 : prevPageNumber + 1)
     }
 
   return (
@@ -33,27 +37,35 @@ const Experience = () => {
 
                 <div className="work-content">
                     <div className="sm:py-10 py-5 sm:px-5 px-2.5">
-                        {workExperiences.slice(pageNumber * 3 - 3, pageNumber * 3, 3).map(({ id, name, pos, icon, duration, title, animation, site }) => (
-                            <div key={id} className="work-content_container group" onClick={() => setAnimationName(animation.toLowerCase())} onPointerOver={() => setAnimationName(animation.toLowerCase())} onPointerOut={() => setAnimationName('idle')}>
-                                <div className="flex flex-col h-full justify-start items-center py-2">
-                                    <div className="work-content_logo">
-                                        <img src={icon ? icon : '/assets/no_company.gif'} alt="logo" className='w-full h-full' />
+                        {/* Every page is laid out in the same grid cell and only the current one is visible, so the box is as
+                            tall as the TALLEST page. The arrows below therefore never move, whatever the page holds. */}
+                        <div className="grid">
+                            {Array.from({ length: pageCount }, (_, page) => (
+                                <div key={page} className={`col-start-1 row-start-1 ${page === pageNumber - 1 ? '' : 'invisible'}`} aria-hidden={page !== pageNumber - 1}>
+                                {workExperiences.slice(page * PER_PAGE, (page + 1) * PER_PAGE).map(({ id, name, pos, icon, duration, title, animation, site }) => (
+                                    <div key={id} className="work-content_container group" onClick={() => setAnimationName(animation.toLowerCase())} onPointerOver={() => setAnimationName(animation.toLowerCase())} onPointerOut={() => setAnimationName('idle')}>
+                                        <div className="flex flex-col h-full justify-start items-center py-2">
+                                            <div className="work-content_logo">
+                                                <img src={icon ? icon : '/assets/no_company.gif'} alt="logo" className='w-full h-full' />
+                                            </div>
+                                            <div className="work-content_bar" />
+                                        </div>
+                                        <div className="sm:p-5 px-2.5 py-5">
+                                            <p className="font-bold text-white-800">{name}</p>
+                                            <p className="text-sm mb-5">{pos} -- {duration}</p>
+                                            <p className="group-hover:text-white-900 transition ease-in-out duration-500">{title}</p>
+                                            {site && (
+                                                <a className="inline-flex items-center gap-2 mt-3 cursor-pointer text-white-600 hover:text-white-900" href={site} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
+                                                    <p>Visit site</p>
+                                                    <img src="/assets/arrow-up.png" alt="arrow-up" className="w-3 h-3" />
+                                                </a>
+                                            )}
+                                        </div>
                                     </div>
-                                    <div className="work-content_bar" />
+                                ))}
                                 </div>
-                                <div className="sm:p-5 px-2.5 py-5">
-                                    <p className="font-bold text-white-800">{name}</p>
-                                    <p className="text-sm mb-5">{pos} -- {duration}</p>
-                                    <p className="group-hover:text-white-900 transition ease-in-out duration-500">{title}</p>
-                                    {site && (
-                                        <a className="inline-flex items-center gap-2 mt-3 cursor-pointer text-white-600 hover:text-white-900" href={site} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()}>
-                                            <p>Visit site</p>
-                                            <img src="/assets/arrow-up.png" alt="arrow-up" className="w-3 h-3" />
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
 
                         <div className="flex justify-between items-center mt-7">
                             <button className="arrow-btn" onClick={() => handleNavigation('previous')}>
