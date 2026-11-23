@@ -38,10 +38,12 @@ const Experience = () => {
                 <div className="work-content">
                     <div className="sm:py-10 py-5 sm:px-5 px-2.5">
                         {/* Every page is laid out in the same grid cell and only the current one is visible, so the box is as
-                            tall as the TALLEST page. The arrows below therefore never move, whatever the page holds. */}
+                            tall as the TALLEST page. The arrows below therefore never move, whatever the page holds.
+                            A hidden page also switches its cards' transitions off: they have `transition-all` for the hover effect, which
+                            would otherwise fade `visibility` too and keep the old page on screen for half a second. */}
                         <div className="grid">
                             {Array.from({ length: pageCount }, (_, page) => (
-                                <div key={page} className={`col-start-1 row-start-1 ${page === pageNumber - 1 ? '' : 'invisible'}`} aria-hidden={page !== pageNumber - 1}>
+                                <div key={page} className={`col-start-1 row-start-1 ${page === pageNumber - 1 ? '' : 'invisible [&_*]:!transition-none'}`} aria-hidden={page !== pageNumber - 1}>
                                 {workExperiences.slice(page * PER_PAGE, (page + 1) * PER_PAGE).map(({ id, name, pos, icon, duration, title, animation, site }) => (
                                     <div key={id} className="work-content_container group" onClick={() => setAnimationName(animation.toLowerCase())} onPointerOver={() => setAnimationName(animation.toLowerCase())} onPointerOut={() => setAnimationName('idle')}>
                                         <div className="flex flex-col h-full justify-start items-center py-2">
