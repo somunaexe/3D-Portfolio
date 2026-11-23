@@ -15,6 +15,7 @@ browser), RATE_LIMIT_PER_MINUTE (default 20 per IP), MAX_QUESTION_CHARS (default
 import ipaddress
 import logging
 import os
+import time
 from functools import lru_cache
 
 import redis
@@ -25,6 +26,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+import analytics
 import chat as chat_pipeline
 from llm import get_llm
 from memory import REDIS_URL, ChatMemory
@@ -112,6 +114,11 @@ def get_chat_options():
     return {}
 
 
+def get_question_log():
+    """The analytics log, or None when ANALYTICS_ENABLED is not true (the default: nothing is kept)."""
+    return analytics.QuestionLog(get_redis()) if analytics.enabled() else None
+
+
 def create_app(allowed_origins=None, trust_x_real_ip=None):
     trust_x_real_ip = TRUST_X_REAL_IP if trust_x_real_ip is None else trust_x_real_ip
     origins = allowed_origins
@@ -161,16 +168,23 @@ def create_app(allowed_origins=None, trust_x_real_ip=None):
         llm=Depends(get_chat_llm),
         limiter: RateLimiter = Depends(get_limiter),
         options: dict = Depends(get_chat_options),
+        question_log=Depends(get_question_log),
     ):
         allowed, retry_after = limiter.check(client_ip(request, trust_x_real_ip))
         if not allowed:
             return failure(429, "Too many requests. Please wait a moment and try again.", {"Retry-After": str(retry_after)})
 
+        started = time.perf_counter()
         try:
             result = chat_pipeline.chat(body.chat_id, body.question, memory=memory, llm=llm, **options)
         except Exception:
             logger.exception("chat pipeline failed")   # details stay in the server log, never in the response
+            if question_log:
+                question_log.record(analytics.build_event(body.question, status="error", latency_ms=(time.perf_counter() - started) * 1000))
             return failure(503, "The assistant is temporarily unavailable. Please try again shortly.")
+
+        if question_log:   # after the answer exists; record() never raises, so it cannot cost the visitor a reply
+            question_log.record(analytics.build_event(body.question, result, latency_ms=(time.perf_counter() - started) * 1000))
 
         if result.memory_error:
             logger.warning("memory degraded: %s", result.memory_error)

@@ -14,7 +14,7 @@ const TEASER_DELAY_MS = 3000    // let the page settle before drawing attention
 const TEASER_VISIBLE_MS = 9000 // long enough to read, short enough not to nag
 
 const GREETING = "Hi, I'm Ezem! I can answer questions about Somuna's experience, projects and skills."
-const NOTICE = "Answers are written by an AI from Somuna's CV, so they can be imperfect."
+const NOTICE = "Answers are written by an AI from Somuna's CV, so they can be imperfect. Questions are saved without your name for 30 days to improve the answers."
 const SUGGESTIONS = ['What did Somuna do at Entain?', 'Which projects use AI or machine learning?', 'How can I contact Somuna?']
 
 // sessionStorage keeps the conversation across a page reload but not across visits.
