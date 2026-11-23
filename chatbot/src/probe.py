@@ -31,7 +31,7 @@ def main(argv=None):
     for question in questions:
         print(f"\nQ: {question}")
         for rank, hit in enumerate(retrieve(question, k=3), start=1):
-            print(f"   {rank}. {hit['distance']:.3f}  {hit['title']}  [{hit['kind']}]")
+            print(f"   {rank}. {'by name' if hit['distance'] is None else format(hit['distance'], '.3f')}  {hit['title']}  [{hit['kind']}]")
     return 0
 
 
