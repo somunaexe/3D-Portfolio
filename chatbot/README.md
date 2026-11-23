@@ -81,6 +81,7 @@ a plain error (not a stack trace) if the model can't be reached or returns nothi
 | `OPENAI_MODEL` / `OPENAI_API_KEY` | `gpt-4o-mini` / - | model names change: list what your key can use (see "Setting up OpenAI") |
 | `OPENAI_TEMPERATURE` | `0` | `none` leaves it out, for models that reject a custom temperature |
 | `LLM_TIMEOUT_SECONDS` | `300` for Ollama on this computer, else `30` | give up on a stuck model (a local model on a CPU can take minutes per answer; a follow-up makes two calls) |
+| `LLM_MAX_TOKENS` | `400` | longest reply the model may write (~300 words). Stops a visitor asking for an essay on your OpenAI credit; a reply that hits it is cut off mid-sentence |
 | `REDIS_URL` | `redis://localhost:6379/0` | |
 | `ALLOWED_ORIGINS` | `https://somunaexe.github.io,http://localhost:5173` | sites allowed to call it from a browser |
 | `RATE_LIMIT_PER_MINUTE` | `20` | per client IP |
