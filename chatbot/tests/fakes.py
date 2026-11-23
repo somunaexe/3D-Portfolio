@@ -34,3 +34,6 @@ class DeadRedis:
 
     def pipeline(self, *args, **kwargs):
         raise redis.ConnectionError("connection refused")
+
+    def zrangebyscore(self, *args, **kwargs):
+        raise redis.ConnectionError("connection refused")

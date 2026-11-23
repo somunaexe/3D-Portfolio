@@ -175,3 +175,22 @@ def test_the_report_counts_errors_and_latency_percentiles():
 def test_the_report_copes_with_an_empty_log(capsys):
     report.print_report(report.summarise([]), 7)
     assert "Nothing logged" in capsys.readouterr().out
+
+
+def test_the_report_cli_prints_a_report_for_a_scheduled_run(monkeypatch, redis_client, capsys):
+    """What Railway's weekly cron job runs: `python src/report.py --days 7`."""
+    analytics.QuestionLog(redis_client).record(event_at(int(__import__("time").time()), "Do you know Rust?") | {"standalone": "Do you know Rust?", "supported": False, "cited_titles": [], "retrieved": [], "cited": []})
+    monkeypatch.setattr(report.redis.Redis, "from_url", lambda *a, **k: redis_client)
+    monkeypatch.setattr(sys, "argv", ["report.py", "--days", "7"])
+    report.main()
+    output = capsys.readouterr().out
+    assert "Last 7 days: 1 question(s)" in output and "Do you know Rust?" in output
+
+
+def test_the_report_cli_fails_loudly_when_redis_is_unreachable(monkeypatch):
+    """A cron run that can't read Redis must exit non-zero, so Railway shows the run as failed."""
+    monkeypatch.setattr(report.redis.Redis, "from_url", lambda *a, **k: DeadRedis())
+    monkeypatch.setattr(sys, "argv", ["report.py"])
+    with pytest.raises(SystemExit) as exit_info:
+        report.main()
+    assert "Could not read Redis" in str(exit_info.value)

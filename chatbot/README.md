@@ -184,3 +184,18 @@ can type anything into the chat and strangers must not steer what your CV says.
    A change that lowers the score does not ship. The retrieval half also runs in `pytest`.
 
 Remember to re-run `python chatbot\src\indexing.py --index` after editing the CV, or your local index is stale.
+
+### Running the report every week (Railway cron)
+
+Railway can run the report on a schedule, inside your project next to Redis, so nothing secret leaves Railway and no
+new public endpoint exists. The report appears in that run's logs.
+
+1. In the Railway project: **+ New -> GitHub Repo -> this repo** (a second service, separate from the chatbot).
+2. **Settings -> Source -> Root Directory:** `/chatbot` (same as the chatbot service).
+3. **Settings -> Deploy -> Custom Start Command:** `python src/report.py --days 7`
+4. **Settings -> Deploy -> Cron Schedule:** `0 8 * * 1` (Mondays 08:00 UTC; cron times are always UTC).
+5. **Variables:** `REDIS_URL` = `${{Redis.REDIS_URL}}` (the same reference the chatbot uses). It does not need an OpenAI key.
+6. Check it: open the service's **Deployments**, click the latest run and read the log. To test now, use **Run now** or redeploy.
+
+The job starts, prints the report and exits; Railway only bills for the time it runs. If it cannot read Redis it exits
+with an error, so a broken run shows up as failed. It never changes anything: reading is all `report.py` does.
