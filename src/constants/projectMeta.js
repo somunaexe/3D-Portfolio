@@ -40,4 +40,5 @@ export const projectMeta = {
   27: { platform: 'Cloud & Server', stack: 'Cloud & DevOps',  languages: ['JavaScript'],          date: '2026-05-24' },
   28: { platform: 'Mobile',         stack: 'Mobile',          languages: ['Dart'],                date: null },
   29: { platform: 'Desktop & VR',   stack: 'Game Dev',        languages: ['C#'],                  date: '2024-11-13' },
+  30: { platform: 'Web',            stack: 'Full-Stack',      languages: ['JavaScript', 'Python'], date: '2024-11-16' },
 }

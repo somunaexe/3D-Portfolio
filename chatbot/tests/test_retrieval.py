@@ -30,7 +30,7 @@ def test_every_chunk_is_stored_with_flat_metadata(db_dir):
     collection = chromadb.PersistentClient(path=str(db_dir)).get_collection(
         indexing.COLLECTION, embedding_function=indexing.embedding_function()
     )
-    assert collection.count() == len(indexing.build_chunks()) == 37
+    assert collection.count() == len(indexing.build_chunks()) == 38
     for metadata in collection.get(include=["metadatas"])["metadatas"]:
         assert all(isinstance(v, (str, int, float, bool)) for v in metadata.values())
 

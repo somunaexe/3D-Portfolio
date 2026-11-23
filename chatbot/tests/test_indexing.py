@@ -35,7 +35,7 @@ def test_chunk_counts_by_kind(chunks):
         "section": 3,             # Summary, Education, Certifications
         "skills": 1,              # the Key Skills table
         "experience": 6,          # one per job
-        "project": 25,
+        "project": 26,
         "projects_overview": 1,   # intro + "Additional projects" note
     }
 
