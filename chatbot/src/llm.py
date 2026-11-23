@@ -8,6 +8,8 @@ because stored and query vectors must come from the same model.
         and OLLAMA_MODEL=<a name from `curl https://ollama.com/api/tags`>. With a key set, it is sent as
         "Authorization: Bearer <key>". A local server needs no key.
     LLM_PROVIDER=openai              OPENAI_MODEL=gpt-4o-mini    OPENAI_API_KEY=...   (read by LangChain)
+        The default model name can go out of date: list what your key can use, then set OPENAI_MODEL (see README).
+        OPENAI_TEMPERATURE=0 by default; set it to `none` for a model that rejects a custom temperature.
     LLM_TIMEOUT_SECONDS              give up on a stuck model. Default 300 for Ollama on this computer (a CPU can take
                                      minutes per answer), 30 for hosted models (a public endpoint must not hang)
 
@@ -44,7 +46,8 @@ def troubleshooting_hint(error=None):
         return ("The model took too long to answer (a local model on a CPU can be slow). Raise LLM_TIMEOUT_SECONDS "
                 "(for example 600), or use a smaller or hosted model.")
     if os.environ.get("LLM_PROVIDER", "ollama").lower() == "openai":
-        return "Check that OPENAI_API_KEY is set and valid, and that you have network access."
+        return ("Check that OPENAI_API_KEY is set and valid and the account has credit. If the error names the model, "
+                "set OPENAI_MODEL to one your key can use. If it mentions 'temperature', set OPENAI_TEMPERATURE=none.")
     return ("Is Ollama running, and is the model downloaded? Try `ollama list` (and `ollama pull <model>`). "
             "Run `python chatbot/src/check_setup.py` to test each piece.")
 
@@ -68,5 +71,8 @@ def get_llm():
     if provider == "openai":
         from langchain_openai import ChatOpenAI
 
-        return ChatOpenAI(model=os.environ.get("OPENAI_MODEL", "gpt-4o-mini"), temperature=0, timeout=timeout, max_retries=1)
+        # Temperature 0 keeps answers steady, but some models only accept their default: `none` leaves it out.
+        temperature = os.environ.get("OPENAI_TEMPERATURE", "0").strip().lower()
+        options = {} if temperature in ("", "none", "default") else {"temperature": float(temperature)}
+        return ChatOpenAI(model=os.environ.get("OPENAI_MODEL", "gpt-4o-mini"), timeout=timeout, max_retries=1, **options)
     raise ValueError(f"Unknown LLM_PROVIDER {provider!r}: use 'ollama' or 'openai'")

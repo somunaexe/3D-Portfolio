@@ -153,3 +153,35 @@ def test_the_prompt_forbids_speaking_as_somuna():
     rules = query.SYSTEM_PROMPT
     assert "You are NOT Somuna" in rules and "third person" in rules and 'Never use "I"' in rules
     assert "ONLY" in rules and "Never guess or invent" in rules   # the earlier rules are still there
+
+
+# --- OpenAI settings -----------------------------------------------------------------------------
+
+def _openai(monkeypatch, **env):
+    monkeypatch.setenv("LLM_PROVIDER", "openai")
+    monkeypatch.setenv("OPENAI_API_KEY", "placeholder-not-a-real-key")
+    for key in ("OPENAI_MODEL", "OPENAI_TEMPERATURE"):
+        monkeypatch.delenv(key, raising=False)
+    for key, value in env.items():
+        monkeypatch.setenv(key, value)
+    return llm_module.get_llm()
+
+
+def test_openai_defaults_to_temperature_zero(monkeypatch):
+    assert _openai(monkeypatch).temperature == 0
+
+
+@pytest.mark.parametrize("setting", ["none", "None", "default", ""])
+def test_openai_temperature_can_be_left_out_for_models_that_reject_it(monkeypatch, setting):
+    assert _openai(monkeypatch, OPENAI_TEMPERATURE=setting).temperature is None
+
+
+def test_openai_model_and_temperature_come_from_the_environment(monkeypatch):
+    model = _openai(monkeypatch, OPENAI_MODEL="some-model", OPENAI_TEMPERATURE="0.3")
+    assert (model.model_name, model.temperature) == ("some-model", 0.3)
+
+
+def test_the_openai_error_hint_mentions_credit_model_and_temperature(monkeypatch):
+    monkeypatch.setenv("LLM_PROVIDER", "openai")
+    hint = llm_module.troubleshooting_hint(RuntimeError("401"))
+    assert "OPENAI_API_KEY" in hint and "credit" in hint and "OPENAI_MODEL" in hint and "OPENAI_TEMPERATURE=none" in hint
