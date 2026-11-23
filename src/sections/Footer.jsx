@@ -13,6 +13,7 @@ const technologies = [
   { name: 'ChromaDB', icon: '/assets/chromadb.svg' },
   { name: 'Redis', icon: '/assets/redis.svg' },
   { name: 'OpenAI', icon: '/assets/openai.svg' },
+  { name: 'Ollama', icon: '/assets/ollama.svg' },
   { name: 'Docker', icon: '/assets/docker.png' },
   { name: 'Railway', icon: '/assets/railway.svg' },
   { name: 'AWS', icon: '/assets/aws-light.png' },

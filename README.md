@@ -29,7 +29,7 @@ Ezem retrieves the CV chunks closest to the question, adds any role or project n
 
 ## Built with
 
-React, Vite, JavaScript, Node.js, Three.js, Tailwind CSS, Python, FastAPI, LangChain, ChromaDB, Redis, OpenAI, Docker, Railway, AWS (S3), GitHub Actions and Git.
+React, Vite, JavaScript, Node.js, Three.js, Tailwind CSS, Python, FastAPI, LangChain, ChromaDB, Redis, OpenAI, Ollama, Docker, Railway, AWS (S3), GitHub Actions and Git.
 
 ## Run it locally
 
