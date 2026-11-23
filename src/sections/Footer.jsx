@@ -1,8 +1,10 @@
 // Everything this site is built with, front end and the Ezem chatbot behind it. Add a row here to list a new tool.
+// Only the icon is shown; the name is its alt text (for screen readers) and its hover tooltip.
 const technologies = [
   { name: 'React', icon: '/assets/react.svg' },
   { name: 'Vite', icon: '/assets/vite.png' },
   { name: 'JavaScript', icon: '/assets/javascript.svg' },
+  { name: 'Node.js', icon: '/assets/node.png' },
   { name: 'Three.js', icon: '/assets/three.png' },
   { name: 'Tailwind CSS', icon: '/assets/tailwindcss.png' },
   { name: 'Python', icon: '/assets/python.svg' },
@@ -26,16 +28,12 @@ const Footer = () => {
             <p>|</p>
             <p>Privacy Policy</p>
         </div>
-        <p className="text-white-500">
-            Built with{' '}
-            {technologies.map((tech, index) => (
-                <span key={tech.name} className="whitespace-nowrap">
-                    {index === technologies.length - 1 ? 'and ' : ''}{tech.name}{' '}
-                    <img src={tech.icon} alt="" className="w-5 h-5 inline-block align-text-bottom" />
-                    {index === technologies.length - 1 ? '.' : ', '}
-                </span>
+        <div className="text-white-500 flex flex-wrap items-center gap-2">
+            <span>Built with</span>
+            {technologies.map((tech) => (
+                <img key={tech.name} src={tech.icon} alt={tech.name} title={tech.name} className="w-5 h-5" />
             ))}
-        </p>
+        </div>
         <p className="text-white-500">© 2026 Somuna. All rights reserved.</p>
     </footer>
   )
