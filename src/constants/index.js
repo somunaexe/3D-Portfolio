@@ -234,7 +234,7 @@ export const clientReviews = [
       desc: "A big data pipeline that recommends games from purchase and playtime history.",
       subdesc: "ALS matrix-factorisation model on Databricks and Apache Spark, with MLflow-tracked tuning that improved precision by 15% over baseline.",
       href: null,
-      repo: "https://github.com/somunaexe",
+      repo: "https://github.com/somunaexe/Recommender-System",
       texture: null,
       logo: "/assets/project-logo5.png",
       logoStyle: {
