@@ -43,6 +43,22 @@ the direct API accepts: `curl https://ollama.com/api/tags` (these differ from th
 Check your credits with `curl https://ollama.com/api/balance -H "Authorization: Bearer $OLLAMA_API_KEY"`.
 Keep the key in your environment or a git-ignored `.env`, never in the code or the website.
 
+## Setting up OpenAI
+
+1. Create an API key at https://platform.openai.com/api-keys. API billing is separate from a ChatGPT subscription, so the
+   account needs prepaid credit or a billing method. Set a monthly budget or usage limit in the account's billing settings
+   before using the key anywhere public.
+2. Use one key for your computer and a different one for Railway, so you can revoke either without touching the other.
+3. In PowerShell, set the key without leaving it in your command history (`Read-Host` asks for it):
+   `$env:OPENAI_API_KEY = Read-Host "Paste your OpenAI key"`, then `$env:LLM_PROVIDER = "openai"`.
+4. See which models the key can use, and pick a small, inexpensive chat model:
+   `(Invoke-RestMethod https://api.openai.com/v1/models -Headers @{Authorization="Bearer $env:OPENAI_API_KEY"}).data.id | Sort-Object`
+   then `$env:OPENAI_MODEL = "<a name from that list>"`.
+5. Check it: `python chatbot\src\check_setup.py`, then `python chatbot\src\chat.py --repl`.
+
+Each chat turn sends roughly 2,000 tokens in and a few hundred out (a follow-up makes a second, smaller call), which you can
+multiply by the model's per-token price on OpenAI's pricing page.
+
 ## Trying it without Redis
 
 `python chatbot/src/chat.py --repl` opens an interactive chat that remembers the conversation inside that one window, so you
@@ -62,7 +78,8 @@ a plain error (not a stack trace) if the model can't be reached or returns nothi
 | `LLM_PROVIDER` | `ollama` | `ollama` or `openai` |
 | `OLLAMA_MODEL` / `OLLAMA_BASE_URL` | `llama3.1:8b` / `http://localhost:11434` | |
 | `OLLAMA_API_KEY` | - | only for Ollama cloud; sent as a bearer token |
-| `OPENAI_MODEL` / `OPENAI_API_KEY` | `gpt-4o-mini` / - | |
+| `OPENAI_MODEL` / `OPENAI_API_KEY` | `gpt-4o-mini` / - | model names change: list what your key can use (see "Setting up OpenAI") |
+| `OPENAI_TEMPERATURE` | `0` | `none` leaves it out, for models that reject a custom temperature |
 | `LLM_TIMEOUT_SECONDS` | `300` for Ollama on this computer, else `30` | give up on a stuck model (a local model on a CPU can take minutes per answer; a follow-up makes two calls) |
 | `REDIS_URL` | `redis://localhost:6379/0` | |
 | `ALLOWED_ORIGINS` | `https://somunaexe.github.io,http://localhost:5173` | sites allowed to call it from a browser |
