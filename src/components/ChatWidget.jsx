@@ -10,8 +10,11 @@ import {
 const ID_KEY = 'portfolio:chat:id'
 const MESSAGES_KEY = 'portfolio:chat:messages'
 const MAX_STORED_MESSAGES = 50
+const TEASED_KEY = 'portfolio:chat:teased'
+const TEASER_DELAY_MS = 2500    // let the page settle before drawing attention
+const TEASER_VISIBLE_MS = 9000 // long enough to read, short enough not to nag
 
-const GREETING = "Hi! I can answer questions about Somuna's experience, projects and skills."
+const GREETING = "Hi, I'm Ezem! I can answer questions about Somuna's experience, projects and skills."
 const NOTICE = "Answers are written by an AI from Somuna's CV, so they can be imperfect."
 const SUGGESTIONS = ['What did Somuna do at Entain?', 'Which projects use AI or machine learning?', 'How can I contact Somuna?']
 
@@ -64,6 +67,7 @@ const ChatWidget = () => {
     const [messages, setMessages] = useState(loadMessages)
     const [draft, setDraft] = useState('')
     const [loading, setLoading] = useState(false)
+    const [teaser, setTeaser] = useState(false)   // the "Ask me about Somuna." bubble, shown once on its own
     const [chatId] = useState(() => readStored(ID_KEY) || newChatId())   // created once per visit
     const abortRef = useRef(null)
     const buttonRef = useRef(null)
@@ -78,6 +82,21 @@ const ChatWidget = () => {
         writeStored(MESSAGES_KEY, JSON.stringify(messages.slice(-MAX_STORED_MESSAGES)))
     }, [messages])
 
+    // Once per visit, bring the bubble up by itself so people notice the chat. After that it only shows on hover/focus.
+    useEffect(() => {
+        if (readStored(TEASED_KEY)) return undefined
+        let hideTimer
+        const showTimer = setTimeout(() => {
+            writeStored(TEASED_KEY, '1')
+            setTeaser(true)
+            hideTimer = setTimeout(() => setTeaser(false), TEASER_VISIBLE_MS)
+        }, TEASER_DELAY_MS)
+        return () => {
+            clearTimeout(showTimer)
+            clearTimeout(hideTimer)
+        }
+    }, [])
+
     useEffect(() => {
         if (open) inputRef.current?.focus()
     }, [open])
@@ -87,6 +106,12 @@ const ChatWidget = () => {
     }, [messages, loading, open])
 
     useEffect(() => () => abortRef.current?.abort(), [])   // stop waiting if the page unmounts
+
+    const toggle = () => {
+        setTeaser(false)
+        if (open) close()
+        else setOpen(true)
+    }
 
     const close = () => {
         setOpen(false)
@@ -226,7 +251,11 @@ const ChatWidget = () => {
                     <span
                         role="tooltip"
                         id="chat-tooltip"
-                        className="pointer-events-none absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap rounded-lg border border-black-500 bg-black-300 px-3 py-2 text-sm text-white-900 shadow-lg opacity-0 transition-opacity group-hover:opacity-100 group-focus-within:opacity-100"
+                        className={`chat-bubble pointer-events-none absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap rounded-lg border border-accent/50 bg-black-300 px-3 py-2 text-sm text-white-900 shadow-lg transition-all duration-500 ease-out motion-reduce:transition-none ${
+                            teaser
+                                ? 'chat-bubble-pulse translate-x-0 opacity-100'
+                                : 'translate-x-3 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-focus-within:translate-x-0 group-focus-within:opacity-100'
+                        }`}
                     >
                         Ask me about Somuna.
                     </span>
@@ -234,12 +263,12 @@ const ChatWidget = () => {
                 <button
                     ref={buttonRef}
                     type="button"
-                    onClick={() => (open ? close() : setOpen(true))}
+                    onClick={toggle}
                     aria-label={open ? 'Close chat' : 'Ask me about Somuna'}
                     aria-expanded={open}
                     aria-controls="chat-panel"
                     aria-describedby={open ? undefined : 'chat-tooltip'}
-                    className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-on-accent shadow-lg shadow-black-100 transition-transform hover:scale-105 motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                    className={`flex h-14 w-14 items-center justify-center rounded-full bg-accent text-on-accent shadow-lg shadow-black-100 transition-transform ${teaser ? 'chat-icon-pulse' : ''} hover:scale-105 motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent`}
                 >
                     {open ? <CloseIcon /> : <ChatIcon />}
                 </button>

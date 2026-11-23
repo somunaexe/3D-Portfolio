@@ -155,6 +155,12 @@ def test_the_prompt_forbids_speaking_as_somuna():
     assert "ONLY" in rules and "Never guess or invent" in rules   # the earlier rules are still there
 
 
+def test_the_assistant_is_named_ezem_but_still_never_speaks_as_somuna():
+    rules = query.SYSTEM_PROMPT
+    assert "You are Ezem" in rules and "introduce yourself" in rules
+    assert "You are NOT Somuna" in rules and 'Never use "I"' in rules   # "I" is for Ezem only
+
+
 # --- OpenAI settings -----------------------------------------------------------------------------
 
 def _openai(monkeypatch, **env):

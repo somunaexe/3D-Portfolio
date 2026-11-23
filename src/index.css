@@ -371,7 +371,28 @@ body {
   animation: chat-blink 1.2s infinite;
 }
 
+/* A soft glow that breathes while the bubble is on show. Slow and low-contrast so it draws the eye without nagging. */
+@keyframes chat-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(var(--theme-accent) / 0); }
+  50% { box-shadow: 0 0 14px 3px rgb(var(--theme-accent) / 0.35); }
+}
+
+@keyframes chat-ring {
+  0% { box-shadow: 0 0 0 0 rgb(var(--theme-accent) / 0.45); }
+  70%, 100% { box-shadow: 0 0 0 14px rgb(var(--theme-accent) / 0); }
+}
+
+.chat-bubble-pulse {
+  animation: chat-glow 2.4s ease-in-out infinite;
+}
+
+.chat-icon-pulse {
+  animation: chat-ring 2.4s ease-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .chat-bubble-pulse,
+  .chat-icon-pulse,
   .chat-panel,
   .chat-dots {
     animation: none;
