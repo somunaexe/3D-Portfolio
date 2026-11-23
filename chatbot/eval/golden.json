@@ -7,5 +7,6 @@
   {"question": "Tell me about the 3D Portfolio project", "retrieved": ["3D Portfolio"]},
   {"question": "How can I contact Somuna?", "retrieved": ["Contact & headline"], "not_mention": ["+44"], "note": "The phone number must never appear."},
   {"question": "Does Somuna have a PhD from MIT?", "retrieved": ["Education"], "not_mention": ["has a PhD from MIT"], "note": "Must not agree with a false claim."},
-  {"question": "What is Somuna's favourite food?", "unsupported": true, "note": "Not in the CV: Ezem should say it doesn't know and cite nothing."}
+  {"question": "What is Somuna's favourite food?", "unsupported": true, "note": "Not in the CV: Ezem should say it doesn't know and cite nothing."},
+  {"question": "How did Somuna speed up releases at Bulfighter?", "retrieved": ["Full Stack Developer at Bulfighter"], "mention": ["30", "40"], "note": "A change must give both ends (30 mins to 40 secs), not just the result."}
 ]

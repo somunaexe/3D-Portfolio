@@ -161,6 +161,11 @@ def test_the_assistant_is_named_ezem_but_still_never_speaks_as_somuna():
     assert "You are NOT Somuna" in rules and 'Never use "I"' in rules   # "I" is for Ezem only
 
 
+def test_the_prompt_asks_for_both_ends_of_a_change():
+    rules = query.SYSTEM_PROMPT
+    assert "BOTH the before and after values" in rules and "30 mins to 40 secs" in rules
+
+
 # --- OpenAI settings -----------------------------------------------------------------------------
 
 def _openai(monkeypatch, **env):
