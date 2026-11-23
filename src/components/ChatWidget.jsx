@@ -10,8 +10,7 @@ import {
 const ID_KEY = 'portfolio:chat:id'
 const MESSAGES_KEY = 'portfolio:chat:messages'
 const MAX_STORED_MESSAGES = 50
-const TEASED_KEY = 'portfolio:chat:teased'
-const TEASER_DELAY_MS = 2500    // let the page settle before drawing attention
+const TEASER_DELAY_MS = 3000    // let the page settle before drawing attention
 const TEASER_VISIBLE_MS = 9000 // long enough to read, short enough not to nag
 
 const GREETING = "Hi, I'm Ezem! I can answer questions about Somuna's experience, projects and skills."
@@ -82,12 +81,11 @@ const ChatWidget = () => {
         writeStored(MESSAGES_KEY, JSON.stringify(messages.slice(-MAX_STORED_MESSAGES)))
     }, [messages])
 
-    // Once per visit, bring the bubble up by itself so people notice the chat. After that it only shows on hover/focus.
+    // On every page load, bring the bubble up by itself after a short delay so people notice the chat.
+    // (Hovering or focusing the icon still shows it too.)
     useEffect(() => {
-        if (readStored(TEASED_KEY)) return undefined
         let hideTimer
         const showTimer = setTimeout(() => {
-            writeStored(TEASED_KEY, '1')
             setTeaser(true)
             hideTimer = setTimeout(() => setTeaser(false), TEASER_VISIBLE_MS)
         }, TEASER_DELAY_MS)
