@@ -81,6 +81,8 @@ a plain error (not a stack trace) if the model can't be reached or returns nothi
 | `OPENAI_MODEL` / `OPENAI_API_KEY` | `gpt-4o-mini` / - | model names change: list what your key can use (see "Setting up OpenAI") |
 | `OPENAI_TEMPERATURE` | `0` | `none` leaves it out, for models that reject a custom temperature |
 | `LLM_TIMEOUT_SECONDS` | `300` for Ollama on this computer, else `30` | give up on a stuck model (a local model on a CPU can take minutes per answer; a follow-up makes two calls) |
+| `ANALYTICS_ENABLED` | off | `true` keeps a 30-day log of each question (text with emails/phone numbers masked, which CV chunks were retrieved and cited, timing; never answers, chat ids or IPs). See "Improving the chatbot from real questions" |
+| `ANALYTICS_RETENTION_DAYS` | `30` | how long a logged question is kept |
 | `LLM_MAX_TOKENS` | `400` | longest reply the model may write (~300 words). Stops a visitor asking for an essay on your OpenAI credit; a reply that hits it is cut off mid-sentence |
 | `REDIS_URL` | `redis://localhost:6379/0` | |
 | `ALLOWED_ORIGINS` | `https://somunaexe.github.io,http://localhost:5173` | sites allowed to call it from a browser |
@@ -154,3 +156,31 @@ Somuna."; clicking opens a small panel that doesn't block the page. It calls thi
 pytest          # needs no LLM; uses a real redis-server if installed, else fakeredis
 python src/probe.py "Have you used Docker?"   # see which chunks retrieval returns
 ```
+
+
+## Improving the chatbot from real questions
+
+The loop: **log -> review -> add a case -> change -> measure.** Nothing edits the prompt automatically, because anyone
+can type anything into the chat and strangers must not steer what your CV says.
+
+1. **Switch logging on.** In Railway add `ANALYTICS_ENABLED=true`. Visitors are told in the widget (the notice in `ChatWidget.jsx`). Only metadata and the (masked) question text are kept, for 30 days.
+2. **Read the report** (weekly is plenty). In Railway open the Redis service, copy its *public* connection URL, then:
+
+   ```powershell
+   $env:REDIS_URL = "<the public Redis URL>"      # paste it yourself; never commit it
+   python chatbot\src\report.py --days 7
+   ```
+
+   The list that matters is *Questions with no cited source*: the CV had no answer, retrieval missed it, or it was off topic.
+3. **Decide the cause** for each: add the fact to the CV, improve retrieval/chunking, or adjust the prompt.
+4. **Add a case** to `chatbot/eval/golden.json` (the question, and what a correct result looks like) so it can never silently regress.
+5. **Measure before and after any change:**
+
+   ```powershell
+   python chatbot\src\evaluate.py              # retrieval only: free and instant
+   python chatbot\src\evaluate.py --answers    # also checks the wording with the configured LLM
+   ```
+
+   A change that lowers the score does not ship. The retrieval half also runs in `pytest`.
+
+Remember to re-run `python chatbot\src\indexing.py --index` after editing the CV, or your local index is stale.

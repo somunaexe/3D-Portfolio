@@ -1,0 +1,11 @@
+[
+  {"question": "What did Somuna do at Bulfighter?", "retrieved": ["Full Stack Developer at Bulfighter"], "mention": ["React"], "note": "Regression: the company name used to be lost in the similarity search."},
+  {"question": "What did you do at Entain?", "retrieved": ["Customer Service Manager at Entain"]},
+  {"question": "What technologies did you use at Bulwriter?", "retrieved": ["Bulwriter"], "mention": ["Go"]},
+  {"question": "What is your highest level of education?", "retrieved": ["Education"], "mention": ["MSc"]},
+  {"question": "Which projects use machine learning?", "retrieved_any": ["NLP Sentiment Analyser", "Real-Time Anomaly Detector", "Animal Object Detector", "Customer Recommender System"]},
+  {"question": "Tell me about the 3D Portfolio project", "retrieved": ["3D Portfolio"]},
+  {"question": "How can I contact Somuna?", "retrieved": ["Contact & headline"], "not_mention": ["+44"], "note": "The phone number must never appear."},
+  {"question": "Does Somuna have a PhD from MIT?", "retrieved": ["Education"], "not_mention": ["has a PhD from MIT"], "note": "Must not agree with a false claim."},
+  {"question": "What is Somuna's favourite food?", "unsupported": true, "note": "Not in the CV: Ezem should say it doesn't know and cite nothing."}
+]
