@@ -399,7 +399,7 @@ export const clientReviews = [
       desc: "This site: an interactive 3D portfolio with six themes and an AI assistant that answers questions about my CV.",
       subdesc: "React, Vite and Three.js front end; a FastAPI, LangChain, ChromaDB and Redis chatbot hosted on Railway that cites its sources.",
       href: null,
-      repo: "https://github.com/somunaexe/3D-Portfolio-with-RAG-Chatbot",
+      repo: "https://github.com/somunaexe/3D-Portfolio-with-AI-RAG-Chatbot",
       texture: null,
       logo: "/assets/project-logo1.png",
       logoStyle: {
