@@ -185,3 +185,35 @@ def test_the_openai_error_hint_mentions_credit_model_and_temperature(monkeypatch
     monkeypatch.setenv("LLM_PROVIDER", "openai")
     hint = llm_module.troubleshooting_hint(RuntimeError("401"))
     assert "OPENAI_API_KEY" in hint and "credit" in hint and "OPENAI_MODEL" in hint and "OPENAI_TEMPERATURE=none" in hint
+
+
+# --- reply length cap --------------------------------------------------------------------------------
+
+def _cap_env(monkeypatch, value=None):
+    monkeypatch.delenv("LLM_MAX_TOKENS", raising=False)
+    if value is not None:
+        monkeypatch.setenv("LLM_MAX_TOKENS", value)
+
+
+def test_replies_are_capped_at_400_tokens_by_default_on_both_providers(monkeypatch):
+    _cap_env(monkeypatch)
+    monkeypatch.setenv("OPENAI_API_KEY", "placeholder-not-a-real-key")
+    monkeypatch.setenv("LLM_PROVIDER", "openai")
+    openai_model = llm_module.get_llm()
+    assert openai_model.max_tokens == 400
+    assert openai_model._default_params["max_completion_tokens"] == 400   # what is actually sent to OpenAI
+    monkeypatch.setenv("LLM_PROVIDER", "ollama")
+    assert llm_module.get_llm().num_predict == 400
+
+
+def test_the_reply_cap_can_be_changed_from_the_environment(monkeypatch):
+    _cap_env(monkeypatch, "150")
+    monkeypatch.setenv("LLM_PROVIDER", "ollama")
+    assert llm_module.get_llm().num_predict == 150
+
+
+@pytest.mark.parametrize("bad", ["0", "-5", "lots"])
+def test_a_nonsense_reply_cap_is_rejected_rather_than_ignored(monkeypatch, bad):
+    _cap_env(monkeypatch, bad)
+    with pytest.raises(ValueError):
+        llm_module.max_output_tokens()

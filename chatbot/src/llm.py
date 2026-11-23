@@ -10,6 +10,8 @@ because stored and query vectors must come from the same model.
     LLM_PROVIDER=openai              OPENAI_MODEL=gpt-4o-mini    OPENAI_API_KEY=...   (read by LangChain)
         The default model name can go out of date: list what your key can use, then set OPENAI_MODEL (see README).
         OPENAI_TEMPERATURE=0 by default; set it to `none` for a model that rejects a custom temperature.
+    LLM_MAX_TOKENS=400               cap on the length of each reply (see max_output_tokens). Your longest real answer so far was
+                                     about 270 tokens; the cap stops a visitor asking for an essay on your OpenAI credit.
     LLM_TIMEOUT_SECONDS              give up on a stuck model. Default 300 for Ollama on this computer (a CPU can take
                                      minutes per answer), 30 for hosted models (a public endpoint must not hang)
 
@@ -28,6 +30,16 @@ def request_timeout():
     provider = os.environ.get("LLM_PROVIDER", "ollama").lower()
     host = urlparse(os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")).hostname or ""
     return 300.0 if provider == "ollama" and host in ("localhost", "127.0.0.1", "::1") else 30.0
+
+
+def max_output_tokens():
+    """The most tokens one reply may use. About 400 tokens is ~300 words: room for the longest answers we have
+    seen (~270 tokens) without letting a visitor pay for an essay. Too low cuts replies off mid-sentence."""
+    raw = os.environ.get("LLM_MAX_TOKENS", "").strip()
+    value = int(raw) if raw else 400
+    if value < 1:
+        raise ValueError(f"LLM_MAX_TOKENS must be at least 1, got {value}")
+    return value
 
 
 def describe_llm():
@@ -55,6 +67,7 @@ def troubleshooting_hint(error=None):
 def get_llm():
     provider = os.environ.get("LLM_PROVIDER", "ollama").lower()
     timeout = request_timeout()
+    max_tokens = max_output_tokens()
     if provider == "ollama":
         from langchain_ollama import ChatOllama
 
@@ -66,6 +79,7 @@ def get_llm():
             model=os.environ.get("OLLAMA_MODEL", "llama3.1:8b"),
             base_url=os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434"),
             temperature=0,
+            num_predict=max_tokens,   # Ollama's name for "max output tokens"
             client_kwargs=client_kwargs,
         )
     if provider == "openai":
@@ -74,5 +88,5 @@ def get_llm():
         # Temperature 0 keeps answers steady, but some models only accept their default: `none` leaves it out.
         temperature = os.environ.get("OPENAI_TEMPERATURE", "0").strip().lower()
         options = {} if temperature in ("", "none", "default") else {"temperature": float(temperature)}
-        return ChatOpenAI(model=os.environ.get("OPENAI_MODEL", "gpt-4o-mini"), timeout=timeout, max_retries=1, **options)
+        return ChatOpenAI(model=os.environ.get("OPENAI_MODEL", "gpt-4o-mini"), timeout=timeout, max_retries=1, max_tokens=max_tokens, **options)
     raise ValueError(f"Unknown LLM_PROVIDER {provider!r}: use 'ollama' or 'openai'")
