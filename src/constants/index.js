@@ -471,7 +471,7 @@ export const clientReviews = [
       desc: "A web app for locating EV charging stations using geolocation and AJAX.",
       subdesc: "Developed with PHP and MySQL, featuring a map-based search and user authentication. Scaled to support 2000 users simultaneously.",
       href: null,
-      repo: "https://github.com/somunaexe/live-charger-website",
+      repo: "https://github.com/somunaexe/Car-Charger-Geolocator",
       texture: "/textures/project/charging-station.mp4",
       logo: "/assets/project-logo-charging-station.png",
       logoStyle: {
