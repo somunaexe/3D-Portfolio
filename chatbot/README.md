@@ -110,7 +110,7 @@ builds the vector index at build time, so a container starts ready and offline-c
 1. **Plan.** The Hobby plan ($5/month, which counts toward usage) is the sensible choice. The Free plan limits a service to
    0.5 GB RAM and can sleep when idle, so a recruiter's first question could wait for a cold start. This service uses
    roughly 0.3 GB.
-2. **Create the project:** *New Project -> Deploy from GitHub repo -> 3D-Portfolio*. Deploy from `main` once this is merged
+2. **Create the project:** *New Project -> Deploy from GitHub repo -> 3D-Portfolio-with-RAG-Chatbot*. Deploy from `main` once this is merged
    (or pick the feature branch to test first).
 3. **Service Settings -> Root Directory:** `/chatbot`. Railway then finds `chatbot/Dockerfile` by itself.
 4. **Add Redis:** *+ New -> Database -> Redis* in the same project.
