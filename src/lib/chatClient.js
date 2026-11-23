@@ -1,7 +1,11 @@
 // Talks to the chatbot service (chatbot/src/api.py): POST /chat {chat_id, question} -> {answer, sources, error}
 
 export const MAX_QUESTION_CHARS = 200   // must match MAX_QUESTION_CHARS in the service
-export const REQUEST_TIMEOUT_MS = 70000 // the service allows up to two 30s LLM calls per question
+// How long the widget waits for an answer. In production the service allows up to two 30s LLM calls per question.
+// In development a local model on a CPU can take minutes (up to two 300s calls), so wait longer or the widget
+// would give up while the server is still working. VITE_CHAT_TIMEOUT_SECONDS overrides both.
+export const REQUEST_TIMEOUT_MS =
+    (Number(import.meta.env.VITE_CHAT_TIMEOUT_SECONDS) || (import.meta.env.DEV ? 650 : 70)) * 1000
 
 // Where the service lives. Set VITE_CHATBOT_URL when building for production. In development it falls back
 // to a local server. With no URL in a production build the chat icon is simply not shown, so the site never

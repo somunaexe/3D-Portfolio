@@ -137,8 +137,8 @@ def _client_timeout(monkeypatch, **env):
 
 
 def test_a_local_ollama_model_gets_a_long_default_timeout_because_cpus_are_slow(monkeypatch):
-    assert _client_timeout(monkeypatch) == 120.0
-    assert _client_timeout(monkeypatch, OLLAMA_BASE_URL="http://127.0.0.1:11434") == 120.0
+    assert _client_timeout(monkeypatch) == 300.0
+    assert _client_timeout(monkeypatch, OLLAMA_BASE_URL="http://127.0.0.1:11434") == 300.0
 
 
 def test_a_hosted_ollama_keeps_the_short_default_timeout(monkeypatch):
@@ -146,7 +146,7 @@ def test_a_hosted_ollama_keeps_the_short_default_timeout(monkeypatch):
 
 
 def test_the_timeout_can_always_be_overridden(monkeypatch):
-    assert _client_timeout(monkeypatch, LLM_TIMEOUT_SECONDS="300") == 300.0
+    assert _client_timeout(monkeypatch, LLM_TIMEOUT_SECONDS="45") == 45.0
 
 
 def test_the_prompt_forbids_speaking_as_somuna():

@@ -63,7 +63,7 @@ a plain error (not a stack trace) if the model can't be reached or returns nothi
 | `OLLAMA_MODEL` / `OLLAMA_BASE_URL` | `llama3.1:8b` / `http://localhost:11434` | |
 | `OLLAMA_API_KEY` | - | only for Ollama cloud; sent as a bearer token |
 | `OPENAI_MODEL` / `OPENAI_API_KEY` | `gpt-4o-mini` / - | |
-| `LLM_TIMEOUT_SECONDS` | `120` for Ollama on this computer, else `30` | give up on a stuck model (a local model on a CPU can take a minute or more per answer) |
+| `LLM_TIMEOUT_SECONDS` | `300` for Ollama on this computer, else `30` | give up on a stuck model (a local model on a CPU can take minutes per answer; a follow-up makes two calls) |
 | `REDIS_URL` | `redis://localhost:6379/0` | |
 | `ALLOWED_ORIGINS` | `https://somunaexe.github.io,http://localhost:5173` | sites allowed to call it from a browser |
 | `RATE_LIMIT_PER_MINUTE` | `20` | per client IP |
