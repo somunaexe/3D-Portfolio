@@ -14,6 +14,7 @@ Three safeguards:
 import json
 import os
 import re
+import threading
 
 import redis
 
@@ -77,3 +78,32 @@ class ChatMemory:
 
     def clear(self, chat_id):
         self.client.delete(self.key(chat_id))
+
+
+class InMemoryChatMemory:
+    """Same interface as ChatMemory, but kept inside this one process.
+
+    For trying the chatbot on a computer without Redis (see `chat.py --repl`). It forgets everything when the program
+    ends and is not shared between processes, so the real service uses Redis.
+    """
+
+    def __init__(self, max_turns=MAX_TURNS):
+        self.max_turns = max_turns
+        self._turns = {}
+        self._lock = threading.Lock()
+
+    def load(self, chat_id):
+        with self._lock:
+            return list(self._turns.get(validate_chat_id(chat_id), []))
+
+    def append(self, chat_id, question, answer):
+        key = validate_chat_id(chat_id)
+        with self._lock:
+            turns = self._turns.setdefault(key, [])
+            turns.append({"question": question, "answer": answer})
+            del turns[: -self.max_turns]
+            return list(turns)
+
+    def clear(self, chat_id):
+        with self._lock:
+            self._turns.pop(validate_chat_id(chat_id), None)

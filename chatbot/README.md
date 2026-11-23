@@ -43,6 +43,34 @@ the direct API accepts: `curl https://ollama.com/api/tags` (these differ from th
 Check your credits with `curl https://ollama.com/api/balance -H "Authorization: Bearer $OLLAMA_API_KEY"`.
 Keep the key in your environment or a git-ignored `.env`, never in the code or the website.
 
+## Setting up OpenAI
+
+1. Create an API key at https://platform.openai.com/api-keys. API billing is separate from a ChatGPT subscription, so the
+   account needs prepaid credit or a billing method. Set a monthly budget or usage limit in the account's billing settings
+   before using the key anywhere public.
+2. Use one key for your computer and a different one for Railway, so you can revoke either without touching the other.
+3. In PowerShell, set the key without leaving it in your command history (`Read-Host` asks for it):
+   `$env:OPENAI_API_KEY = Read-Host "Paste your OpenAI key"`, then `$env:LLM_PROVIDER = "openai"`.
+4. See which models the key can use, and pick a small, inexpensive chat model:
+   `(Invoke-RestMethod https://api.openai.com/v1/models -Headers @{Authorization="Bearer $env:OPENAI_API_KEY"}).data.id | Sort-Object`
+   then `$env:OPENAI_MODEL = "<a name from that list>"`.
+5. Check it: `python chatbot\src\check_setup.py`, then `python chatbot\src\chat.py --repl`.
+
+Each chat turn sends roughly 2,000 tokens in and a few hundred out (a follow-up makes a second, smaller call), which you can
+multiply by the model's per-token price on OpenAI's pricing page.
+
+## Trying it without Redis
+
+`python chatbot/src/chat.py --repl` opens an interactive chat that remembers the conversation inside that one window, so you
+can test follow-up questions ("What technologies did you use there?") without installing Redis. It uses Redis automatically
+if it is running. The real service always uses Redis.
+
+## If something doesn't work
+
+Run `python chatbot/src/check_setup.py` from the repo root. It checks each piece in order (libraries, CV chunks, vector
+database, retrieval, Redis, the language model) and prints what to fix. `chat.py` also prints which model it is using, and
+a plain error (not a stack trace) if the model can't be reached or returns nothing.
+
 ## Settings (environment variables)
 
 | Variable | Default | Meaning |
@@ -50,12 +78,16 @@ Keep the key in your environment or a git-ignored `.env`, never in the code or t
 | `LLM_PROVIDER` | `ollama` | `ollama` or `openai` |
 | `OLLAMA_MODEL` / `OLLAMA_BASE_URL` | `llama3.1:8b` / `http://localhost:11434` | |
 | `OLLAMA_API_KEY` | - | only for Ollama cloud; sent as a bearer token |
-| `OPENAI_MODEL` / `OPENAI_API_KEY` | `gpt-4o-mini` / - | |
-| `LLM_TIMEOUT_SECONDS` | `30` | give up on a stuck model |
+| `OPENAI_MODEL` / `OPENAI_API_KEY` | `gpt-4o-mini` / - | model names change: list what your key can use (see "Setting up OpenAI") |
+| `OPENAI_TEMPERATURE` | `0` | `none` leaves it out, for models that reject a custom temperature |
+| `LLM_TIMEOUT_SECONDS` | `300` for Ollama on this computer, else `30` | give up on a stuck model (a local model on a CPU can take minutes per answer; a follow-up makes two calls) |
+| `LLM_MAX_TOKENS` | `400` | longest reply the model may write (~300 words). Stops a visitor asking for an essay on your OpenAI credit; a reply that hits it is cut off mid-sentence |
 | `REDIS_URL` | `redis://localhost:6379/0` | |
 | `ALLOWED_ORIGINS` | `https://somunaexe.github.io,http://localhost:5173` | sites allowed to call it from a browser |
 | `RATE_LIMIT_PER_MINUTE` | `20` | per client IP |
 | `MAX_QUESTION_CHARS` | `200` | |
+| `TRUST_X_REAL_IP` | off | set `true` behind Railway so the rate limit uses each visitor's real IP (see below) |
+| `RETRIEVAL_CONCURRENCY` | `2` | how many embedding lookups may run at once (bounds memory) |
 
 ## Things to know
 
@@ -67,6 +99,54 @@ Keep the key in your environment or a git-ignored `.env`, never in the code or t
 - **CORS only constrains browsers.** curl and scripts are not blocked by it; the rate limit and input limits are
   what protect the LLM bill. If you use OpenAI, also set a monthly spend cap in your OpenAI account.
 - **Conversations** live in Redis for 24 hours after the last message (last 10 turns).
+
+## Deploying to Railway
+
+Steps follow Railway's docs (Dockerfiles, Monorepo, Healthchecks, Redis, Variables, Public networking). The image
+builds the vector index at build time, so a container starts ready and offline-capable; changing the CV means redeploying.
+
+1. **Plan.** The Hobby plan ($5/month, which counts toward usage) is the sensible choice. The Free plan limits a service to
+   0.5 GB RAM and can sleep when idle, so a recruiter's first question could wait for a cold start. This service uses
+   roughly 0.3 GB.
+2. **Create the project:** *New Project -> Deploy from GitHub repo -> 3D-Portfolio*. Deploy from `main` once this is merged
+   (or pick the feature branch to test first).
+3. **Service Settings -> Root Directory:** `/chatbot`. Railway then finds `chatbot/Dockerfile` by itself.
+4. **Add Redis:** *+ New -> Database -> Redis* in the same project.
+5. **Service Variables** (on the chatbot service, not Redis):
+
+   | Variable | Value |
+   |---|---|
+   | `REDIS_URL` | `${{Redis.REDIS_URL}}` (the part before the dot is the Redis service's name) |
+   | `LLM_PROVIDER` | `openai` |
+   | `OPENAI_API_KEY` | your key (set a monthly spend cap on the OpenAI account first) |
+   | `ALLOWED_ORIGINS` | `https://somunaexe.github.io` (comma-separate more origins if needed) |
+   | `TRUST_X_REAL_IP` | `true` |
+
+   Optional: `OPENAI_MODEL` (default `gpt-4o-mini`), `RATE_LIMIT_PER_MINUTE`, `LLM_TIMEOUT_SECONDS`.
+6. **Settings -> Networking -> Generate Domain** to get a public `https://<name>.up.railway.app` address.
+7. **Settings -> Healthcheck Path:** `/health`.
+8. **Check it:** open `https://<your-domain>/health` (should show `{"status":"ok"}`), then try a question:
+   `curl -s https://<your-domain>/chat -H 'Content-Type: application/json' -d '{"chat_id":"my-visitor-id-0123456789","question":"What did you do at Entain?"}'`
+9. **Point the website at it:** in the GitHub repo, *Settings -> Secrets and variables -> Actions -> Variables*, add
+   `VITE_CHATBOT_URL` = `https://<your-domain>`, then push to `main` so the site rebuilds with the chat icon.
+
+Why `TRUST_X_REAL_IP=true`: Railway's proxy passes the visitor's real address in the `X-Real-IP` header; without it every
+visitor appears to come from Railway's proxy and they would all share one rate-limit allowance. Do not turn it on for a server
+that can be reached directly, because then anyone could send a fake `X-Real-IP` to dodge the limit.
+
+## The chat widget on the website
+
+`src/components/ChatWidget.jsx` is a chat icon fixed to the bottom-right of the portfolio. Hovering shows "Ask me about
+Somuna."; clicking opens a small panel that doesn't block the page. It calls this service's `POST /chat`.
+
+- **Development:** `npm run dev` points it at `http://localhost:8000` automatically; start the service first.
+- **Production:** set `VITE_CHATBOT_URL` to the deployed service's URL when building. In GitHub that is the repo variable
+  *Settings > Secrets and variables > Actions > Variables > `VITE_CHATBOT_URL`* (the deploy workflow passes it to the build).
+  With no URL, the icon is not shown, so the site never ships a chatbot that can't answer.
+- The service must allow the site's origin: set `ALLOWED_ORIGINS` (the default already includes
+  `https://somunaexe.github.io` and `http://localhost:5173`).
+- A visitor's `chat_id` (a random UUID) and the conversation are kept in `sessionStorage`, so a reload keeps the chat and
+  closing the tab ends it.
 
 ## Tests
 

@@ -22,6 +22,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # The chat icon only appears when this is set (repo Settings > Secrets and variables > Actions > Variables).
+          VITE_CHATBOT_URL: ${{ vars.VITE_CHATBOT_URL }}
         
       - name: Configure AWS credentials for authorization
         uses: aws-actions/configure-aws-credentials@v2

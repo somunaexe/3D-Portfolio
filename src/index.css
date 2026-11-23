@@ -350,3 +350,30 @@ body {
 .themed-icon {
   filter: var(--icon-filter);
 }
+
+
+/* Chat widget (src/components/ChatWidget.jsx) */
+@keyframes chat-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes chat-blink {
+  50% { opacity: 0.2; }
+}
+
+.chat-panel {
+  animation: chat-in 0.18s ease-out;
+  transform-origin: bottom right;
+}
+
+.chat-dots {
+  animation: chat-blink 1.2s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-panel,
+  .chat-dots {
+    animation: none;
+  }
+}

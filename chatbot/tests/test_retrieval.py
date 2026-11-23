@@ -81,3 +81,37 @@ DOCKER_CHUNKS = {
 )
 def test_docker_question_finds_most_docker_chunks_in_the_top_three(db_dir):
     assert len(DOCKER_CHUNKS & set(titles(db_dir, "Have you used Docker?"))) >= 2
+
+
+# --- lookup by name -------------------------------------------------------------------------------------
+
+import retrieval  # noqa: E402
+
+
+def test_a_role_named_in_the_question_is_always_retrieved_first(db_dir):
+    """Regression: with the rewritten question "What did Somuna do at Bulfighter?", the Bulfighter role fell out of
+    the top 10 (the contact chunk, which contains "Somuna", won). Naming a company is a lookup, not a similarity search."""
+    hits = retrieval.retrieve("What did Somuna do at Bulfighter?", db_dir=db_dir)
+    assert hits[0]["title"] == "Full Stack Developer at Bulfighter"
+    assert hits[0]["distance"] is None          # found by name, not by similarity
+    assert len(hits) == 10                      # still exactly k, with no duplicates
+    assert len({hit["id"] for hit in hits}) == 10
+
+
+def test_names_match_whole_words_in_any_case(db_dir):
+    assert retrieval.named_chunk_ids("tell me about BULWRITER please", db_dir)
+    assert retrieval.named_chunk_ids("what is a bulwriters?", db_dir) == []   # not a whole-word match
+    assert retrieval.named_chunk_ids("Have you used Docker?", db_dir) == []
+
+
+def test_a_question_naming_several_things_pulls_each_in_but_never_floods_the_prompt(db_dir):
+    ids = retrieval.named_chunk_ids("Compare Bulwriter, Bulfighter, Entain, JustCalls and NCUK", db_dir)
+    assert len(ids) == retrieval.MAX_NAMED
+    titles_found = [hit["title"] for hit in retrieval.retrieve("Compare Bulwriter and Bulfighter", db_dir=db_dir)]
+    assert "Full Stack Developer at Bulfighter" in titles_found
+    assert any(title.startswith("Bulwriter") for title in titles_found)
+
+
+def test_questions_naming_nothing_get_plain_similarity_search(db_dir):
+    hits = retrieval.retrieve("Have you used Docker?", db_dir=db_dir)
+    assert len(hits) == 10 and all(hit["distance"] is not None for hit in hits)

@@ -134,3 +134,152 @@ def test_long_assistant_replies_are_trimmed_in_the_condense_prompt():
     history = [{"question": "q", "answer": "word " * 500}]
     shown = chat.format_history(history)
     assert len(shown) < chat.ANSWER_CHARS_IN_HISTORY + 60 and shown.endswith("...")
+
+
+# --- the command-line wrapper (chat.main) ---------------------------------------------------------
+
+def _result(text, question="q?"):
+    from query import Answer
+    return chat.ChatResult(answer=Answer(answer=text, sources=[], retrieved=[]), standalone_question=question, history_turns=0)
+
+
+def test_cli_says_which_model_it_is_using(monkeypatch, capsys):
+    monkeypatch.setenv("LLM_PROVIDER", "ollama")
+    monkeypatch.setenv("OLLAMA_MODEL", "llama3.1:8b")
+    monkeypatch.setattr(chat, "chat", lambda *a, **k: _result("Hello"))
+    assert chat.main(["demo-chat-0123456789", "q?"]) == 0
+    out = capsys.readouterr().out
+    assert "(using ollama, model llama3.1:8b at http://localhost:11434)" in out and "Hello" in out
+
+
+def test_cli_explains_an_empty_model_reply_instead_of_printing_nothing(monkeypatch, capsys):
+    monkeypatch.setattr(chat, "chat", lambda *a, **k: _result("   \n"))
+    assert chat.main(["demo-chat-0123456789", "q?"]) == 1
+    assert "The model returned an empty answer." in capsys.readouterr().out
+
+
+def test_cli_reports_a_failure_in_plain_words_with_a_hint(monkeypatch, capsys):
+    def boom(*args, **kwargs):
+        raise ConnectionError("Failed to connect to Ollama")
+    monkeypatch.setattr(chat, "chat", boom)
+    monkeypatch.setenv("LLM_PROVIDER", "ollama")
+    assert chat.main(["demo-chat-0123456789", "q?"]) == 1
+    out = capsys.readouterr().out
+    assert "Could not get an answer: ConnectionError: Failed to connect to Ollama" in out
+    assert "ollama list" in out and "Traceback" not in out
+
+
+def test_cli_hint_for_openai_mentions_the_key_not_ollama(monkeypatch, capsys):
+    monkeypatch.setenv("LLM_PROVIDER", "openai")
+    monkeypatch.setattr(chat, "chat", lambda *a, **k: (_ for _ in ()).throw(RuntimeError("401")))
+    chat.main(["demo-chat-0123456789", "q?"])
+    out = capsys.readouterr().out
+    assert "OPENAI_API_KEY" in out and "ollama list" not in out
+
+
+def test_cli_does_not_crash_on_characters_the_windows_console_cannot_show(monkeypatch):
+    """A cp1252 console cannot encode an arrow; the CLI must print a replacement, not raise UnicodeEncodeError."""
+    import io
+    import sys
+    raw = io.BytesIO()
+    console = io.TextIOWrapper(raw, encoding="cp1252", errors="strict")
+    monkeypatch.setattr(sys, "stdout", console)
+    monkeypatch.setattr(chat, "chat", lambda *a, **k: _result("Python → Go"))
+    assert chat.main(["demo-chat-0123456789", "q?"]) == 0
+    console.flush()
+    assert b"Python ? Go" in raw.getvalue()
+
+
+def test_the_model_description_never_contains_the_api_key(monkeypatch):
+    import llm
+    monkeypatch.setenv("LLM_PROVIDER", "ollama")
+    monkeypatch.setenv("OLLAMA_BASE_URL", "https://ollama.com")
+    monkeypatch.setenv("OLLAMA_API_KEY", "placeholder-secret-value")
+    assert "placeholder-secret-value" not in llm.describe_llm()
+
+
+# --- the interactive mode (chat.repl) and the timeout hint ------------------------------------------
+
+def _scripted_input(monkeypatch, lines):
+    answers = iter(lines)
+    monkeypatch.setattr("builtins.input", lambda prompt="": next(answers))
+
+
+def test_repl_falls_back_to_in_process_memory_when_redis_is_not_running(monkeypatch, capsys):
+    class NoRedis:
+        def __init__(self):
+            self.client = self
+
+        def ping(self):
+            raise redis.ConnectionError("refused")
+
+    monkeypatch.setattr(chat, "ChatMemory", NoRedis)
+    memory, note = chat.pick_memory()
+    assert type(memory).__name__ == "InMemoryChatMemory" and "remembered only while this window stays open" in note
+
+
+def test_repl_follow_ups_use_the_conversation_so_far_even_without_redis(monkeypatch, capsys):
+    from memory import InMemoryChatMemory
+    fake = FakeLLM(condensed="What technologies does Bulwriter use?")
+    seen = []
+
+    def fake_answer(question, llm=None, **options):
+        seen.append(question)
+        from query import Answer
+        return Answer(answer="Built with Angular [1].", sources=[], retrieved=[])
+
+    monkeypatch.setattr(chat, "get_llm", lambda: fake.runnable)
+    monkeypatch.setattr(chat, "pick_memory", lambda: (InMemoryChatMemory(), None))
+    monkeypatch.setattr(chat, "answer", fake_answer)
+    _scripted_input(monkeypatch, ["Tell me about Bulwriter", "What technologies does it use?", "exit"])
+    assert chat.repl() == 0
+    assert seen == ["Tell me about Bulwriter", "What technologies does Bulwriter use?"]   # the 2nd was rewritten from history
+    assert fake.kinds() == ["condense"]                                                    # first message: no condense call
+    assert "(searched for: What technologies does Bulwriter use?)" in capsys.readouterr().out
+
+
+def test_repl_rejects_empty_and_overlong_questions_and_keeps_going(monkeypatch, capsys):
+    from memory import InMemoryChatMemory
+    calls = []
+    monkeypatch.setattr(chat, "get_llm", lambda: FakeLLM().runnable)
+    monkeypatch.setattr(chat, "pick_memory", lambda: (InMemoryChatMemory(), None))
+    monkeypatch.setattr(chat, "chat", lambda *a, **k: calls.append(a) or _result("ok"))
+    _scripted_input(monkeypatch, ["", "   ", "x" * 201, "real question", "quit"])
+    assert chat.repl() == 0
+    assert len(calls) == 1 and "under 200 characters" in capsys.readouterr().out
+
+
+def test_repl_ends_cleanly_on_ctrl_c_and_survives_a_model_error(monkeypatch, capsys):
+    from memory import InMemoryChatMemory
+    monkeypatch.setattr(chat, "get_llm", lambda: FakeLLM().runnable)
+    monkeypatch.setattr(chat, "pick_memory", lambda: (InMemoryChatMemory(), None))
+    state = {"n": 0}
+
+    def flaky(*args, **kwargs):
+        state["n"] += 1
+        raise RuntimeError("model fell over")
+
+    monkeypatch.setattr(chat, "chat", flaky)
+
+    def inputs(prompt=""):
+        if state["n"] == 0:
+            return "hello"
+        raise KeyboardInterrupt
+
+    monkeypatch.setattr("builtins.input", inputs)
+    assert chat.repl() == 0
+    assert "Could not get an answer: RuntimeError: model fell over" in capsys.readouterr().out
+
+
+def test_a_timeout_gets_a_hint_about_the_timeout_not_about_ollama_running():
+    import httpx
+    import llm
+    hint = llm.troubleshooting_hint(httpx.ReadTimeout("timed out"))
+    assert "LLM_TIMEOUT_SECONDS" in hint and "took too long" in hint
+
+
+def test_the_cli_shows_the_timeout_hint(monkeypatch, capsys):
+    import httpx
+    monkeypatch.setattr(chat, "chat", lambda *a, **k: (_ for _ in ()).throw(httpx.ReadTimeout("timed out")))
+    assert chat.main(["demo-chat-0123456789", "q?"]) == 1
+    assert "LLM_TIMEOUT_SECONDS" in capsys.readouterr().out
